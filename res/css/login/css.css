@@ -1,0 +1,172 @@
+@import url(http://weloveiconfonts.com/api/?family=brandico|entypo|openwebicons|zocial);
+body{
+	background: rgb(135,55,38);
+	background: linear-gradient(45deg, rgba(135,55,38,1) 15%, rgba(240,95,64,1) 95%);
+	height: 100vh;
+} 
+
+/* brandico */
+[class*="brandico-"]:before {
+  font-family: 'brandico', sans-serif;
+}
+
+/* entypo */
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+}
+
+/* openwebicons */
+[class*="openwebicons-"]:before {
+  font-family: 'OpenWeb Icons', sans-serif;
+}
+
+/* zocial */
+[class*="zocial-"]:before {
+  font-family: 'zocial', sans-serif;
+}
+
+.container-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+.form-group{margin:2px 0 0 0 !important;}
+
+.form-signin{
+	background: rgba(255, 255, 255, 0.8);
+  width: fit-content;
+  padding: 30px;
+	margin: auto;
+	border-radius: 5px;
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+}
+.form-signin h1{
+  color: #1F1B4D;
+  margin:0 0 15% 0 !important;
+}
+
+.btn-despegar{background:#1F1B4D !important;color:#fff;}
+
+.ember-text-field{background: #fff !important;}
+.ember-text-field:active{background: #fff !important;}
+
+.login-input {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.login-input-pass {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+.signup-input {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.signup-input-confirm {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+
+.create-account {
+  text-align: center;
+  width: 100%;
+  display: block;
+}
+
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.btn-center{
+  width: 50%;
+  text-align: center;
+  margin: inherit;
+}
+
+.social-login-btn {
+  margin: 5px;
+  width: 20%;
+  font-size: 250%;
+  padding: 0;
+}
+
+.social-login-more {
+  width: 45%;
+}
+
+.social-google {
+  background-color: #da573b;
+  border-color: #be5238;
+}
+.social-google:hover{
+  background-color: #be5238;
+  border-color: #9b4631;
+}
+
+.social-twitter {
+  background-color: #1daee3;
+  border-color: #3997ba;
+}
+.social-twitter:hover {
+  background-color: #3997ba;
+  border-color: #347b95;
+}
+
+.social-facebook {
+  background-color: #4c699e;
+  border-color: #47618d;
+}
+.social-facebook:hover {
+  background-color: #47618d;
+  border-color: #3c5173;
+}
+
+.social-linkedin {
+  background-color: #4875B4;
+  border-color: #466b99;
+}
+.social-linkedin:hover {
+  background-color: #466b99;
+  border-color: #3b5a7c;
+}
+
+
+.form-registro{
+  max-width: 800px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+
+input[type=number]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+ 
+
+input[type=number] {
+
+    -moz-appearance:textfield;
+
+}

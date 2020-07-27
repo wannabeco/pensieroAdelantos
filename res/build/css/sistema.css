@@ -1,0 +1,5 @@
+.dropdown-menu li a{font-size:1.1em !important}
+.table td, .table th{vertical-align: middle !important;}
+.page-title .title_right{width:30% !important;float:right}
+.page-title .title_left{width:70% !important;float:left}
+.btn{cursor:pointer !important}
