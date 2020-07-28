@@ -26,7 +26,8 @@
                   <input tabindex="2" autocomplete="off" id="nroDocumento" name="nroDocumento"  class="form-control" value="<?php echo (isset($datos['nroDocumento']))?$datos['nroDocumento']:''; ?>" type="text">
               <p class="help-block"></p>
             </div>
-          </div>
+          </div> 
+          <!-- 
           <div  class="col col-lg-6">
             <div class="form-group  label-floating">
                 <label class="control-label" for="ciudadExpedicionCedula">Ciudad de expedición documento</label>
@@ -48,53 +49,53 @@
                   <input tabindex="4" autocomplete="off" id="fechaNacimiento" name="fechaNacimiento"  class="form-control" value="<?php echo (isset($datos['fechaNacimiento']))?$datos['fechaNacimiento']:''; ?>" type="text">
               <p class="help-block"></p>
             </div>
-          </div>
+          </div>-->
 
        
 
         
             <div class="col col-lg-6">
                 <div class="form-group  label-floating">
-                  <label class="control-label" for="nombre">Nombre del usuario</label>
+                  <label class="control-label" for="nombre">Nombres</label>
                   <input tabindex="5" autocomplete="off" id="nombre" name="nombre"  class="form-control" value="<?php echo (isset($datos['nombre']))?$datos['nombre']:''; ?>"  type="text">
                   <p class="help-block"></p>
                 </div> 
             </div>
            <div class="col col-lg-6">
                 <div class="form-group label-floating">
-                  <label class="control-label" for="apellido">Apellido del usuario</label>
+                  <label class="control-label" for="apellido">Apellidos</label>
                   <input tabindex="6" autocomplete="off" id="apellido" name="apellido"  class="form-control" value="<?php echo (isset($datos['apellido']))?$datos['apellido']:''; ?>"  type="text">
                   <p class="help-block"></p>
                 </div> 
             </div>
 
         
-            <div class="col col-lg-6">
+            <!-- <div class="col col-lg-6">
                 <div class="form-group  label-floating">
                   <label class="control-label" for="direccion"> Dirección de residencia</label>
                   <input tabindex="7" autocomplete="off" id="direccion" name="direccion"  class="form-control" value="<?php echo (isset($datos['direccion']))?$datos['direccion']:''; ?>"  type="text">
                   <p class="help-block"></p>
                 </div> 
             </div>
+            
             <div class="col col-lg-6">
                 <div class="form-group  label-floating">
                   <label class="control-label" for="barrio"> Barrio</label>
                   <input tabindex="8" autocomplete="off" id="barrio" name="barrio"  class="form-control" value="<?php echo (isset($datos['barrio']))?$datos['barrio']:''; ?>"  type="text">
                   <p class="help-block"></p>
                 </div> 
-            </div>
-           <div class="col col-lg-6">
+            </div> -->
+           <!-- <div class="col col-lg-6">
                 <div class="form-group  label-floating">
                   <label class="control-label" for="telefono">Teléfono de contacto</label>
                   <input tabindex="9" autocomplete="off" id="telefono" name="telefono"  class="form-control" value="<?php echo (isset($datos['telefono']))?$datos['telefono']:''; ?>"  type="text">
                   <p class="help-block">Sin caracteres especiales</p>
                 </div> 
-            </div>
+            </div> -->
            <div class="col col-lg-6">
                 <div class="form-group  label-floating">
                   <label class="control-label" for="celular">Celular de contacto</label>
                   <input tabindex="10" autocomplete="off" id="celular" name="celular"  class="form-control" value="<?php echo (isset($datos['celular']))?$datos['celular']:''; ?>"  type="text">
-                  <p class="help-block">Sin caracteres especiales</p>
                 </div> 
             </div>
         
@@ -102,7 +103,7 @@
         
           <div class="col col-lg-6">
               <div class="form-group  label-floating">
-                <label class="control-label" for="idSexo">Sexo</label>
+                <label class="control-label" for="idSexo">Genero</label>
                 <select tabindex="11"  id="idSexo" name="idSexo" class="form-control">
                     <option value=""></option>
                   <?php foreach($selects['sexo'] as $listaSexo){ ?>
@@ -111,7 +112,8 @@
                 </select>
               </div> 
           </div>
-          <div  class="col col-lg-6">
+
+          <!-- <div  class="col col-lg-6">
             <div class="form-group label-floating">
                 <label class="control-label" for="idArea">Area</label>
                 <select tabindex="14"  id="idArea" name="idArea" class="form-control">
@@ -195,7 +197,7 @@
                     <?php } ?>
                 </select>
             </div>
-          </div>
+          </div> -->
 
 
        
@@ -205,10 +207,10 @@
               <div class="form-group  label-floating">
                   <label class="control-label" for="email">Correo electrónico</label>
                     <input tabindex="23" autocomplete="off" id="email" name="email"  class="form-control" value="<?php echo (isset($datos['email']))?$datos['email']:''; ?>" type="text">
-                    <p class="help-block">Este dato será el usuario de inicio de sesión</p>
               </div>
             </div>
-          <div class="col col-lg-6">
+
+          <!-- <div class="col col-lg-6">
               <div class="form-group label-floating">
                 <label class="control-label" for="tipoUsuario">Tipo de usuario</label>
                 <select tabindex="24"  id="tipoUsuario" name="tipoUsuario" class="ember-view ember-text-field form-control">
@@ -217,22 +219,37 @@
                     <option value="2" <?php echo (isset($datos['tipoUsuario']) && $datos['tipoUsuario'] == 2)?'selected':''; ?>>Operativo</option>
                 </select>
               </div> 
-          </div>
+          </div> -->
 
             <div  class="col col-lg-6">
               <div class="form-group label-floating">
                 <label class="control-label" for="idPerfil">Perfil de usuario</label>
-                <select tabindex="25"  id="idPerfil" name="idPerfil" class="ember-view ember-text-field form-control">
+                <select tabindex="25"  id="idPerfil" name="idPerfil"  class="ember-view ember-text-field form-control">
                     <option value=""></option>
                   <?php foreach($selects['perfiles'] as $perfiles){ ?>
-                      <option value="<?php echo $perfiles['idPerfil'] ?>" <?php echo (isset($datos['idPerfil']) && $perfiles['idPerfil'] == $datos['idPerfil'])?'selected':''; ?>><?php echo $perfiles['nombrePerfil'] ?></option>
+                      <?php if($perfiles['idPerfil'] != 1){?>
+                        <option value="<?php echo $perfiles['idPerfil'] ?>" <?php echo (isset($datos['idPerfil']) && $perfiles['idPerfil'] == $datos['idPerfil'])?'selected':''; ?>><?php echo $perfiles['nombrePerfil'] ?></option>
+                      <?php } ?>
                   <?php } ?>
                 </select>
               </div> 
             </div>
+
+            <div  class="col col-lg-6">
+              <div class="form-group label-floating">
+                <label class="control-label" for="idEmpresa">Empresa</label>
+                <select tabindex="25"  id="idEmpresa" name="idEmpresa" class="ember-view ember-text-field form-control">
+                    <option value=""></option>
+                  <?php foreach($selects['empresas'] as $perfiles){ ?>
+                      <option value="<?php echo $perfiles['idEmpresa'] ?>" <?php echo (isset($datos['idEmpresa']) && $perfiles['idEmpresa'] == $datos['idEmpresa'])?'selected':''; ?>><?php echo $perfiles['nombre'] ?></option>
+                  <?php } ?>
+                </select>
+              </div> 
+            </div>
+
             <div  class="col col-lg-6">
                 <?php if($edita == 1){ ?>
-                  <div class="form-group  label-floating"">
+                  <div class="form-group  label-floating">
                     <label class="control-label" for="estado">Estado del usuario</label>
                     <select tabindex="26" class=" form-control" id="estado" name="estado">
                       <option value="1" <?php if($datos['estadoU'] == 1){?>selected<?php }?>>Activo</option>

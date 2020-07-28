@@ -104,6 +104,7 @@ class Usuarios extends CI_Controller
 		$eps 	 	 	 	 = $this->logica->consultaEPS(); 
 		$afp 	 	 	 	 = $this->logica->consultaAFP(); 
 		$cesantias 	 	 	 = $this->logica->consultaCesantias(); 
+		$empresas 	 	 	 = $this->logica->consultaEmpresas(); 
 
 
 		$salida["selects"]   = array("tiposDoc"=>$tiposDoc,
@@ -115,7 +116,8 @@ class Usuarios extends CI_Controller
 									  "ciudades"=>$ciudades,
 									  "eps"=>$eps,
 									  "afp"=>$afp,
-									  "cesantias"=>$cesantias);
+									  "cesantias"=>$cesantias,
+									  "empresas"=>$empresas);
 		if($edita == 1)
 		{
 			$infoUsuario	     = $this->logicaUsuarios->infoUsuario($idUsuario);

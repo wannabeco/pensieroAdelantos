@@ -111,6 +111,17 @@ class LogicaGeneral  {
         $perfiles          = $this->ci->dbGeneral->consultatiposDoc($where);
         return $perfiles;
     }
+    public function consultaEmpresas()
+    {
+        $where['estado']        = 1;
+        $where['eliminado']     = 0;
+        if(in_array($_SESSION['project']['info']['idPerfil'],array(3,4)) && $_SESSION['project']['info']['idEmpresa'] != "")
+        {
+            $where['idEmpresa']     = $_SESSION['project']['info']['idEmpresa'];
+        }
+        $empresas          = $this->ci->dbGeneral->consultaEmpresas($where);
+        return $empresas;
+    }
     public function consultaSexo()
     {
         $where['estado']    = 1;

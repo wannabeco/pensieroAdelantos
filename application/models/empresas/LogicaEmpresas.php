@@ -88,7 +88,7 @@ class LogicaEmpresas {
         }
         else
         {
-            $salida = array("mensaje"=>"La empresa no ha posido ser eliminada, intente de nuevo más tarde o contacte al área de soporte.",
+            $salida = array("mensaje"=>"La empresa no ha podido ser eliminada, intente de nuevo más tarde o contacte al área de soporte.",
                             "continuar"=>0,
                             "datos"=>array());
         }

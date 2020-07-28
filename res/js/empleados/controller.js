@@ -6,13 +6,13 @@
 project.controller('empleados', function($scope,$http,$q,constantes)
 {
 	$scope.empleados 	= [];
-	$scope.empleadosInit = function()
+	$scope.init = function()
 	{
 		$scope.config 			=  configLogin; //configuración global
 		$scope.getEmpleados();
 	}
 
-	$scope.procesaEmpresasInit = function()
+	$scope.initInterno = function()
 	{
 		$scope.config 			=  configLogin; //configuración global
 	}
@@ -54,44 +54,69 @@ project.controller('empleados', function($scope,$http,$q,constantes)
 	}
 
 	//funcion que procesa la empresa, sea crear o editar
-	$scope.procesaEmpresa = function()
+	$scope.procesaData = function()
 	{
 		//capturo la data
-		var nombre = $("#nombre").val();
-		var tipoDocumento = $("#tipoDocumento").val();
-		var nroDocumento = $("#nroDocumento").val();
-		var nombreEncargado = $("#nombreEncargado").val();
-		var direccion = $("#direccion").val();
-		var telefono = $("#telefono").val();
-		var celular = $("#celular").val();
-		var email = $("#email").val();
-		var estado = $("#estado").val();
-		var idEmpresa = $("#idEmpresa").val();
-		var edita 	  = $("#edita").val();
+		var nombres 		= $("#nombres").val();
+		var apellidos 		= $("#apellidos").val();
+		var tipoDocumento 	= $("#tipoDocumento").val();
+		var nroDocumento 	= $("#nroDocumento").val();
+		var direccion		= $("#direccion").val();
+		var telefono 		= $("#telefono").val();
+		var email 			= $("#email").val();
+		var genero 			= $("#genero").val();
+		var idEmpresa 		= $("#idEmpresa").val();
+		var cargo 			= $("#cargo").val();
+		var salario 		= $("#salario").val();
+		var edita 			= $("#edita").val();
 		//valido campos
-		if(nombre == "")
+		if(nombres == "")
 		{
-			constantes.alerta("Atención","Debe escribir el nombre de la empresa","warning",function(){})
+			constantes.alerta("Atención","Debe escribir los nombres del empleado","warning",function(){})
+		}
+		else if(apellidos == "")
+		{
+			constantes.alerta("Atención","Debe escribir los apellidos del empleado","warning",function(){})
 		}
 		else if(tipoDocumento == "")
 		{
-			constantes.alerta("Atención","Seleccione el tipo de documento de identificacion de la empresa","warning",function(){})
+			constantes.alerta("Atención","Seleccione el tipo de documento de identificacion","warning",function(){})
 		}
 		else if(nroDocumento == "")
 		{
-			constantes.alerta("Atención","Escriba el número de documento de identificacion de la empresa, si es nit puede agregar el número de verificación","warning",function(){})
-		}
-		else if(nombreEncargado == "")
-		{
-			constantes.alerta("Atención","Escriba el nombre del representante legal","warning",function(){})
+			constantes.alerta("Atención","Escriba el número de documento de identificacion del empleado","warning",function(){})
 		}
 		else if(direccion == "")
 		{
-			constantes.alerta("Atención","Escriba la dirección de la empresa","warning",function(){})
+			constantes.alerta("Atención","Debe escribir la dirección de residencia del empleado","warning",function(){})
 		}
 		else if(telefono == "")
 		{
-			constantes.alerta("Atención","Escriba el teléfono de contacto de la empresa","warning",function(){})
+			constantes.alerta("Atención","Escriba el teléfono de contacto del empleado","warning",function(){})
+		}
+		else if(email == "")
+		{
+			constantes.alerta("Atención","Escriba el correo electrónico del empleado","warning",function(){})
+		}
+		else if(email != "" && !constantes.validaMail(email))
+		{
+			constantes.alerta("Atención","Escriba un correo electrónico válido","warning",function(){})
+		}
+		else if(idEmpresa == "")
+		{
+			constantes.alerta("Atención","Por favor seleccione la empresa","warning",function(){})
+		}
+		else if(genero == "")
+		{
+			constantes.alerta("Atención","Por favor indique el género del empleado","warning",function(){})
+		}
+		else if(cargo == "")
+		{
+			constantes.alerta("Atención","Por favor especifique el cargo del empleado","warning",function(){})
+		}
+		else if(salario == "")
+		{
+			constantes.alerta("Atención","Es importante que indique el salario devengado por el empleado","warning",function(){})
 		}
 		else if(email == "")
 		{
@@ -103,10 +128,10 @@ project.controller('empleados', function($scope,$http,$q,constantes)
 		}
 		else
 		{
-			var texto = (edita == 1)?"Está a punto de editar la información de la empresa, desea continuar":"Está a punto de agregar una empresa con la información agregada, desea continuar?";
+			var texto = (edita == 1)?"Está a punto de editar la información del empleado, ¿desea continuar?":"Está a punto de agregar un nuevo empleado con la información agregada, ¿desea continuar?";
 			constantes.confirmacion("Confirmación",texto,'info',function(){
-				var controlador = 	$scope.config.apiUrl+"Empleados/procesaEmpresa";
-				var parametros  =   $("#formAgregaEmpresa").serialize();
+				var controlador = 	$scope.config.apiUrl+"Empleados/procesaData";
+				var parametros  =   $("#formulario").serialize();
 				constantes.consultaApi(controlador,parametros,function(json){
 					if(json.continuar == 1)
 					{
@@ -123,11 +148,11 @@ project.controller('empleados', function($scope,$http,$q,constantes)
 		}
 	}
 
-	$scope.borrarEmpleado = function(idEmpresa)
+	$scope.borrarData = function(idBorrar)
 	{
-		constantes.confirmacion("Confirmación","Esta a punto de eliminar la empresa seleccionada, desea continuar",'info',function(){
-			var controlador = 	$scope.config.apiUrl+"Empleados/eliminarEmpleado";
-			var parametros  =   "idEmpresa="+idEmpresa;
+		constantes.confirmacion("Confirmación","Esta a punto de eliminar el usuario seleccionado, desea continuar",'info',function(){
+			var controlador = 	$scope.config.apiUrl+"Empleados/eliminarData";
+			var parametros  =   "idBorrar="+idBorrar;
 			constantes.consultaApi(controlador,parametros,function(json){
 				if(json.continuar == 1)
 				{

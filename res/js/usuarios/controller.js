@@ -217,8 +217,6 @@ project.controller('procesaGuardado', function($scope,$http,$q,constantes)
             format: 'YYYY-MM-DD'
     });
 
-
-
 	$scope.procesaUsuario = function(edita)
 	{
 		var tipoDocumento		=	$("#tipoDocumento").val();
@@ -241,40 +239,46 @@ project.controller('procesaGuardado', function($scope,$http,$q,constantes)
 		var contrato			=	$("#contrato").val();
 		var salario				=	$("#salario").val();
 		var idPerfil			=	$("#idPerfil").val();
+		var idEmpresa			=	$("#idEmpresa").val();
 		var estado				=	(edita == 1)?$("#estado").val():"1";
 		var idUsuario			=	(edita == 1)?$("#idUsuario").val():"";
 		//empiezo la validación de campos que será la misma si es editar que si es crear
-		if(tipoDocumento == "")
+		// if(tipoDocumento == "")
+		// {
+		// 	constantes.alerta("Atención","Debe seleccionar un tipo de documento.","info",function(){})
+		// }
+		// else if(nroDocumento == "")
+		// {
+		// 	constantes.alerta("Atención","Debe escribir el número de documento de identidad.","info",function(){})
+		// }
+		// else if(nroDocumento != "" && isNaN(nroDocumento))
+		// {
+		// 	constantes.alerta("Atención","El documento de identidad debe contener sólo números.","info",function(){})
+		// }
+		// else if(ciudadExpedicionCedula == "")
+		// {
+		// 	constantes.alerta("Atención","Seleccione la ciudad de expedición de su documento.","info",function(){})
+		// }
+		// else if(fechaNacimiento == "")
+		// {
+		// 	constantes.alerta("Atención","Seleccione la fecha de nacimiento del usuario.","info",function(){})
+		// }
+		// else 
+		if(nombre == "")
 		{
-			constantes.alerta("Atención","Debe seleccionar un tipo de documento.","info",function(){})
-		}
-		else if(nroDocumento == "")
-		{
-			constantes.alerta("Atención","Debe escribir el número de documento de identidad.","info",function(){})
-		}
-		else if(nroDocumento != "" && isNaN(nroDocumento))
-		{
-			constantes.alerta("Atención","El documento de identidad debe contener sólo números.","info",function(){})
-		}
-		else if(ciudadExpedicionCedula == "")
-		{
-			constantes.alerta("Atención","Seleccione la ciudad de expedición de su documento.","info",function(){})
-		}
-		else if(fechaNacimiento == "")
-		{
-			constantes.alerta("Atención","Seleccione la fecha de nacimiento del usuario.","info",function(){})
-		}
-		else if(nombre == "")
-		{
-			constantes.alerta("Atención","Debe escribir el nombre del usuario.","info",function(){})
+			constantes.alerta("Atención","Por favor escriba el nombre del usuario.","info",function(){})
 		}
 		else if(apellido == "")
 		{
-			constantes.alerta("Atención","Debe escribir el apellido del usuario.","info",function(){})
+			constantes.alerta("Atención","Por favor escriba los apellidos del usuario.","info",function(){})
 		}
-		else if(telefono != "" && isNaN(telefono))
+		// else if(telefono != "" && isNaN(telefono))
+		// {
+		// 	constantes.alerta("Atención","El teléfono debe contener sólo números.","info",function(){})
+		// }
+		else if(celular == "" )
 		{
-			constantes.alerta("Atención","El teléfono debe contener sólo números.","info",function(){})
+			constantes.alerta("Atención","Debe escribir un número de celular de contacto","info",function(){})
 		}
 		else if(celular != "" && isNaN(celular))
 		{
@@ -284,18 +288,18 @@ project.controller('procesaGuardado', function($scope,$http,$q,constantes)
 		{
 			constantes.alerta("Atención","Debe seleccionar el sexo del usuario.","info",function(){})
 		}
-		else if(idProfesion == "")
-		{
-			constantes.alerta("Atención","Debe seleccionar la profesión del usuario.","info",function(){})
-		}
-		else if(idArea == "")
-		{
-			constantes.alerta("Atención","Debe seleccionar el área donde se asignará el usuario.","info",function(){})
-		}
-		else if(idCargo == "")
-		{
-			constantes.alerta("Atención","Debe seleccionar el cargo que desempeñará el usuario.","info",function(){})
-		}
+		// else if(idProfesion == "")
+		// {
+		// 	constantes.alerta("Atención","Debe seleccionar la profesión del usuario.","info",function(){})
+		// }
+		// else if(idArea == "")
+		// {
+		// 	constantes.alerta("Atención","Debe seleccionar el área donde se asignará el usuario.","info",function(){})
+		// }
+		// else if(idCargo == "")
+		// {
+		// 	constantes.alerta("Atención","Debe seleccionar el cargo que desempeñará el usuario.","info",function(){})
+		// }
 		else if(email == "")
 		{
 			constantes.alerta("Atención","Es importante escribir un correo electrónico valido ya que este será el usuario de acceso al sistema para el usuario.","info",function(){})
@@ -304,13 +308,17 @@ project.controller('procesaGuardado', function($scope,$http,$q,constantes)
 		{
 			constantes.alerta("Atención","El correo electrónico ingresado no es correcto, por favor verifique.","info",function(){})
 		}
-		else if(tipoUsuario == "")
-		{
-			constantes.alerta("Atención","Por favor seleccione si el usuario será administrativo u operativo.","info",function(){})
-		}
+		// else if(tipoUsuario == "")
+		// {
+		// 	constantes.alerta("Atención","Por favor seleccione si el usuario será administrativo u operativo.","info",function(){})
+		// }
 		else if(idPerfil == "")
 		{
 			constantes.alerta("Atención","Seleccione el perfil del usuario, de esto dependerá lo que pueda realizar en la aplicación.","info",function(){})
+		}
+		else if(idPerfil == 3 && idEmpresa == "" || idPerfil == 4 && idEmpresa == "")
+		{
+			constantes.alerta("Atención","Seleccione la empresa a la que pertenece el usuario.","info",function(){})
 		}
 		else
 		{

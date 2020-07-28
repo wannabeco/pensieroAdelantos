@@ -284,6 +284,15 @@ class BaseDatosGral extends CI_Model {
         //print_r($this->db->last_query());die();
         return $id->result_array();
     }
+    public function consultaEmpresas($where)
+    {
+        $this->db->select("*");
+        $this->db->where($where);
+        $this->db->from($this->tableEmpresas);
+        $id = $this->db->get();
+        //print_r($this->db->last_query());die();
+        return $id->result_array();
+    }
     public function consultaSexo($where)
     {
         $this->db->select("*");

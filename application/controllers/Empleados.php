@@ -83,24 +83,26 @@ class Empleados extends CI_Controller
                 $opc 				   = "home";
                 //selects de informacion
                 $tiposDoc		  	 = $this->logica->consultatiposDoc();
-                $salida["selects"]   = array("tiposDoc"=>$tiposDoc);
+                $empresas		  	 = $this->logica->consultaEmpresas();
+                $salida["selects"]["tiposDoc"] = $tiposDoc;
+                $salida["selects"]["empresas"] = $empresas;
                 //valido la accion
                 if($accion == 'editar')
                 {
                     $infoEmpresa	       = $this->logicaEmpleados->getEmpleados($idEmpleado);
-                    $salida['titulo']      = "Editar empleado";
+                    $salida['titulo']      = "Formulario de edición de empleados";
                     $salida['edita'] 	   = 1;
                     $salida['datos'] 	   = $infoEmpresa['datos'][0];
                     $salida['labelBtn']    = "EDITAR EMPLEADO";
                 }
                 else if($accion == 'crear')
                 {
-                    $salida['titulo']      = "Crear empleado";
+                    $salida['titulo']      = "Formulario de creación de empleados";
                     $salida['edita'] 	   = 0;
                     $salida['datos'] 	   = array();
                     $salida['labelBtn']    = "AGREGAR EMPLEADO";
                 }
-				$salida['centro'] 	   = "empresas/formControl";
+				$salida['centro'] 	   = "empleados/formControl";
 				$salida['infoModulo']  = $infoModulo[0];
 				$this->load->view("app/index",$salida);
 			}
@@ -123,16 +125,16 @@ class Empleados extends CI_Controller
         $listaEmpleados = $this->logicaEmpleados->getEmpleados();
         echo json_encode($listaEmpleados);
     }
-    //proceso la info de la empresa
-    public function procesaEmpleados()
+    //proceso los datos que se ingresan como nuevo se modifican
+    public function procesaData()
     {
-        $procesoEmpresa = $this->logicaEmpleados->procesaEmpresas($_POST);
+        $procesoEmpresa = $this->logicaEmpleados->procesaData($_POST);
         echo json_encode($procesoEmpresa);
     }
-    public function eliminarEmpleado()
+    public function eliminarData()
     {
         extract($_POST);
-        $eliminaEmpresa = $this->logicaEmpleados->eliminarEmpresa($idEmpleado);
+        $eliminaEmpresa = $this->logicaEmpleados->eliminarData($idBorrar);
         echo json_encode($eliminaEmpresa);
     }
 }

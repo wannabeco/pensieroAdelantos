@@ -61,14 +61,14 @@ class BaseDatosUsuarios extends CI_Model {
     }
     public function infoUsuario($where="")
     {
-        $this->db->select("u.*,u.estado as estadoU,p.nombrePerfil,a.nombreArea,l.*");
+        $this->db->select("u.*,u.estado as estadoU,p.nombrePerfil,l.*");
         if(count($where) > 0)
         {
             $this->db->where($where);
         }
         $this->db->from($this->tablePersonas." u");
         $this->db->join($this->tablePerfiles." p","p.idPerfil=u.idPerfil","INNER");
-        $this->db->join($this->tableAreas." a","a.idArea=u.idArea","INNER");
+        //$this->db->join($this->tableAreas." a","a.idArea=u.idArea","INNER");
         $this->db->join($this->tableLogin." l","l.idGeneral=u.idPersona","LEFT");
         $id = $this->db->get();
         //print_r($this->db->last_query());die();

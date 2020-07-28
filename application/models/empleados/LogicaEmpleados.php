@@ -10,19 +10,19 @@ class LogicaEmpleados {
     {
         if($idEmpleado != "")
         {
-            $where['idEmpleado']     = $idEmpleado;
+            $where['emple.idEmpleado']     = $idEmpleado;
         }
         /*
          * valido si el usuario logueado es una empresa, si es una empresa solo traigo sus empleados, 
          * si es un super administrador le muestro todos los empleados
          */
-        if($_SESSION['project']['info']['idEmpresa'] != "")
+        if(in_array($_SESSION['project']['info']['idPerfil'],array(3,4)) && $_SESSION['project']['info']['idEmpresa'] != "")
         {
-            $where['idEmpresa']     = $_SESSION['project']['info']['idEmpresa'];
+            $where['emple.idEmpresa']     = $_SESSION['project']['info']['idEmpresa'];
         }
 
-        $where['estado']        = 1;
-        $where['eliminado']     = 0;
+        $where['emple.estado']        = 1;
+        $where['emple.eliminado']     = 0;
         $listadoAreas = $this->ci->dbEmpleados->getEmpleados($where);
         if(count($listadoAreas) > 0)
         {
@@ -38,7 +38,7 @@ class LogicaEmpleados {
         }
         return $respuesta;
     } 
-    public function procesaEmpresas($post)
+    public function procesaData($post)
     {
         extract($post);
         if($edita == 1)//quiere decir que actualizo la informacion
@@ -47,7 +47,7 @@ class LogicaEmpleados {
             unset($dataActualiza['edita']);
             unset($dataActualiza['idEmpleado']);
             $whereActualiza['idEmpleado'] = $idEmpleado;
-            $proceso = $this->ci->dbEmpleados->actualizaEmpresa($whereActualiza,$dataActualiza);
+            $proceso = $this->ci->dbEmpleados->actualizaData($whereActualiza,$dataActualiza);
             if($proceso)
             {
                 $salida = array("mensaje"=>"La información de la empresa se ha actualizado de manera correcta",
@@ -66,7 +66,7 @@ class LogicaEmpleados {
             $dataInserta  = $post;
             unset($dataInserta['edita']);
             unset($dataInserta['idEmpleado']);
-            $proceso = $this->ci->dbEmpleados->insertaEmpresa($dataInserta);
+            $proceso = $this->ci->dbEmpleados->insertarData($dataInserta);
             if($proceso)
             {
                 $salida = array("mensaje"=>"La empresa ha sido creada de manera exitosa",
@@ -83,21 +83,21 @@ class LogicaEmpleados {
         return $salida;
     }
 
-    public function eliminarEmpresa($idEmpleado)
+    public function eliminarData($idEmpleado)
     {
         $dataActualiza['eliminado']  = 1;
         $dataActualiza['estado']     = 0;
         $whereActualiza['idEmpleado'] = $idEmpleado;
-        $proceso = $this->ci->dbEmpleados->actualizaEmpresa($whereActualiza,$dataActualiza);
+        $proceso = $this->ci->dbEmpleados->actualizaData($whereActualiza,$dataActualiza);
         if($proceso)
         {
-            $salida = array("mensaje"=>"La empresa ha sido eliminada de manera correcta.",
+            $salida = array("mensaje"=>"La empleado ha sido eliminado de manera correcta.",
                             "continuar"=>1,
                             "datos"=>array());
         }
         else
         {
-            $salida = array("mensaje"=>"La empresa no ha posido ser eliminada, intente de nuevo más tarde o contacte al área de soporte.",
+            $salida = array("mensaje"=>"El empleado no ha podido ser eliminado, intente de nuevo más tarde o contacte al área de soporte.",
                             "continuar"=>0,
                             "datos"=>array());
         }

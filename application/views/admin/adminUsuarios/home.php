@@ -66,7 +66,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="ulist in usuarios  | filter:q as results">
+                                <tr ng-repeat="ulist in usuarios  | filter:q as results"  ng-if="ulist.idPersona > 1">
                                     <td class="text-center">{{ulist.nroDocumento}}</td>
                                     <td>{{ulist.nombre}} {{ulist.apellido}}</td>
                                     <td>{{ulist.nombrePerfil}}</td>
@@ -83,7 +83,7 @@
                                             <a ng-click="generaDatosAcceso(ulist.idPersona)" title="Generar datos de acceso" class="btn btn-primary btn-fab btn-fab-mini text-white"><i class="fa fa-lock"></i></a>
                                         <?php }?>
                                         <?php if(getPrivilegios()[0]['borrar'] == 1){ ?>
-                                            <a ng-click="borraUsuario(ulist.idPersona)" title="Eliminar"  class="btn btn-danger btn-fab btn-fab-mini btn-xs text-white"><i class="fa fa-trash"></i></a>
+                                            <a ng-click="borraUsuario(ulist.idPersona)" ng-if="ulist.idPersona != 1" title="Eliminar"  class="btn btn-danger btn-fab btn-fab-mini btn-xs text-white"><i class="fa fa-trash"></i></a>
                                         <?php } ?>
                                     </td>
                                 </tr>
