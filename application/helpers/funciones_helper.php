@@ -81,14 +81,14 @@ function sendMail($para,$asunto,$mensaje)
     $ci->email->initialize(array(
       'protocol' => 'smtp',
       'smtp_host' => 'mail.wannabe.com.co',
-      'smtp_user' => 'info@wannabe.com.co',
+      'smtp_user' => 'no-responder@wannabe.com.co',
       'smtp_pass' => 'Jg$E3D+u',
       'smtp_port' => 25,
       'crlf' => "\r\n",
       'newline' => "\r\n",
       'mailtype'=>"html"
     ));
-    $ci->email->from('noreply@tucomunidad.co', NOMBRE_APP);
+    $ci->email->from('no-responder@wannabe.com.co', NOMBRE_APP);
     $ci->email->to($para);
     //$ci->  email->cc('another@another-example.com');
     //$ci->  email->bcc('them@their-example.com');
@@ -204,6 +204,28 @@ function formatoFechaEspanolHora($fechaDb,$salida=true) {
 function generacodigo($longitud){
     //Se define una cadena de caractares. Te recomiendo que uses esta.
     $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+    //Obtenemos la longitud de la cadena de caracteres
+    $longitudCadena=strlen($cadena);
+     
+    //Se define la variable que va a contener la contraseña
+    $pass = "";
+    //Se define la longitud de la contraseña, en mi caso 10, pero puedes poner la longitud que quieras
+    $longitudPass=$longitud;
+     
+    //Creamos la contraseña
+    for($i=1 ; $i<=$longitudPass ; $i++){
+        //Definimos numero aleatorio entre 0 y la longitud de la cadena de caracteres-1
+        $pos=rand(0,$longitudCadena-1);
+     
+        //Vamos formando la contraseña en cada iteraccion del bucle, añadiendo a la cadena $pass la letra correspondiente a la posicion $pos en la cadena de caracteres definida.
+        $pass .= substr($cadena,$pos,1);
+    }
+    return $pass;
+}
+
+function generacodigonumerico($longitud){
+    //Se define una cadena de caractares. Te recomiendo que uses esta.
+    $cadena = "1234567890";
     //Obtenemos la longitud de la cadena de caracteres
     $longitudCadena=strlen($cadena);
      

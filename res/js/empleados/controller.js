@@ -53,6 +53,63 @@ project.controller('empleados', function($scope,$http,$q,constantes)
 
 	}
 
+	$scope.procesaExcel = function()
+	{
+		//validación de campos
+		var excelFile 	= $("#excelFile").val();
+		var empresa 	= $("#idEmpresa").val();
+
+		if(empresa == "")
+		{
+			constantes.alerta("Atención","Seleccione la empresa a la que le desea cargar el listado.","info",function(){})
+		}
+		else if(excelFile == "")
+		{
+			constantes.alerta("Atención","Debe seleccionar un archivo de Excel.","info",function(){})
+		}
+		else
+		{
+			constantes.confirmacion("Confirmación","Está a punto de generar una carga masiva de empleados a partir del archivo de excel seleccionado, esta acción puede tardar dependiendo la cantidad de registros del archivo excel, desea continuar?",'info',function()
+			{
+					var formData 	=   new FormData($("#formExcel")[0]);
+			        var controlador = 	$scope.config.apiUrl+"Empleados/procesaExcel"; 
+			        //hacemos la petición ajax  
+			        parametros	=	formData;
+			        $.ajax({
+			            url: controlador,  
+			            type: 'POST',
+			            data: parametros,
+			            dataType:"json",
+			            cache: false,
+			            contentType: false,
+			            processData: false,
+			            beforeSend: function(){
+			                     
+			            },
+			            //una vez finalizado correctamente
+			            success: function(json)
+			            {
+			            	if(json.continuar == 1)
+							{
+								constantes.alerta("Atención",json.mensaje,"success",function(){
+									location.reload();
+								})
+							}
+							else
+							{
+								constantes.alerta("Atención",json.mensaje,"warning",function(){})
+							}
+			            },
+			            //si ha ocurrido un error
+			            error: function(){
+			              
+			            }
+			        });
+			});
+		}
+
+	}
+
 	//funcion que procesa la empresa, sea crear o editar
 	$scope.procesaData = function()
 	{

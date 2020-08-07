@@ -55,5 +55,19 @@ class BaseDatosEmpleados extends CI_Model {
         //print_r($this->db->last_query());die();
         return $this->db->affected_rows();
     }   
+    //funcion que inserta en la tabla que se le diga
+    public function insertaDataTablaCreada($dataInserta,$tabla)
+    {
+        $this->db->insert($tabla,$dataInserta);
+        //print_r($this->db->last_query());die();
+        return $this->db->insert_id();
+    }
+    public function actualizaDataTablaCreada($where,$dataInserta,$tabla)
+    {
+        $this->db->where($where);
+        $this->db->update($this->tableEmpleados,$dataInserta);
+        //print_r($this->db->last_query());die();
+        return $this->db->affected_rows();
+    }  
 }
 ?>

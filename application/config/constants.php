@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 /*Definidas para la aplicación*/
 define('DEFAULT_DEMO_DAYS',90);
-define('NOMBRE_APP',"MA$ ME DAN");
+define('NOMBRE_APP',"KERRODAL");
 
 
 

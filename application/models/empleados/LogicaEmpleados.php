@@ -16,19 +16,19 @@ class LogicaEmpleados {
          * valido si el usuario logueado es una empresa, si es una empresa solo traigo sus empleados, 
          * si es un super administrador le muestro todos los empleados
          */
-        if(in_array($_SESSION['project']['info']['idPerfil'],array(3,4)) && $_SESSION['project']['info']['idEmpresa'] != "")
+        if(isset($_SESSION['project']) && in_array($_SESSION['project']['info']['idPerfil'],array(3,4)) && $_SESSION['project']['info']['idEmpresa'] != "")
         {
             $where['emple.idEmpresa']     = $_SESSION['project']['info']['idEmpresa'];
         }
 
         $where['emple.estado']        = 1;
         $where['emple.eliminado']     = 0;
-        $listadoAreas = $this->ci->dbEmpleados->getEmpleados($where);
-        if(count($listadoAreas) > 0)
+        $listaEmpleados = $this->ci->dbEmpleados->getEmpleados($where);
+        if(count($listaEmpleados) > 0)
         {
             $respuesta = array("mensaje"=>"Listado de empleados consultado.",
                           "continuar"=>1,
-                          "datos"=>$listadoAreas); 
+                          "datos"=>$listaEmpleados); 
         }
         else
         {
@@ -38,6 +38,46 @@ class LogicaEmpleados {
         }
         return $respuesta;
     } 
+
+    public function getListaEmpleados($where)
+    {
+        $where['emple.estado']        = 1;
+        $where['emple.eliminado']     = 0;
+        $listaEmpleados = $this->ci->dbEmpleados->getEmpleados($where);
+        if(count($listaEmpleados) > 0)
+        {
+            $respuesta = array("mensaje"=>"Listado de empleados consultado.",
+                               "continuar"=>1,
+                               "datos"=>$listaEmpleados); 
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"La información ingresada no coincide con ninguna en nuestra base de datos, por favor verifique nuevamente",
+                          "continuar"=>0,
+                          "datos"=>""); 
+        }
+        return $respuesta;
+    } 
+    public function insertaCodigo($idEmpleado,$codigo)
+    {
+        $whereActualiza['idEmpleado']           = $idEmpleado;
+        $dataActualiza['codigoVerificacion']    = $codigo;
+        $dataActualiza['caducidadCodigo']       = date("Y-m-d H:i:s");
+        $proceso = $this->ci->dbEmpleados->actualizaData($whereActualiza,$dataActualiza);
+        if($proceso)
+        {
+            $salida = array("mensaje"=>"codigo insertado",
+                            "continuar"=>1,
+                            "datos"=>array());
+        }
+        else
+        {
+            $salida = array("mensaje"=>"Codigo no insertado",
+                            "continuar"=>0,
+                            "datos"=>array());
+        }
+        return $salida;
+    }
     public function procesaData($post)
     {
         extract($post);
@@ -102,5 +142,134 @@ class LogicaEmpleados {
                             "datos"=>array());
         }
         return $salida;
+    }
+    //inserta empleados masivos
+    public function insertaMasivo($dataExcel,$post)
+    {
+        $nuevoArrayConData = array();
+        $encabezados    =  $this->getPrimeraLinea($dataExcel);
+        //elimino la primer línea de el excel para eliminar los encabezados
+        unset($dataExcel[1]);
+        //recorro los encabezados generados para armar un arreglo final, esperemos que funcione.
+        foreach($dataExcel as $datos)
+        {
+            $cont = 0;//creo un contador en cero cada vez que recorra una línea del arreglo del excel
+            foreach($datos as $llave=>$valor)//recorro los datos del excel internos
+            {
+                //analiso los nombres de la columna para  verificar que se llamen igual que en la base de datos
+                if(strtolower($encabezados[$cont]) == 'tipodocumento')
+                {
+                    if($valor == 'cedula')
+                    {
+                        $nvalor = 4;
+                    }
+                    else if($valor == 'nit')
+                    {
+                        $nvalor = 9;
+                    }
+                    else if($valor == 'rut')
+                    {
+                        $nvalor = 10;
+                    }
+                    else
+                    {
+                        $nvalor = 11;
+                    }
+                    $nArray['tipoDocumento'] = $nvalor;
+                }
+                else if(strtolower($encabezados[$cont]) == 'documento')
+                {
+                    $nArray['nroDocumento'] = $valor;
+                }
+                else if(strtolower($encabezados[$cont]) == 'genero')
+                {
+                    if($valor == 'f')
+                    {
+                        $nvalor = 2;
+                    }
+                    else if($valor == 'm')
+                    {
+                        $nvalor = 1;
+                    }
+                    $nArray['genero'] = $nvalor;
+                }
+                else if(strtolower($encabezados[$cont]) == 'estado')
+                {
+                    if($valor == 'activo')
+                    {
+                        $nvalor     = 1;
+                        $nvalorel   = 0;
+                    }
+                    else if($valor == 'inactivo')
+                    {
+                        $nvalor     = 0;
+                        $nvalorel   = 1;
+                    }
+                    else
+                    {
+                        $nvalor     = 0;
+                        $nvalorel   = 1;
+                    }
+                    $nArray['estado']    = $nvalor;
+                    $nArray['eliminado'] = $nvalorel;
+                }
+                else if(strtolower($encabezados[$cont]) == 'celular')
+                {
+                    $nArray['telefono'] = $valor;
+                }
+                else
+                {
+                    //para poder armar el nuevo arreglo con las llaves del arreglo con los valores de la primera fila lo que hago es valerme del contador que va incrementando ya que en teoría siempre serán de la misma longitud.
+                    $nArray[$encabezados[$cont]] = $valor;
+                }
+                $nArray['idEmpresa'] = $post['idEmpresa'];
+                $cont++;
+            }
+            //asigno al arreglo final
+            array_push($nuevoArrayConData,$nArray);
+        }
+        //procedo a insertar la informacion en la tabla de los empleados.
+        $cont2 = 0;
+        $tablaEmpleados = 'app_empleados';
+        //a esta altura es porque la creación de tabla ha salido correcta, ahora se procede a insertar la información
+        foreach($nuevoArrayConData as $dataInserta)
+        {
+            //verifico que el usuario no este registrado ya para insertarlo, de lo contrario lo actualizo
+            $verificaEmpleado =  $this->ci->dbEmpleados->getEmpleados(array('emple.nroDocumento'=>$dataInserta['nroDocumento']));
+            if(count($verificaEmpleado) == 0)//inserto la data
+            {
+                $insercionDatos   =  $this->ci->dbEmpleados->insertaDataTablaCreada($dataInserta,$tablaEmpleados);
+            }
+            else ///actualizo la data
+            {
+                $insercionDatos   =  $this->ci->dbEmpleados->actualizaDataTablaCreada(array('nroDocumento'=>$dataInserta['nroDocumento']),$dataInserta,$tablaEmpleados);
+            }
+            $cont2++;
+        } 
+        if($cont2 == count($nuevoArrayConData))
+        {
+            auditoria("CREACIONLISTAEMPLEADOS","Se ha creado un nuevo empleado | ".$tablaEmpleados);
+            $salida = array("mensaje"=>"La lista se ha creado exitosamente el listado de empleados.",
+                            "continuar"=>1,
+                            "datos"=>array());
+        }
+        else
+        {
+            auditoria("CREACIONLISTAEMPLEADOSFALLIDA","No se han cargado todos los empleados del listado | ".$tablaEmpleados);
+            $salida = array("mensaje"=>"No se han cargado todos los empleados del listado, por favor verifique.",
+                            "continuar"=>1,
+                            "datos"=>array());
+        }
+        return $salida;
+    }
+    //primera linea de los excel
+    public function getPrimeraLinea($dataExcel)
+    {
+        $primerLinea  =  $dataExcel[1];
+        foreach($primerLinea as $llave=>$linea1)
+        {
+            $campos[] = eliminaCaracteres($linea1);
+        }
+        return $campos;
     }
  }

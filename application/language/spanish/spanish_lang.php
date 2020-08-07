@@ -11,7 +11,7 @@
 *  @version 1.0
 */
 
-$lang['titulo'] = "Fintech";
+$lang['titulo'] = "Kerrodal";
 $lang['tituloLogin'] = "Bienvenido";
 
 
