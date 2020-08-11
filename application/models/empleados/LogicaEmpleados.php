@@ -58,6 +58,77 @@ class LogicaEmpleados {
         }
         return $respuesta;
     } 
+    public function insertaSolicitud($post)
+    {
+        extract($post);
+        //obtengo la data del empleado
+        $where['emple.estado']        = 1;
+        $where['emple.eliminado']     = 0;
+        $where['emple.idEmpleado']    = $idEmpleado;
+        $listaEmpleados = $this->ci->dbEmpleados->getEmpleados($where);
+        //verifico que el usuario no tenga creada ya una solicitud para este mes
+        $verificoSolicitudes = $this->ci->dbEmpleados->verificaSolicitudes(array('idEmpleado'=>$idEmpleado,'mes'=>date("m")));
+        //si no tiene solicitudes creadas para el mes, lo dejo pasar
+        if(count($verificoSolicitudes) == 0)
+        {
+            //$nroSolicitud       =     
+            //realizo el calculo del interes y todo eso
+            $interesAPagar      = (($monto * _INTERES_COBRO) / 100);
+            $montoConInteres    = ($monto + $interesAPagar);
+            //procedo a insertar la data de la solicitud
+            $dataInsertar['idEmpleado']             = $idEmpleado;
+            $dataInsertar['idEmpresa']              = $listaEmpleados[0]['idEmpresa'];
+            $dataInsertar['mes']                    = date('m');
+            $dataInsertar['ano']                    = date('Y');
+            $dataInsertar['monto']                  = $monto;
+            $dataInsertar['montoConInteres']        = $montoConInteres;
+            $dataInsertar['valorInteres']           = $interesAPagar;
+            $dataInsertar['interes']                = _INTERES_COBRO;
+            $dataInsertar['idEntidad']              = $entidadBancaria;
+            $dataInsertar['tipoCuenta']             = $tipoCuenta;
+            $dataInsertar['nroCuenta']              = $cuentaBanco;
+            $dataInsertar['idMotivo']               = $motivo;
+            $dataInsertar['motivo']                 = $cualMotivo;
+            $dataInsertar['fechasolicitud']         = date("Y-m-d H:i:s");
+            $dataInsertar['ip']                     = getIP();
+            $dataInsertar['userAgent']              = $_SERVER['HTTP_USER_AGENT'];
+            //inserto la solicitud
+            $respuestaSolicitud = $this->ci->dbEmpleados->insertaSolicitud($dataInsertar);
+            //tambien inserto la transaccion inicial para la solicitud.
+            $dataInsertarTrans['idSolicitud']   = $respuestaSolicitud;
+            $dataInsertarTrans['idEmpleado']    = $idEmpleado;
+            $dataInsertarTrans['idPersona']     = 0;
+            $dataInsertarTrans['fechaTrans']    = date("Y-m-d H:i:s");
+            $dataInsertarTrans['estado']        = 'recibida';
+            $dataInsertarTrans['ip']            = getIP();
+            $dataInsertarTrans['userAgent']     = $_SERVER['HTTP_USER_AGENT'];
+            $respuestaSolicitud = $this->ci->dbEmpleados->insertaSolicitudTrans($dataInsertarTrans);
+            //valido la insercion
+            if($respuestaSolicitud > 0)
+            {
+                $respuesta = array("mensaje"=>"La solicitud de adelanto de nómina se ha llevado a cabo de manera exitosa, su número de solicitud es el: <strong>".$respuestaSolicitud."</strong>, pronto estaremos comunicandonos con usted.",
+                          "continuar"=>1,
+                          "datos"=>"");     
+            }
+            else
+            {
+                $respuesta = array("mensaje"=>"Estimado usuario, no se ha podido llevar a cabo la solicitud de adelanto de nómina, por favor intente más tarde. Si el problema persiste por favor comuníquese con su empresa.",
+                              "continuar"=>0,
+                              "datos"=>""); 
+
+            }
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"Estimado usuario, usted ya ha realizado una solicitud de adelanto de nómina para el mes ".traducirMes(date("m")),
+                          "continuar"=>0,
+                          "datos"=>""); 
+        }
+        return $respuesta;
+        //     
+        //     
+        //     motivo
+    }
     public function insertaCodigo($idEmpleado,$codigo)
     {
         $whereActualiza['idEmpleado']           = $idEmpleado;

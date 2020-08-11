@@ -155,6 +155,7 @@ class CI_Loader {
 	public function initialize()
 	{
 		$this->_ci_autoloader();
+		startConstantes();//inicializo constantes dinámicas
 	}
 
 	// --------------------------------------------------------------------

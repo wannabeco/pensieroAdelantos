@@ -274,4 +274,43 @@ class LogicaGeneral  {
         //var_dump($salidaPerf);
         return $salidaPerf;
     }
+
+
+    public function consultaFaqs()
+    {
+        $faqs   = $this->ci->dbGeneral->consultaFaqs();
+        if(count($faqs) > 0)
+        {
+            $respuesta = array("mensaje"=>"Listado de Faqs",
+                              "continuar"=>1,
+                              "datos"=>$faqs);            
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"No existen Faqs",
+                              "continuar"=>0,
+                              "datos"=>"");    
+
+        }
+        return $respuesta;
+    }
+
+    public function consultaBancos()
+    {
+        $data   = $this->ci->dbGeneral->consultaBancos();
+        if(count($data) > 0)
+        {
+            $respuesta = array("mensaje"=>"Listado de Bancos",
+                              "continuar"=>1,
+                              "datos"=>$data);            
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"No existen Bancos",
+                              "continuar"=>0,
+                              "datos"=>"");    
+
+        }
+        return $respuesta;
+    }
  }

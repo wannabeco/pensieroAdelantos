@@ -124,6 +124,18 @@
 
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url()?>res/build/js/custom.min.js"></script>
+    <script>
+        $(document).ready(function()
+        {
+            $('#fechasFiltro').daterangepicker({
+                timePicker: false,
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
+            });
+        });
+    </script>
+
 
     <?php 
         //esta línea me permite insertar archivos de controladores angular js.
@@ -144,5 +156,6 @@
                     <script src="<?php echo $file; ?>"></script>
         <?php endforeach; ?>
     <?php } ?>
+
   </body>
 </html>

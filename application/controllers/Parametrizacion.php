@@ -174,6 +174,116 @@ class Parametrizacion extends CI_Controller
 			header('Location:'.base_url()."login");
 		}
 	}
+	public function faq($idModulo)	
+	{
+		//ini_set("display_errors",'1');
+		//valido que haya una sesión de usuario, si no existe siempre lo enviaré al login
+		if(validaIngreso())
+		{
+			/*******************************************************************************************/
+			/* ESTA SECCIÓN DE CÓDIGO  ES MUY IMPORTANTE YA QUE ES LA QUE CONTROLARÁ EL MÓDULO VISITADO*/
+			/*******************************************************************************************/
+			//si no se declara está variable en cada inicio del módulo no se podrán consultar los privilegios
+			$_SESSION['moduloVisitado']		=	$idModulo;
+			//antes de pintar la plantilla del módulo valido si hay permisos de ver ese módulo para evitar que ingresen al módulo vía URL
+			if(getPrivilegios()[0]['ver'] == 1)
+			{ 
+					try{
+						$crud = new grocery_CRUD();
+						$crud->set_theme('datatables');
+						$crud->set_table('app_faqs');
+						$crud->set_subject('faq');
+						//$crud->set_subject('Office');
+						$crud->required_fields('tituloFaq');
+						$crud->display_as('Pregunta','tituloFaq');
+						$crud->columns('tituloFaq','respuestaFaq');
+						$crud->fields('tituloFaq','respuestaFaq');
+						$crud->unset_texteditor('tituloFaq','respuestaFaq');
+						$crud->unset_clone();
+						
+						$output = $crud->render();
+						
+					}catch(Exception $e){
+						show_error($e->getMessage().' --- '.$e->getTraceAsString());
+					}
+				//info Módulo
+				$infoModulo	      	   = $this->logica->infoModulo($idModulo);
+				$opc 				   = "home";
+				$salida['titulo']      = "Preguntas frecuentes";
+				$salida['output'] 	   = $output;
+				$salida['centro'] 	   = 'admin/centroEstandarPar';
+				$salida['infoModulo']  = $infoModulo[0];
+				$this->load->view("app/index",$salida);
+			}
+			else
+			{
+				$opc 				   = "home";
+				$salida['titulo']      = lang("titulo")." - Área Restringida";
+				$salida['centro'] 	   = "error/areaRestringida";
+				$this->load->view("app/index",$salida);
+			}
+		}
+		else
+		{
+			header('Location:'.base_url()."login");
+		}
+	}
+
+	public function bancos($idModulo)	
+	{
+		//ini_set("display_errors",'1');
+		//valido que haya una sesión de usuario, si no existe siempre lo enviaré al login
+		if(validaIngreso())
+		{
+			/*******************************************************************************************/
+			/* ESTA SECCIÓN DE CÓDIGO  ES MUY IMPORTANTE YA QUE ES LA QUE CONTROLARÁ EL MÓDULO VISITADO*/
+			/*******************************************************************************************/
+			//si no se declara está variable en cada inicio del módulo no se podrán consultar los privilegios
+			$_SESSION['moduloVisitado']		=	$idModulo;
+			//antes de pintar la plantilla del módulo valido si hay permisos de ver ese módulo para evitar que ingresen al módulo vía URL
+			if(getPrivilegios()[0]['ver'] == 1)
+			{ 
+					try{
+						$crud = new grocery_CRUD();
+						$crud->set_theme('datatables');
+						$crud->set_table('app_bancos');
+						$crud->set_subject('Bancos');
+						//$crud->set_subject('Office');
+						$crud->required_fields('nombreEntidad');
+						$crud->display_as('Nombre Banco','nombreEntidad');
+						$crud->display_as('id Banco','idEntidad');
+						$crud->columns('idEntidad','nombreEntidad');
+						$crud->fields('nombreEntidad');
+						$crud->unset_texteditor('nombreEntidad');
+						$crud->unset_clone();
+						
+						$output = $crud->render();
+						
+					}catch(Exception $e){
+						show_error($e->getMessage().' --- '.$e->getTraceAsString());
+					}
+				//info Módulo
+				$infoModulo	      	   = $this->logica->infoModulo($idModulo);
+				$opc 				   = "home";
+				$salida['titulo']      = "Bancos";
+				$salida['output'] 	   = $output;
+				$salida['centro'] 	   = 'admin/centroEstandarPar';
+				$salida['infoModulo']  = $infoModulo[0];
+				$this->load->view("app/index",$salida);
+			}
+			else
+			{
+				$opc 				   = "home";
+				$salida['titulo']      = lang("titulo")." - Área Restringida";
+				$salida['centro'] 	   = "error/areaRestringida";
+				$this->load->view("app/index",$salida);
+			}
+		}
+		else
+		{
+			header('Location:'.base_url()."login");
+		}
+	}
 	public function areasTrabajo($idModulo)	
 	{
 		//ini_set("display_errors",'1');
@@ -338,61 +448,8 @@ class Parametrizacion extends CI_Controller
 			header('Location:'.base_url()."login");
 		}
 	}
-	public function bancos($idModulo)	
-	{
-		//ini_set("display_errors",'1');
-		//valido que haya una sesión de usuario, si no existe siempre lo enviaré al login
-		if(validaIngreso())
-		{
-			/*******************************************************************************************/
-			/* ESTA SECCIÓN DE CÓDIGO  ES MUY IMPORTANTE YA QUE ES LA QUE CONTROLARÁ EL MÓDULO VISITADO*/
-			/*******************************************************************************************/
-			//si no se declara está variable en cada inicio del módulo no se podrán consultar los privilegios
-			$_SESSION['moduloVisitado']		=	$idModulo;
-			//antes de pintar la plantilla del módulo valido si hay permisos de ver ese módulo para evitar que ingresen al módulo vía URL
-			if(getPrivilegios()[0]['ver'] == 1)
-			{ 
-					try{
-						$crud = new grocery_CRUD();
-						$crud->set_theme('datatables');
-						$crud->set_table('app_bancos');
-						$crud->set_subject('entidad bancaria');
-						//$crud->set_subject('Office');
-						$crud->required_fields('nombreEntidad','tipoEntidad');
-						$crud->display_as('nombreEntidad','Nombre');
-						$crud->set_relation('tipoEntidad','app_tipo_entidad','nombreTipoEntidad');
-						$crud->columns('nombreEntidad','tipoEntidad');
-						$crud->fields('nombreEntidad','tipoEntidad');
-						$crud->unset_texteditor('nombreEntidad');
-						$crud->unset_clone();
-						
-						$output = $crud->render();
-						
-					}catch(Exception $e){
-						show_error($e->getMessage().' --- '.$e->getTraceAsString());
-					}
-				//info Módulo
-				$infoModulo	      	   = $this->logica->infoModulo($idModulo);
-				$opc 				   = "home";
-				$salida['titulo']      = "Entidades bancarias";
-				$salida['output'] 	   = $output;
-				$salida['centro'] 	   = 'admin/centroEstandarPar';
-				$salida['infoModulo']  = $infoModulo[0];
-				$this->load->view("app/index",$salida);
-			}
-			else
-			{
-				$opc 				   = "home";
-				$salida['titulo']      = lang("titulo")." - Área Restringida";
-				$salida['centro'] 	   = "error/areaRestringida";
-				$this->load->view("app/index",$salida);
-			}
-		}
-		else
-		{
-			header('Location:'.base_url()."login");
-		}
-	}
+
+
 	public function tiposCuenta($idModulo)	
 	{
 		//ini_set("display_errors",'1');

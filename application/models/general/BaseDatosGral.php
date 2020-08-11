@@ -53,12 +53,32 @@ class BaseDatosGral extends CI_Model {
         $this->tableCiediez              = "app_cie_diez";
         $this->tableRelCieDiez           = "app_rel_visitas_ciediez";
         $this->tableVariablesGlobales    = "app_variablesglobales";
+        $this->tableFaqs                 = "app_faqs";
+        $this->tableBancos               = "app_bancos";
     }
     public function getVariablesGlobales()
     {
         $this->db->select("*");
         $this->db->from($this->tableVariablesGlobales);
         $this->db->order_by("variable","ASC");
+        $id = $this->db->get();
+        //print_r($this->db->last_query());die();
+        return $id->result_array();
+    }
+    public function consultaFaqs()
+    {
+        $this->db->select("*");
+        $this->db->from($this->tableFaqs);
+        $this->db->order_by("orden","ASC");
+        $id = $this->db->get();
+        //print_r($this->db->last_query());die();
+        return $id->result_array();
+    }
+    public function consultaBancos()
+    {
+        $this->db->select("*");
+        $this->db->from($this->tableBancos);
+        $this->db->order_by("nombreEntidad","ASC");
         $id = $this->db->get();
         //print_r($this->db->last_query());die();
         return $id->result_array();
