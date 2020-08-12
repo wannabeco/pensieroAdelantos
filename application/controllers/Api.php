@@ -33,7 +33,7 @@ class Api extends CI_Controller
         if($objDatos['fuente'] == 'app')
         {
             //consulto si el empleado existe
-            $salida   = $this->logicaEmpleados->getListaEmpleados(array("emple.tipoDocumento"=>$objDatos['tipoDocumento'],"emple.nroDocumento"=>$objDatos['nroDocumento']));
+            $salida   = $this->logicaEmpleados->getListaEmpleados(array("emple.clave"=>sha1($objDatos['clave']),"emple.nroDocumento"=>$objDatos['nroDocumento']));
         }
         else
         {
@@ -74,6 +74,23 @@ class Api extends CI_Controller
                                 "datos"=>array(),
                                 "continuar"=>1);
             }
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                                "datos"=>array(),
+                                "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+    }
+
+    public function asignaContrasena()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $salida = $this->logicaEmpleados->asignaContrasena($objDatos['idEmpleado'],$objDatos['repitaClave']);
         }
         else
         {

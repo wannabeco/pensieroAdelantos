@@ -161,13 +161,13 @@ class LogicaEmpleados {
             $proceso = $this->ci->dbEmpleados->actualizaData($whereActualiza,$dataActualiza);
             if($proceso)
             {
-                $salida = array("mensaje"=>"La información de la empresa se ha actualizado de manera correcta",
+                $salida = array("mensaje"=>"La información del empleado se ha actualizado de manera correcta",
                                 "continuar"=>1,
                                 "datos"=>array());
             }
             else
             {
-                $salida = array("mensaje"=>"La información de la empresa no se ha podido actualizar, intente de nuevo más tarde o contacte al área de soporte.",
+                $salida = array("mensaje"=>"La información del empleado no se ha podido actualizar, intente de nuevo más tarde o contacte al área de soporte.",
                                 "continuar"=>0,
                                 "datos"=>array());
             }
@@ -175,18 +175,20 @@ class LogicaEmpleados {
         else//creacion de una nueva empresa
         {
             $dataInserta  = $post;
+            $dataInserta['clave']       = sha1($post['nroDocumento']);
+            $dataInserta['clave64']     = base64_encode($post['nroDocumento']);
             unset($dataInserta['edita']);
             unset($dataInserta['idEmpleado']);
             $proceso = $this->ci->dbEmpleados->insertarData($dataInserta);
             if($proceso)
             {
-                $salida = array("mensaje"=>"La empresa ha sido creada de manera exitosa",
+                $salida = array("mensaje"=>"El empleado ha sido creado de manera exitosa",
                                 "continuar"=>1,
                                 "datos"=>array());
             }
             else
             {
-                $salida = array("mensaje"=>"La empresa no ha podido ser creada, intente de nuevo más tarde o contacte al área de soporte.",
+                $salida = array("mensaje"=>"El empleado no ha podido ser creada, intente de nuevo más tarde o contacte al área de soporte.",
                                 "continuar"=>0,
                                 "datos"=>array());
             }
@@ -209,6 +211,27 @@ class LogicaEmpleados {
         else
         {
             $salida = array("mensaje"=>"El empleado no ha podido ser eliminado, intente de nuevo más tarde o contacte al área de soporte.",
+                            "continuar"=>0,
+                            "datos"=>array());
+        }
+        return $salida;
+    }
+    public function asignaContrasena($idEmpleado,$clave)
+    {
+        $dataActualiza['clave']         = sha1($clave);
+        $dataActualiza['clave64']       = base64_encode($clave);
+        $dataActualiza['cambiarClave']  = 0;
+        $whereActualiza['idEmpleado']   = $idEmpleado;
+        $proceso = $this->ci->dbEmpleados->actualizaData($whereActualiza,$dataActualiza);
+        if($proceso)
+        {
+            $salida = array("mensaje"=>"La contraseña ha sido asignada de manera correcta, ahora puede continuar.",
+                            "continuar"=>1,
+                            "datos"=>array());
+        }
+        else
+        {
+            $salida = array("mensaje"=>"La contraseña no ha podido ser asignada, intente de nuevo, si el problema persiste contacte al área de soporte.",
                             "continuar"=>0,
                             "datos"=>array());
         }
@@ -309,11 +332,16 @@ class LogicaEmpleados {
             $verificaEmpleado =  $this->ci->dbEmpleados->getEmpleados(array('emple.nroDocumento'=>$dataInserta['nroDocumento']));
             if(count($verificaEmpleado) == 0)//inserto la data
             {
+                //ajusto la clave del usuario
+                $dataInserta['clave']       = sha1($dataInserta['nroDocumento']);
+                $dataInserta['clave64']     = base64_encode($dataInserta['nroDocumento']);
+                //inserto la data del nuevo usuario
                 $insercionDatos   =  $this->ci->dbEmpleados->insertaDataTablaCreada($dataInserta,$tablaEmpleados);
             }
             else ///actualizo la data
             {
-                $insercionDatos   =  $this->ci->dbEmpleados->actualizaDataTablaCreada(array('nroDocumento'=>$dataInserta['nroDocumento']),$dataInserta,$tablaEmpleados);
+                $insercionDatos   =  $this->ci->dbEmpleados->
+                DataTablaCreada(array('nroDocumento'=>$dataInserta['nroDocumento']),$dataInserta,$tablaEmpleados);
             }
             $cont2++;
         } 
