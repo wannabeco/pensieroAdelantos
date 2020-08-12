@@ -1,0 +1,7 @@
+application/cache/**
+application/logs/**
+res/pdf/**
+res/cargasExcel/**
+application/config/**
+*.DS_STORE
+*.csv
