@@ -106,6 +106,20 @@ class LogicaEmpleados {
             //valido la insercion
             if($respuestaSolicitud > 0)
             {
+                //debo enviar un mail al administrador del sistema avisando de que alguien realizo un adelanto de salario
+                $para        =   _ADMIN_SOLICITUDES;
+                $asunto      =   "Solicitud de adelanto de nómina".lang("titulo");
+                $mensaje     =   "<img src='".base_url()."res/img/logo.png'><br><br>";
+                $mensaje    .=   "Se ha registrado una nueva solicitud de adelanto de nómina, a continuación verá la información de la solicitud.<br><br>";
+                $mensaje    .=   "<strong>Solicitante: </strong> ".$listaEmpleados[0]['nombres']." ".$listaEmpleados[0]['apellidos']."<br>";
+                $mensaje    .=   "<strong>Empresa: </strong> ".$listaEmpleados[0]['nombre']."<br>";
+                $mensaje    .=   "<strong>Monto solicitado: </strong> ".$monto."<br>";
+                $mensaje    .=   "<strong>Fecha y hora: </strong> ".$dataInsertar['fechasolicitud']."<br>";
+                //plantilla del mail
+                $plantilla   = plantillaMail($asunto,$mensaje);
+                //envio el codigo de ingreso al mail del usuario
+                sendMail($para,$asunto,$plantilla);
+
                 $respuesta = array("mensaje"=>"La solicitud de adelanto de nómina se ha llevado a cabo de manera exitosa, su número de solicitud es el: <strong>".$respuestaSolicitud."</strong>, pronto estaremos comunicandonos con usted.",
                           "continuar"=>1,
                           "datos"=>"");     
