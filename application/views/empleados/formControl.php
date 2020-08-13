@@ -76,7 +76,7 @@
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nro documento <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="nroDocumento" name="nroDocumento" class="form-control" value="<?php echo (isset($datos['nroDocumento']))?$datos['nroDocumento']:''; ?>"  >
+                        <input type="text" id="nroDocumento" name="nroDocumento" class="form-control" value="<?php echo (isset($datos['documentoEmpleado']))?$datos['documentoEmpleado']:''; ?>"  >
                       </div>
                     </div>
                     
