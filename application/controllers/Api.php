@@ -61,9 +61,12 @@ class Api extends CI_Controller
             {
                 $para        =   $dataempleado['datos'][0]['email'];
                 $asunto      =   "Codigo de verificacion ".lang("titulo");
-                $mensaje     =   "Hola, ingresa el código que verás a continuación en la app móvil.<br><br>";
+                $mensaje     =   "<img src=''><br><br>";
+                $mensaje    .=   "Hola, ingresa el código que verás a continuación en la app móvil.<br><br>";
                 $mensaje    .=   "<strong>".$codigo."</strong>";
-                //@sendMail($para,$asunto,$mensaje);
+                //plantilla del mail
+                $plantilla   = plantillaMail($asunto,$mensaje);
+                sendMail($para,$asunto,$plantilla);
                 $salida = array("mensaje"=>"Hemos enviado el mensaje al correo electrónico seleccionado, por favor verifique.",
                                 "datos"=>array(),
                                 "continuar"=>1);

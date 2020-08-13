@@ -16,6 +16,11 @@ class Logica {
         {
             $where = array();
         }
+        //valido que si la persona que esta logueada es una empresa me traiga solo las solicitudes de la empresa
+        if(isset($_SESSION['project']) && in_array($_SESSION['project']['info']['idPerfil'],array(3,4)) && $_SESSION['project']['info']['idEmpresa'] != "")
+        {
+            $where['s.idEmpresa']     = $_SESSION['project']['info']['idEmpresa'];
+        }
 
         $solicitudes = $this->ci->dbSolicitudes->getSolicitudes($where);
         if(count($solicitudes) > 0)

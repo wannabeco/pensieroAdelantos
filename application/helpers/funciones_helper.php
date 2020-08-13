@@ -80,15 +80,15 @@ function sendMail($para,$asunto,$mensaje)
     $ci->load->model("general/baseDatosGral","baseGeneral");
     $ci->email->initialize(array(
       'protocol' => 'smtp',
-      'smtp_host' => 'mail.wannabe.com.co',
-      'smtp_user' => 'no-responder@wannabe.com.co',
+      'smtp_host' => 'mail.kerrodal.com',
+      'smtp_user' => 'no-responder@kerrodal.com',
       'smtp_pass' => 'Jg$E3D+u',
-      'smtp_port' => 25,
+      'smtp_port' => 587,
       'crlf' => "\r\n",
       'newline' => "\r\n",
       'mailtype'=>"html"
     ));
-    $ci->email->from('no-responder@wannabe.com.co', NOMBRE_APP);
+    $ci->email->from('no-responder@kerrodal.com', NOMBRE_APP);
     $ci->email->to($para);
     //$ci->  email->cc('another@another-example.com');
     //$ci->  email->bcc('them@their-example.com');
@@ -578,6 +578,41 @@ function sendNotifi($idPersona,$mensaje,$titulo)
         }
     }*/
 
+}
+
+//plantilla de envio de correo electronico
+function plantillaMail($asunto,$mensaje)
+{
+    $plantilla = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+            $plantilla .= '<html xmlns="http://www.w3.org/1999/xhtml">';
+            $plantilla .= '<head> ';
+                $plantilla .= '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';	 
+                $plantilla .= '<title>Mailing '.$asunto.'</title>	'; 
+                $plantilla .= '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>	';
+            $plantilla .= '</head>';
+            $plantilla .= '<body style="margin: 0; padding: 0;">';
+                $plantilla .= '<br>';
+                $plantilla .= '<table align="center" border="0" border="1" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">';
+                    $plantilla .= '<tr>';
+                        $plantilla .= '<td align="center" bgcolor="#fff" style="padding: 40px 0 30px 0;">';
+                            $plantilla .= '<img src="'.base_url().'res/img/logo.png" alt="Logo Kerrodal" width="300" style="display: block;" />';
+                        $plantilla .= '</td>';
+                    $plantilla .= '</tr>';
+                    $plantilla .= '<tr>';
+                        $plantilla .= '<td bgcolor="#ffffff" style="color:#444;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 14px;">';
+
+                            $plantilla .= $mensaje;
+
+                        $plantilla .= '</td>';
+                    $plantilla .= '</tr>';
+                    $plantilla .= '<tr>';
+                        $plantilla .= '<td bgcolor="#000" style="text-align:center;color:#fff;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 35px;">No responder este mensaje';
+                        $plantilla .= '</td>';
+                    $plantilla .= '</tr>';
+                $plantilla .= '</table>';
+            $plantilla .= '</body>';
+            $plantilla .= '</html>';
+            return $plantilla;
 }
 
 /**

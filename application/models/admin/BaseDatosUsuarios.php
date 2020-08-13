@@ -24,6 +24,7 @@ class BaseDatosUsuarios extends CI_Model {
         $this->tablePerfiles             = "app_perfiles";
         $this->tableAreas                = "app_areas";
         $this->tableModulos              = "app_modulos";
+        $this->tableEmpresas             = "app_empresas";
         $this->tableRelPerfilModulo      = "app_rel_perfil_modulo";
     }
     public function agregaUsuario($dataInserta)
@@ -61,13 +62,14 @@ class BaseDatosUsuarios extends CI_Model {
     }
     public function infoUsuario($where="")
     {
-        $this->db->select("u.*,u.estado as estadoU,p.nombrePerfil,l.*");
+        $this->db->select("u.*,u.estado as estadoU,p.nombrePerfil,e.nombre as nombreEmpresa, e.*,l.*");
         if(count($where) > 0)
         {
             $this->db->where($where);
         }
         $this->db->from($this->tablePersonas." u");
         $this->db->join($this->tablePerfiles." p","p.idPerfil=u.idPerfil","INNER");
+        $this->db->join($this->tableEmpresas." e","e.idempresa=u.idEmpresa","LEFT");
         //$this->db->join($this->tableAreas." a","a.idArea=u.idArea","INNER");
         $this->db->join($this->tableLogin." l","l.idGeneral=u.idPersona","LEFT");
         $id = $this->db->get();

@@ -57,7 +57,7 @@
                         <table class="table table-striped jambo_table bulk_action">
                             <thead>
                                 <tr>
-                                    <th class="text-left">DOCUMENTO</th>
+                                    <th class="text-left">EMPRESA</th>
                                     <th>NOMBRE</th>
                                     <th>PERFIL</th>
                                     <th class="text-center">ACCESO</th>
@@ -67,7 +67,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="ulist in usuarios  | filter:q as results"  ng-if="ulist.idPersona > 1">
-                                    <td class="text-center">{{ulist.nroDocumento}}</td>
+                                    <td class="text-center">{{ulist.nombreEmpresa}}</td>
                                     <td>{{ulist.nombre}} {{ulist.apellido}}</td>
                                     <td>{{ulist.nombrePerfil}}</td>
                                     <td class="text-center">
