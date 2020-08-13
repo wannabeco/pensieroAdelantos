@@ -59,7 +59,7 @@ class Api extends CI_Controller
             //proceso a enviar el codigo por medio del metodo de envio seleccionado por el usuario.
             if($objDatos['metodoEnvio'] == 1)//via correo electronico
             {
-                $para        =   $dataempleado['datos'][0]['email'];
+                $para        =   $dataempleado['datos'][0]['emailEmpleado'];
                 $asunto      =   "Codigo de verificacion ".lang("titulo");
                 $mensaje     =   "<img src=''><br><br>";
                 $mensaje    .=   "Hola, ingresa el código que verás a continuación en la app móvil.<br><br>";
