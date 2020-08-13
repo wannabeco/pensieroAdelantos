@@ -606,7 +606,7 @@ function plantillaMail($asunto,$mensaje)
                         $plantilla .= '</td>';
                     $plantilla .= '</tr>';
                     $plantilla .= '<tr>';
-                        $plantilla .= '<td bgcolor="#000" style="text-align:center;color:#fff;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 35px;">No responder este mensaje';
+                        $plantilla .= '<td bgcolor="#000" style="text-align:center;color:#fff;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 20px;">No responder este mensaje';
                         $plantilla .= '</td>';
                     $plantilla .= '</tr>';
                 $plantilla .= '</table>';
