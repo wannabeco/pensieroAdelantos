@@ -120,8 +120,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row"  style="margin:10px 0 0 0">
+                    <div class="row"  style="margin:50px 0 0 0">
                         <div class="col text-right">
+                            <a href="<?php echo base_url()?>Solicitudes/listaSolicitudes/<?php echo $infoModulo['idModulo']?>"  data-dismiss="modal" class="btn  btn-default"><i class="fa fa-arrow-left"></i> <?php echo lang('reg_btn_regresar') ?></a>
                             <button class="btn btn-danger">RECHAZAR SOLICITUD</button>
                             <button class="btn btn-success">APROBAR SOLICITUD</button>
                         </div>
