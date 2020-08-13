@@ -61,8 +61,7 @@ class Api extends CI_Controller
             {
                 $para        =   $dataempleado['datos'][0]['emailEmpleado'];
                 $asunto      =   "Codigo de verificacion ".lang("titulo");
-                $mensaje     =   "<img src='".base_url()."res/img/logo.png'><br><br>";
-                $mensaje    .=   "Hola, ingresa el código que verás a continuación en la app móvil.<br><br>";
+                $mensaje     =   "Hola, ingresa el código que verás a continuación en la app móvil.<br><br>";
                 $mensaje    .=   "<strong>".$codigo."</strong>";
                 //plantilla del mail
                 $plantilla   = plantillaMail($asunto,$mensaje);
