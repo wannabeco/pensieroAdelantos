@@ -66,6 +66,7 @@ class Api extends CI_Controller
                 $mensaje    .=   "<strong>".$codigo."</strong>";
                 //plantilla del mail
                 $plantilla   = plantillaMail($asunto,$mensaje);
+                //envio el mail
                 sendMail($para,$asunto,$plantilla);
                 $salida = array("mensaje"=>"Hemos enviado el mensaje al correo electrónico seleccionado, por favor verifique.",
                                 "datos"=>array(),
