@@ -110,6 +110,21 @@
                         <input id="email" class="form-control" type="text" name="email" value="<?php echo (isset($datos['email']))?$datos['email']:''; ?>">
                       </div>
                     </div>
+
+                    <div class="item form-group">
+                      <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Persona de contacto <span class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6 ">
+                        <input id="personaContacto" class="form-control" type="text" name="personaContacto" value="<?php echo (isset($datos['personaContacto']))?$datos['personaContacto']:''; ?>">
+                      </div>
+                    </div>
+
+                    <div class="item form-group">
+                      <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Te&eacute;fono de contacto <span class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6 ">
+                        <input id="telefonoContacto" class="form-control" type="text" name="telefonoContacto" value="<?php echo (isset($datos['telefonoContacto']))?$datos['telefonoContacto']:''; ?>">
+                      </div>
+                    </div>
+
                       <?php if($edita == 1){ ?>
                         <div class="item form-group">
                           <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Estado</label>

@@ -65,6 +65,8 @@ project.controller('empresas', function($scope,$http,$q,constantes)
 		var telefono = $("#telefono").val();
 		var celular = $("#celular").val();
 		var email = $("#email").val();
+		var personaContacto = $("#personaContacto").val();
+		var telefonoContacto = $("#telefonoContacto").val();
 		var estado = $("#estado").val();
 		var idEmpresa = $("#idEmpresa").val();
 		var edita 	  = $("#edita").val();
@@ -100,6 +102,14 @@ project.controller('empresas', function($scope,$http,$q,constantes)
 		else if(email != "" && !constantes.validaMail(email))
 		{
 			constantes.alerta("Atención","El correo ingresado no tiene una sintaxis válida","warning",function(){})
+		}
+		else if(personaContacto == "")
+		{
+			constantes.alerta("Atención","Escriba el nombre de una persona de contacto en la empresa","warning",function(){})
+		}
+		else if(telefonoContacto == "")
+		{
+			constantes.alerta("Atención","Escriba el telefono de contacto de la persona en la empresa","warning",function(){})
 		}
 		else
 		{
