@@ -102,7 +102,7 @@
                                     </td>
                                     <td  class="text-center">
                                         <?php if(getPrivilegios()[0]['ver'] == 1){ ?>
-                                            <a href="">Ver detalles</a>
+                                            <a href="<?php echo base_url()?>/Solicitudes/infoSolicitud/<?php echo $infoModulo['idModulo']?>/{{soli.idSolicitud}}">Ver detalles</a>
                                         <?php }?>
                                         <!-- <?php if(getPrivilegios()[0]['editar'] == 1){ ?>
                                             <a href="<?php echo base_url()?>Empleados/gestionEmpleados/<?php echo $infoModulo['idModulo'] ?>/editar/{{soli.idEmpleado}}" title="Editar empresa" class="btn btn-primary btn-fab btn-fab-mini text-white"><i class="fa fa-edit"></i></a>

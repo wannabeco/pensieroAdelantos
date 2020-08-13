@@ -28,7 +28,7 @@ class BaseDatos extends CI_Model {
     }
     public function getSolicitudes($where=array())
     {
-        $this->db->select("s.estado as estadoSol,s.*,e.*,b.*,em.* ");
+        $this->db->select("s.estado as estadoSol,s.*,e.email as emailEmpleado,e.telefono as telefonoEmpleado,e.direccion as direccionEmpleado,e.*,b.*,em.* ");
         if(count($where) > 0)
         {
             $this->db->where($where);

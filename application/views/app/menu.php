@@ -2,7 +2,9 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title"><i class="fa fa-money"></i> <span><?php echo lang("titulo")?></span></a>
+              <a href="<?php echo base_url()?>" class="site_title">
+                <img src="<?php echo base_url()?>res/img/logoInterno-05.png" alt="" width="80%">
+              </a>
             </div>
 
             <div class="clearfix"></div>

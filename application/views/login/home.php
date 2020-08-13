@@ -14,7 +14,7 @@
                 <input name="clave"  autocomplete="off" ng-model="clave" id="clave" class="ember-view ember-text-field form-control login-input-pass" placeholder="<?php echo lang("placeHolderClave") ?>" type="password"/>
               </div>
               <div>
-              <button class="btn btn-primary " href="index.html"><?php echo lang("labelBtnLogin") ?></button>
+              <button class="btn btn-danger " href="index.html"><?php echo lang("labelBtnLogin") ?></button>
                 <!-- <a class="reset_pass" href="<?php echo base_url() ?>Inicio/recordarClave">Olvid&oacute; su clave?</a> -->
                 <a class="reset_pass" href="#signup">Olvid&oacute; su clave?</a>
               </div>
@@ -30,7 +30,7 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-money"></i> <?php echo $titulo ?></h1>
+                  <img src="<?php echo base_url()?>res/img/logoRojo-05.png" alt="" width="80%">
                   <p>©<?php echo date("Y")?> Todos los derechos reservados.</p>
                 </div>
               </div>

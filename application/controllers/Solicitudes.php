@@ -58,6 +58,45 @@ class Solicitudes extends CI_Controller
 			header('Location:'.base_url()."login");
 		}
     }
+
+	public function infoSolicitud($idModulo,$idSolicitud)	
+	{
+		//valido que haya una sesión de usuario, si no existe siempre lo enviaré al login
+		if(validaIngreso())
+		{
+			/*******************************************************************************************/
+			/* ESTA SECCIÓN DE CÓDIGO  ES MUY IMPORTANTE YA QUE ES LA QUE CONTROLARÁ EL MÓDULO VISITADO*/
+			/*******************************************************************************************/
+			//si no se declara está variable en cada inicio del módulo no se podrán consultar los privilegios
+			$_SESSION['moduloVisitado']		=	$idModulo;
+			//antes de pintar la plantilla del módulo valido si hay permisos de ver ese módulo para evitar que ingresen al módulo vía URL
+			if(getPrivilegios()[0]['ver'] == 1)
+			{ 
+				//info Módulo
+				$infoModulo	      	   = $this->logica->infoModulo($idModulo);
+				$infoSolicitud		   = $this->logicaSolicitudes->getSolicitudes(array('s.idSolicitud'=>$idSolicitud));
+				//var_dump($infoSolicitud['datos'][0]);die();
+				$opc 				   = "home";
+				$salida['titulo']      = lang("titulo")." - ".$infoModulo[0]['nombreLargo'];
+				$salida['centro'] 	   = "solicitudes/infoSolicitud";
+				$salida['infoModulo']  = $infoModulo[0];
+				$salida['infoSolicitud']  = $infoSolicitud['datos'][0];
+				$salida['idSolicitud']  = $idSolicitud;
+				$this->load->view("app/index",$salida);
+			}
+			else
+			{
+				$opc 				   = "home";
+				$salida['titulo']      = lang("titulo")." - Área Restringida";
+				$salida['centro'] 	   = "error/areaRestringida";
+				$this->load->view("app/index",$salida);
+			}
+		}
+		else
+		{
+			header('Location:'.base_url()."login");
+		}
+    }
     
     public function getSolicitudes()
     {

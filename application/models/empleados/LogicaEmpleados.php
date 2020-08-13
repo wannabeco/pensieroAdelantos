@@ -112,8 +112,10 @@ class LogicaEmpleados {
                 $mensaje     =   "Se ha registrado una nueva solicitud de adelanto de nómina, a continuación verá la información de la solicitud.<br><br>";
                 $mensaje    .=   "<strong>Solicitante: </strong> ".$listaEmpleados[0]['nombres']." ".$listaEmpleados[0]['apellidos']."<br>";
                 $mensaje    .=   "<strong>Empresa: </strong> ".$listaEmpleados[0]['nombre']."<br>";
-                $mensaje    .=   "<strong>Monto solicitado: </strong> ".$monto."<br>";
-                $mensaje    .=   "<strong>Fecha y hora: </strong> ".$dataInsertar['fechasolicitud']."<br>";
+                $mensaje    .=   "<strong>Monto solicitado: </strong> $".number_format($monto,0,',','.')."<br>";
+                $mensaje    .=   "<strong>Fecha y hora: </strong> ".$dataInsertar['fechasolicitud']."<br><br>";
+                $mensaje    .=   "Para ver más información de la solicitud haga clic en el siguiente botón<br><br>";
+                $mensaje    .=   "<a style='background:#ed1b24;color:#fff;text-align:center;text-decoration:none;font-weight:bold' href='".base_url()."/Solicitudes/infoSolicitud/41/".$respuestaSolicitud."'>VER SOLICITUD</a>";
                 //plantilla del mail
                 $plantilla   = plantillaMail($asunto,$mensaje);
                 //envio el codigo de ingreso al mail del usuario
