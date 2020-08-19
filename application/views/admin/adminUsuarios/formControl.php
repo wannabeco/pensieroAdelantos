@@ -15,7 +15,7 @@
                 <select tabindex="1"  id="tipoDocumento" name="tipoDocumento" class="form-control">
                     <option value=""></option>
                   <?php foreach($selects['tiposDoc'] as $listaTD){ ?>
-                      <option value="<?php echo $listaTD['idTipoDoc'] ?>" <?php echo (isset($datos['tipoDocumento']) && $listaTD['idTipoDoc'] == $datos['tipoDocumento'])?'selected':''; ?>><?php echo $listaTD['nombreTipoDoc'] ?></option>
+                      <option value="<?php echo $listaTD['idTipoDoc'] ?>" <?php echo (isset($datos['tipoDocumentoU']) && $listaTD['idTipoDoc'] == $datos['tipoDocumentoU'])?'selected':''; ?>><?php echo $listaTD['nombreTipoDoc'] ?></option>
                   <?php } ?>
                 </select>
               </div> 
@@ -23,7 +23,7 @@
           <div  class="col col-lg-6">
             <div class="form-group  label-floating">
                 <label class="control-label" for="nroDocumento">Documento de identidad</label>
-                  <input tabindex="2" autocomplete="off" id="nroDocumento" name="nroDocumento"  class="form-control" value="<?php echo (isset($datos['nroDocumento']))?$datos['nroDocumento']:''; ?>" type="text">
+                  <input tabindex="2" autocomplete="off" id="nroDocumento" name="nroDocumento"  class="form-control" value="<?php echo (isset($datos['nroDocumentoU']))?$datos['nroDocumentoU']:''; ?>" type="text">
               <p class="help-block"></p>
             </div>
           </div> 
