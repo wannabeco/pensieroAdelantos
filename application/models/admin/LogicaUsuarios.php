@@ -89,7 +89,7 @@ class LogicaUsuarios  {
         extract($post);
         if($edita == 1)//proceso de edición
         {   
-            $where['idPersona'] = $idUsuario;
+            $where['u.idPersona'] = $idUsuario;
             unset($post['edita']);
             unset($post['idUsuario']);
             $proceso            = $this->ci->dbUsuarios->actualizaUsuario($where,$post);
@@ -111,12 +111,12 @@ class LogicaUsuarios  {
         {
 
 
-            $whereExiste['nroDocumento']     =   $nroDocumento;
+            $whereExiste['u.nroDocumento']     =   $nroDocumento;
             $yaExistePersona   = $this->ci->dbUsuarios->infoUsuario($whereExiste);
             if(count($yaExistePersona) == 0)
             {
 
-                $whereExisteMail['email']     =   $email;
+                $whereExisteMail['u.email']     =   $email;
                 $yaExistePersonaMail   = $this->ci->dbUsuarios->infoUsuario($whereExisteMail);
                 if(count($yaExistePersonaMail) == 0)
                 {
