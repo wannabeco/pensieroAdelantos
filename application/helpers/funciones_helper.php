@@ -73,6 +73,8 @@ function eliminaCaracteres($cadena)
     return $cadena;
 }
 
+
+
 function sendMail($para,$asunto,$mensaje)
 {
     $ci = get_instance();
@@ -578,6 +580,27 @@ function sendNotifi($idPersona,$mensaje,$titulo)
         }
     }*/
 
+}
+
+//envio de SMS con la plataforma NEXTMO
+function sendSms($remitente,$destinatario,$mensaje)
+{
+    $ci = get_instance();
+    //cargo las librer'ias de los SMS
+    // load library
+    $ci->load->library('nexmo');
+    // set response format: xml or json, default json
+    $ci->nexmo->set_format('json');
+
+    $from = $remitente;
+    $to   = $destinatario;
+    $message = array(
+        'text' => $mensaje,
+    );
+    $response = $ci->nexmo->send_message($from, $to, $message);
+    // echo "<h1>Text Message</h1>";
+    // $ci->nexmo->d_print($response);
+    // echo "<h3>Response Code: ".$ci->nexmo->get_http_status()."</h3>";
 }
 
 //plantilla de envio de correo electronico

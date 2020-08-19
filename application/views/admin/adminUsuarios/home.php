@@ -68,7 +68,7 @@
                             <tbody>
                                 <tr ng-repeat="ulist in usuarios  | filter:q as results"  ng-if="ulist.idPersona > 1">
                                     <td class="text-center">{{ulist.nombreEmpresa}}</td>
-                                    <td>{{ulist.nombre}} {{ulist.apellido}}</td>
+                                    <td>{{ulist.nombreUsuario}} {{ulist.apellido}}</td>
                                     <td>{{ulist.nombrePerfil}}</td>
                                     <td class="text-center">
                                     <i class="fa fa-lock" ng-if="ulist.clave != null" title="Este usuario posee datos de acceso a la plataforma. Usuario y clave"></i>

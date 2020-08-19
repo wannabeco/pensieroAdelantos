@@ -62,7 +62,7 @@ class BaseDatosUsuarios extends CI_Model {
     }
     public function infoUsuario($where="")
     {
-        $this->db->select("u.*,u.estado as estadoU,p.nombrePerfil,e.nombre as nombreEmpresa, e.*,l.*");
+        $this->db->select("u.*,u.estado as estadoU,p.nombrePerfil,e.nombre as nombreEmpresa,u.nombre as nombreUsuario,u.telefono as telUsuario,u.email as emailUsuario, u.celular as celUsuario, e.*,l.*");
         if(count($where) > 0)
         {
             $this->db->where($where);

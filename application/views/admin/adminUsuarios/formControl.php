@@ -57,7 +57,7 @@
             <div class="col col-lg-6">
                 <div class="form-group  label-floating">
                   <label class="control-label" for="nombre">Nombres</label>
-                  <input tabindex="5" autocomplete="off" id="nombre" name="nombre"  class="form-control" value="<?php echo (isset($datos['nombre']))?$datos['nombre']:''; ?>"  type="text">
+                  <input tabindex="5" autocomplete="off" id="nombre" name="nombre"  class="form-control" value="<?php echo (isset($datos['nombreUsuario']))?$datos['nombreUsuario']:''; ?>"  type="text">
                   <p class="help-block"></p>
                 </div> 
             </div>
@@ -88,14 +88,14 @@
            <!-- <div class="col col-lg-6">
                 <div class="form-group  label-floating">
                   <label class="control-label" for="telefono">Teléfono de contacto</label>
-                  <input tabindex="9" autocomplete="off" id="telefono" name="telefono"  class="form-control" value="<?php echo (isset($datos['telefono']))?$datos['telefono']:''; ?>"  type="text">
+                  <input tabindex="9" autocomplete="off" id="telefono" name="telefono"  class="form-control" value="<?php echo (isset($datos['telUsuario']))?$datos['telUsuario']:''; ?>"  type="text">
                   <p class="help-block">Sin caracteres especiales</p>
                 </div> 
             </div> -->
            <div class="col col-lg-6">
                 <div class="form-group  label-floating">
                   <label class="control-label" for="celular">Celular de contacto</label>
-                  <input tabindex="10" autocomplete="off" id="celular" name="celular"  class="form-control" value="<?php echo (isset($datos['celular']))?$datos['celular']:''; ?>"  type="text">
+                  <input tabindex="10" autocomplete="off" id="celular" name="celular"  class="form-control" value="<?php echo (isset($datos['celUsuario']))?$datos['celUsuario']:''; ?>"  type="text">
                 </div> 
             </div>
         
@@ -206,7 +206,7 @@
             <div  class="col col-lg-6">
               <div class="form-group  label-floating">
                   <label class="control-label" for="email">Correo electrónico</label>
-                    <input tabindex="23" autocomplete="off" id="email" name="email"  class="form-control" value="<?php echo (isset($datos['email']))?$datos['email']:''; ?>" type="text">
+                    <input tabindex="23" autocomplete="off" id="email" name="email"  class="form-control" value="<?php echo (isset($datos['emailUsuario']))?$datos['emailUsuario']:''; ?>" type="text">
               </div>
             </div>
 
