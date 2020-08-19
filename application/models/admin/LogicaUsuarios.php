@@ -71,7 +71,7 @@ class LogicaUsuarios  {
         {
             auditoria("GENDATOSACCESOPERSONA","Se ha generado una clave de acceso a la persona la persona | ".$idUsuario);
             //debo de enviar un correo electrónico al usuario al cuál le han generado una clave de acceso al sistema
-            $respuesta = array("mensaje"=>"Se ha generado correctamente la clave de acceso del usuario.<br>Los datos de acceso son los siguientes:<br><br><strong>Usuario:</strong><br>".$dataUsuario[0]['email']."<br><strong>Clave:</strong><br>".$clave."",
+            $respuesta = array("mensaje"=>"Se ha generado correctamente la clave de acceso del usuario.<br>Los datos de acceso son los siguientes:<br><br><strong>Usuario:</strong><br>".$dataUsuario[0]['emailUsuario']."<br><strong>Clave:</strong><br>".$clave."",
                           "continuar"=>1,
                           "datos"=>$proceso); 
         }
