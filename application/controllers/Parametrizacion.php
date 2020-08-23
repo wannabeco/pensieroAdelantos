@@ -229,6 +229,63 @@ class Parametrizacion extends CI_Controller
 		}
 	}
 
+
+	
+	public function kerrodal($idModulo)	
+	{
+		//ini_set("display_errors",'1');
+		//valido que haya una sesión de usuario, si no existe siempre lo enviaré al login
+		if(validaIngreso())
+		{
+			/*******************************************************************************************/
+			/* ESTA SECCIÓN DE CÓDIGO  ES MUY IMPORTANTE YA QUE ES LA QUE CONTROLARÁ EL MÓDULO VISITADO*/
+			/*******************************************************************************************/
+			//si no se declara está variable en cada inicio del módulo no se podrán consultar los privilegios
+			$_SESSION['moduloVisitado']		=	$idModulo;
+			//antes de pintar la plantilla del módulo valido si hay permisos de ver ese módulo para evitar que ingresen al módulo vía URL
+			if(getPrivilegios()[0]['ver'] == 1)
+			{ 
+					try{
+						$crud = new grocery_CRUD();
+						$crud->set_theme('datatables');
+						$crud->set_table('app_info_kerrodal');
+						$crud->set_subject('faq');
+						//$crud->set_subject('Office');
+						$crud->required_fields('textoQuienes');
+						$crud->display_as('Texto acerca de Kerrodal','textoQuienes');
+						$crud->columns('textoQuienes');
+						$crud->fields('textoQuienes');
+						//$crud->unset_texteditor('textoQuienes');
+						$crud->unset_clone();
+						
+						$output = $crud->render();
+						
+					}catch(Exception $e){
+						show_error($e->getMessage().' --- '.$e->getTraceAsString());
+					}
+				//info Módulo
+				$infoModulo	      	   = $this->logica->infoModulo($idModulo);
+				$opc 				   = "home";
+				$salida['titulo']      = "Acerca de Kerrodal";
+				$salida['output'] 	   = $output;
+				$salida['centro'] 	   = 'admin/centroEstandarPar';
+				$salida['infoModulo']  = $infoModulo[0];
+				$this->load->view("app/index",$salida);
+			}
+			else
+			{
+				$opc 				   = "home";
+				$salida['titulo']      = lang("titulo")." - Área Restringida";
+				$salida['centro'] 	   = "error/areaRestringida";
+				$this->load->view("app/index",$salida);
+			}
+		}
+		else
+		{
+			header('Location:'.base_url()."login");
+		}
+	}
+
 	public function bancos($idModulo)	
 	{
 		//ini_set("display_errors",'1');

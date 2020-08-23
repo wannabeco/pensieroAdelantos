@@ -157,6 +157,23 @@ class Api extends CI_Controller
         //retorno la salida del servidor
         echo json_encode($salida);
     }
+    //consulta la información del quiénes somos
+    public function consultaQuienes()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $salida = $this->logica->consultaQuienes();
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                                "datos"=>array(),
+                                "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+    }
     //Consulta BANCOS
     public function consultaBancos()
     {

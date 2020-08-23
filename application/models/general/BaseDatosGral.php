@@ -55,12 +55,22 @@ class BaseDatosGral extends CI_Model {
         $this->tableVariablesGlobales    = "app_variablesglobales";
         $this->tableFaqs                 = "app_faqs";
         $this->tableBancos               = "app_bancos";
+        $this->tableInfoQuienes          = "app_info_kerrodal";
     }
     public function getVariablesGlobales()
     {
         $this->db->select("*");
         $this->db->from($this->tableVariablesGlobales);
         $this->db->order_by("variable","ASC");
+        $id = $this->db->get();
+        //print_r($this->db->last_query());die();
+        return $id->result_array();
+    }
+    public function consultaQuienes()
+    {
+        $this->db->select("*");
+        $this->db->from($this->tableInfoQuienes);
+        //$this->db->order_by("variable","ASC");
         $id = $this->db->get();
         //print_r($this->db->last_query());die();
         return $id->result_array();

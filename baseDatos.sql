@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 13-08-2020 a las 00:13:02
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 5.6.39
+-- Servidor: localhost:3306
+-- Tiempo de generación: 20-08-2020 a las 17:17:40
+-- Versión del servidor: 10.3.23-MariaDB
+-- Versión de PHP: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `pensieroAdelantos`
+-- Base de datos: `jyfaghym_kerrodal`
 --
 
 -- --------------------------------------------------------
@@ -28,10 +28,11 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `app_areas`
 --
 
+DROP TABLE IF EXISTS `app_areas`;
 CREATE TABLE `app_areas` (
   `idArea` bigint(20) NOT NULL,
-  `nombreArea` text,
-  `estado` int(11) DEFAULT '1'
+  `nombreArea` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -47,14 +48,15 @@ INSERT INTO `app_areas` (`idArea`, `nombreArea`, `estado`) VALUES
 -- Estructura de tabla para la tabla `app_auditoria_general`
 --
 
+DROP TABLE IF EXISTS `app_auditoria_general`;
 CREATE TABLE `app_auditoria_general` (
   `idAuditoria` bigint(20) NOT NULL,
-  `tipoAuditoria` text,
-  `textAuditoria` text,
+  `tipoAuditoria` text DEFAULT NULL,
+  `textAuditoria` text DEFAULT NULL,
   `idUsuario` bigint(20) DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
-  `ip` text,
-  `estado` int(11) DEFAULT '1'
+  `ip` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -299,7 +301,32 @@ INSERT INTO `app_auditoria_general` (`idAuditoria`, `tipoAuditoria`, `textAudito
 (235, 'PRIVILEGIOSMODULOS', 'Se actualizaron los provilegios del módulo: ver=1, crear=1, editar=1, borrar=1 para el perfil=2 | 41', 1, '2020-08-11 16:31:26', '192.168.0.106', 1),
 (236, 'PRIVILEGIOSMODULOS', 'Se actualizaron los provilegios del módulo: ver=0, crear=0, editar=0, borrar=0 para el perfil=3 | 41', 1, '2020-08-11 16:31:26', '192.168.0.106', 1),
 (237, 'PRIVILEGIOSMODULOS', 'Se actualizaron los provilegios del módulo: ver=1, crear=1, editar=1, borrar=1 para el perfil=1 | 41', 1, '2020-08-11 16:31:26', '192.168.0.106', 1),
-(238, 'INICIODESESION', 'Ha ingresado al sistema el usuario Administrador Principal | 1', 1, '2020-08-12 14:23:25', '192.168.0.103', 1);
+(238, 'INICIODESESION', 'Ha ingresado al sistema el usuario Administrador Principal | 1', 1, '2020-08-12 14:23:25', '192.168.0.103', 1),
+(239, 'INICIODESESION', 'Ha ingresado al sistema el usuario Administrador Principal | 1', 1, '2020-08-13 05:40:47', '179.51.121.5', 1),
+(240, 'INICIODESESION', 'Ha ingresado al sistema el usuario Administrador Principal | 1', 1, '2020-08-13 05:40:48', '179.51.121.5', 1),
+(241, 'INICIODESESION', 'Ha ingresado al sistema el usuario Administrador Principal | 1', 1, '2020-08-13 05:40:48', '179.51.121.5', 1),
+(242, 'INICIODESESION', 'Ha ingresado al sistema el usuario Administrador Principal | 1', 1, '2020-08-13 05:40:48', '179.51.121.5', 1),
+(243, 'INICIODESESION', 'Ha ingresado al sistema el usuario Administrador Principal | 1', 1, '2020-08-13 05:40:48', '179.51.121.5', 1),
+(244, 'INICIODESESION', 'Ha ingresado al sistema el usuario Administrador Principal | 1', 1, '2020-08-13 05:40:48', '179.51.121.5', 1),
+(245, 'CREACIONPERSONA', 'Se ha creado la persona | 6', 1, '2020-08-13 06:01:36', '179.51.121.5', 1),
+(246, 'INICIODESESION', 'Ha ingresado al sistema el usuario Administrador Principal | 1', 1, '2020-08-19 06:25:04', '179.51.121.6', 1),
+(247, 'EDICIONPERSONA', 'Se ha actualizado la información de la persona | 6', 1, '2020-08-19 06:26:51', '179.51.121.6', 1),
+(248, 'EDICIONPERSONA', 'Se ha actualizado la información de la persona | 6', 1, '2020-08-19 06:42:22', '179.51.121.6', 1),
+(249, 'GENDATOSACCESOPERSONA', 'Se ha generado una clave de acceso a la persona la persona | 6', 1, '2020-08-19 06:42:30', '179.51.121.6', 1),
+(250, 'BORRADOPERSONA', 'Se ha borrado la información de la persona | 6', 1, '2020-08-19 06:44:29', '179.51.121.6', 1),
+(251, 'CREACIONPERSONA', 'Se ha creado la persona | 7', 1, '2020-08-19 06:52:00', '179.51.121.6', 1),
+(252, 'GENDATOSACCESOPERSONA', 'Se ha generado una clave de acceso a la persona la persona | 7', 1, '2020-08-19 06:52:08', '179.51.121.6', 1),
+(253, 'GENDATOSACCESOPERSONA', 'Se ha generado una clave de acceso a la persona la persona | 7', 1, '2020-08-19 06:53:36', '179.51.121.6', 1),
+(254, 'GENDATOSACCESOPERSONA', 'Se ha generado una clave de acceso a la persona la persona | 4', 1, '2020-08-19 06:56:59', '179.51.121.6', 1),
+(255, 'CIERREDESESION', 'Ha salido del sistema el usuario Administrador Principal | 1', 1, '2020-08-19 06:58:44', '179.51.121.6', 1),
+(256, 'INICIODESESION', 'Ha ingresado al sistema el usuario Paola Marino | 7', 7, '2020-08-19 06:59:05', '179.51.121.6', 1),
+(257, 'CIERREDESESION', 'Ha salido del sistema el usuario Paola Marino | 7', 7, '2020-08-19 07:34:00', '179.51.121.6', 1),
+(258, 'INICIODESESION', 'Ha ingresado al sistema el usuario Administrador Principal | 1', 1, '2020-08-19 07:34:43', '179.51.121.6', 1),
+(259, 'CIERREDESESION', 'Ha salido del sistema el usuario Administrador Principal | 1', 1, '2020-08-19 07:39:04', '179.51.121.6', 1),
+(260, 'INICIODESESION', 'Ha ingresado al sistema el usuario Administrador Principal | 1', 1, '2020-08-19 07:39:33', '179.51.121.6', 1),
+(261, 'GENDATOSACCESOPERSONA', 'Se ha generado una clave de acceso a la persona la persona | 4', 1, '2020-08-19 07:40:33', '179.51.121.6', 1),
+(262, 'CIERREDESESION', 'Ha salido del sistema el usuario Administrador Principal | 1', 1, '2020-08-19 07:40:40', '179.51.121.6', 1),
+(263, 'INICIODESESION', 'Ha ingresado al sistema el usuario Admin General | 4', 4, '2020-08-19 07:40:50', '179.51.121.6', 1);
 
 -- --------------------------------------------------------
 
@@ -307,6 +334,7 @@ INSERT INTO `app_auditoria_general` (`idAuditoria`, `tipoAuditoria`, `textAudito
 -- Estructura de tabla para la tabla `app_bancos`
 --
 
+DROP TABLE IF EXISTS `app_bancos`;
 CREATE TABLE `app_bancos` (
   `idEntidad` bigint(11) UNSIGNED NOT NULL,
   `nombreEntidad` varchar(255) DEFAULT NULL
@@ -340,11 +368,12 @@ INSERT INTO `app_bancos` (`idEntidad`, `nombreEntidad`) VALUES
 -- Estructura de tabla para la tabla `app_cargos`
 --
 
+DROP TABLE IF EXISTS `app_cargos`;
 CREATE TABLE `app_cargos` (
   `idCargo` bigint(20) NOT NULL,
-  `nombreCargo` text,
-  `especialista` int(11) DEFAULT '0',
-  `estado` int(11) DEFAULT '1'
+  `nombreCargo` text DEFAULT NULL,
+  `especialista` int(11) DEFAULT 0,
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -360,10 +389,11 @@ INSERT INTO `app_cargos` (`idCargo`, `nombreCargo`, `especialista`, `estado`) VA
 -- Estructura de tabla para la tabla `app_cesantias`
 --
 
+DROP TABLE IF EXISTS `app_cesantias`;
 CREATE TABLE `app_cesantias` (
   `id_app_cesantias` bigint(20) NOT NULL,
-  `nombrefondocesantias` text,
-  `estado` int(11) DEFAULT '1'
+  `nombrefondocesantias` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -386,6 +416,7 @@ INSERT INTO `app_cesantias` (`id_app_cesantias`, `nombrefondocesantias`, `estado
 -- Estructura de tabla para la tabla `app_citas`
 --
 
+DROP TABLE IF EXISTS `app_citas`;
 CREATE TABLE `app_citas` (
   `idCita` bigint(20) NOT NULL,
   `idServicio` bigint(20) DEFAULT NULL,
@@ -397,11 +428,11 @@ CREATE TABLE `app_citas` (
   `horaFinCita` time DEFAULT NULL,
   `usuarioCrea` bigint(20) DEFAULT NULL,
   `fechaCrea` datetime DEFAULT NULL,
-  `ip` text,
-  `tomada` int(11) DEFAULT '1',
-  `observaciones` text,
-  `estado` int(11) DEFAULT '1',
-  `eliminado` int(11) DEFAULT '0'
+  `ip` text DEFAULT NULL,
+  `tomada` int(11) DEFAULT 1,
+  `observaciones` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1,
+  `eliminado` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -465,12 +496,13 @@ INSERT INTO `app_citas` (`idCita`, `idServicio`, `idEspecialista`, `idPaciente`,
 -- Estructura de tabla para la tabla `app_ciudades`
 --
 
+DROP TABLE IF EXISTS `app_ciudades`;
 CREATE TABLE `app_ciudades` (
   `ID_PAIS` varchar(10) NOT NULL,
   `ID_DPTO` varchar(10) NOT NULL,
   `ID_CIUDAD` varchar(10) NOT NULL,
   `NOMBRE` varchar(255) NOT NULL,
-  `estado` int(11) DEFAULT '1'
+  `estado` int(11) DEFAULT 1
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -1515,11 +1547,12 @@ INSERT INTO `app_ciudades` (`ID_PAIS`, `ID_DPTO`, `ID_CIUDAD`, `NOMBRE`, `estado
 -- Estructura de tabla para la tabla `app_departamentos`
 --
 
+DROP TABLE IF EXISTS `app_departamentos`;
 CREATE TABLE `app_departamentos` (
   `ID_PAIS` varchar(10) NOT NULL,
   `ID_DPTO` varchar(10) NOT NULL,
   `NOMBRE` varchar(255) NOT NULL,
-  `estado` int(11) DEFAULT '1'
+  `estado` int(11) DEFAULT 1
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -1567,27 +1600,28 @@ INSERT INTO `app_departamentos` (`ID_PAIS`, `ID_DPTO`, `NOMBRE`, `estado`) VALUE
 -- Estructura de tabla para la tabla `app_empleados`
 --
 
+DROP TABLE IF EXISTS `app_empleados`;
 CREATE TABLE `app_empleados` (
   `idEmpleado` bigint(20) NOT NULL,
   `idEmpresa` bigint(20) DEFAULT NULL,
   `codigoVerificacion` varchar(10) DEFAULT NULL,
   `caducidadCodigo` datetime DEFAULT NULL,
-  `nombres` text,
-  `apellidos` text,
-  `cargo` text,
+  `nombres` text DEFAULT NULL,
+  `apellidos` text DEFAULT NULL,
+  `cargo` text DEFAULT NULL,
   `tipoDocumento` int(11) DEFAULT NULL,
-  `nroDocumento` text,
-  `direccion` text,
+  `nroDocumento` text DEFAULT NULL,
+  `direccion` text DEFAULT NULL,
   `genero` int(11) DEFAULT NULL,
   `telefono` int(11) DEFAULT NULL,
-  `email` text,
-  `clave` text,
-  `clave64` text,
-  `cambiarClave` int(11) DEFAULT '1',
+  `email` text DEFAULT NULL,
+  `clave` text DEFAULT NULL,
+  `clave64` text DEFAULT NULL,
+  `cambiarClave` int(11) DEFAULT 1,
   `salario` int(11) DEFAULT NULL,
   `ultimoIngreso` datetime DEFAULT NULL,
-  `estado` int(11) DEFAULT '1',
-  `eliminado` int(11) DEFAULT '0'
+  `estado` int(11) DEFAULT 1,
+  `eliminado` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1595,14 +1629,7 @@ CREATE TABLE `app_empleados` (
 --
 
 INSERT INTO `app_empleados` (`idEmpleado`, `idEmpresa`, `codigoVerificacion`, `caducidadCodigo`, `nombres`, `apellidos`, `cargo`, `tipoDocumento`, `nroDocumento`, `direccion`, `genero`, `telefono`, `email`, `clave`, `clave64`, `cambiarClave`, `salario`, `ultimoIngreso`, `estado`, `eliminado`) VALUES
-(1, 7, '8263', '2020-08-12 16:30:50', 'Javier Giovanny', 'Neuta Triviño', 'Ingeniero de desarrollo', 4, '1030534849', 'Bogota', 1, 2147483647, 'desarrollo@wannabe.com.co', '8cb2237d0679ca88db6464eac60da96345513964', 'MTIzNDU=', 0, 3000000, NULL, 1, 0),
-(2, 5, '5226', '2020-08-12 16:22:50', 'Viviana', 'Sogamoso', 'Admnistrativa', 4, '123456789', 'Barranquilla', 2, 2147483647, 'vsogamoso@pensiero.com.co', '8cb2237d0679ca88db6464eac60da96345513964', 'MTIzNDU=', 0, 2000000, NULL, 1, 0),
-(3, 7, NULL, NULL, 'Marcel', 'Gomez', 'Ingeniero de desarrollo', 4, '123456987', 'Calle 12345', 1, 356699879, 'mgomez@wannabe.com.co', '62284804d672e991835ee09486b589f816f565f8', NULL, 1, 1800000, NULL, 1, 0),
-(6, 7, NULL, NULL, 'Sandra Marcela', 'Ramirez', 'Jefe de unidad', 4, '1234567899', 'calle 27 # 20 20', 2, 2147483647, 'leshleedayhane@gmail.com', 'fa213fbfd3c4bd1e298a01faee0652ce8aece66e', NULL, 1, 3000000, NULL, 1, 0),
-(7, 7, NULL, NULL, 'Jhon', 'Puerto', 'Programador', 4, '12345678999', 'calle 27 # 20 20', 1, 312566988, 'jhonato@gmail.com', '1d4333642acc00d0f11aa4ffe87286be54d2902d', NULL, 1, 2500000, NULL, 1, 0),
-(8, 7, NULL, NULL, 'Giovanny', 'Neuta', 'Programador', 4, '4558990009', 'calle 27 # 20 20', 1, 2147483647, 'gjneutat@gmail.com', '9c68767d6335355929b5ed0ba864ab4d1327c461', NULL, 1, 1500000, NULL, 1, 0),
-(9, 7, NULL, NULL, NULL, NULL, NULL, 11, NULL, NULL, 11, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0, 1),
-(10, 7, NULL, NULL, 'Prueba ', 'Usuario', 'Cargo de prueba', 4, '123456', 'Calle falsa 123', 1, 2147483647, 'prueba@prueba.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'MTIzNDU2', 1, 1500000, NULL, 1, 0);
+(1, 5, '1457', '2020-08-20 06:44:56', 'Farez', 'Prieto', 'Desarrollador de software', 9, '1030534849', 'Carrera 53 n. 100-50 oficina 609, Centro Comercial y Empresarial Blue Gardens', 1, 2147483647, 'desarrollo@wannabe.com.co', '8cb2237d0679ca88db6464eac60da96345513964', 'MTIzNDU=', 0, 800000, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1610,11 +1637,12 @@ INSERT INTO `app_empleados` (`idEmpleado`, `idEmpresa`, `codigoVerificacion`, `c
 -- Estructura de tabla para la tabla `app_empresas`
 --
 
+DROP TABLE IF EXISTS `app_empresas`;
 CREATE TABLE `app_empresas` (
   `idEmpresa` bigint(20) NOT NULL,
-  `nombre` text,
-  `direccion` text,
-  `telefono` text,
+  `nombre` text DEFAULT NULL,
+  `direccion` text DEFAULT NULL,
+  `telefono` text DEFAULT NULL,
   `celular` int(11) DEFAULT NULL,
   `ciudad` int(11) DEFAULT NULL,
   `departamento` int(11) DEFAULT NULL,
@@ -1622,24 +1650,23 @@ CREATE TABLE `app_empresas` (
   `tipoDocumento` int(11) DEFAULT NULL,
   `nroDocumento` varchar(20) DEFAULT NULL,
   `tipoActividad` int(11) DEFAULT NULL,
-  `logo` text,
-  `icono` text,
-  `nombreEncargado` text,
-  `email` text,
+  `logo` text DEFAULT NULL,
+  `icono` text DEFAULT NULL,
+  `nombreEncargado` text DEFAULT NULL,
+  `personaContacto` text NOT NULL,
+  `telefonoContacto` varchar(50) NOT NULL,
+  `email` text DEFAULT NULL,
   `ultimoIngreso` datetime DEFAULT NULL,
-  `estado` int(11) DEFAULT '1',
-  `eliminado` int(11) DEFAULT '0'
+  `estado` int(11) DEFAULT 1,
+  `eliminado` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `app_empresas`
 --
 
-INSERT INTO `app_empresas` (`idEmpresa`, `nombre`, `direccion`, `telefono`, `celular`, `ciudad`, `departamento`, `pais`, `tipoDocumento`, `nroDocumento`, `tipoActividad`, `logo`, `icono`, `nombreEncargado`, `email`, `ultimoIngreso`, `estado`, `eliminado`) VALUES
-(1, 'Orugal Corp', 'Cra 81 # 11 09', '3114881738', NULL, 1, 11, NULL, 9, '12345', NULL, 'perfil.jpg', 'perfil.jpg', 'Jhon Puerto', 'info@orugal.com.co', NULL, 1, 1),
-(5, 'Pensiero International Advisors', 'Carrera 53 n. 100-50 oficina 609, Centro Comercial y Empresarial Blue Gardens', '3131678900', 2147483647, 1, 8, NULL, 9, '12345789-0', NULL, NULL, NULL, 'Mario Soto', 'msoto@pensiero.com.co', NULL, 1, 0),
-(6, 'fgdfgdfgf', 'dfgdfgdfg', '45345345', NULL, 1, 11, NULL, 9, '12345', NULL, NULL, NULL, 'Jhon Puerto', 'kyodfgdfgf@fsdfdf.vom', NULL, 0, 1),
-(7, 'Wannabe Digital', 'Bogota', '3114881738', 0, NULL, NULL, NULL, 4, '1030534849', NULL, NULL, NULL, 'Farez Prieto', 'desarrollo@wannabe.com.co', NULL, 1, 0);
+INSERT INTO `app_empresas` (`idEmpresa`, `nombre`, `direccion`, `telefono`, `celular`, `ciudad`, `departamento`, `pais`, `tipoDocumento`, `nroDocumento`, `tipoActividad`, `logo`, `icono`, `nombreEncargado`, `personaContacto`, `telefonoContacto`, `email`, `ultimoIngreso`, `estado`, `eliminado`) VALUES
+(5, 'Pensiero International Advisors', 'Carrera 53 n. 100-50 oficina 609, Centro Comercial y Empresarial Blue Gardens', '3131678900', 2147483647, 1, 8, NULL, 9, '12345789-0', NULL, NULL, NULL, 'Mario Soto', 'Viviana Sogamoso', '3102300356', 'msoto@pensiero.com.co', NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1647,16 +1674,17 @@ INSERT INTO `app_empresas` (`idEmpresa`, `nombre`, `direccion`, `telefono`, `cel
 -- Estructura de tabla para la tabla `app_estadopago`
 --
 
+DROP TABLE IF EXISTS `app_estadopago`;
 CREATE TABLE `app_estadopago` (
   `idPago` bigint(20) NOT NULL,
   `idEmpresa` bigint(20) DEFAULT NULL,
-  `esDemo` int(11) DEFAULT '1',
-  `descripcion` text,
+  `esDemo` int(11) DEFAULT 1,
+  `descripcion` text DEFAULT NULL,
   `fechaInicio` datetime DEFAULT NULL,
   `fechaFin` datetime DEFAULT NULL,
   `cantComprada` int(11) DEFAULT NULL,
-  `estado` int(11) DEFAULT '1',
-  `eliminado` int(11) DEFAULT '0'
+  `estado` int(11) DEFAULT 1,
+  `eliminado` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1677,6 +1705,7 @@ INSERT INTO `app_estadopago` (`idPago`, `idEmpresa`, `esDemo`, `descripcion`, `f
 -- Estructura de tabla para la tabla `app_estados`
 --
 
+DROP TABLE IF EXISTS `app_estados`;
 CREATE TABLE `app_estados` (
   `idEstado` int(11) NOT NULL,
   `nombreEstado` varchar(10) DEFAULT NULL
@@ -1696,11 +1725,12 @@ INSERT INTO `app_estados` (`idEstado`, `nombreEstado`) VALUES
 -- Estructura de tabla para la tabla `app_faqs`
 --
 
+DROP TABLE IF EXISTS `app_faqs`;
 CREATE TABLE `app_faqs` (
   `idFac` bigint(11) UNSIGNED NOT NULL,
   `tituloFaq` varchar(255) DEFAULT '',
-  `respuestaFaq` text,
-  `orden` bigint(20) DEFAULT '0'
+  `respuestaFaq` text DEFAULT NULL,
+  `orden` bigint(20) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1719,10 +1749,11 @@ INSERT INTO `app_faqs` (`idFac`, `tituloFaq`, `respuestaFaq`, `orden`) VALUES
 -- Estructura de tabla para la tabla `app_listado_afp`
 --
 
+DROP TABLE IF EXISTS `app_listado_afp`;
 CREATE TABLE `app_listado_afp` (
   `id_afp` bigint(20) NOT NULL,
-  `des_afp` text,
-  `estado` int(11) DEFAULT '1'
+  `des_afp` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1754,10 +1785,11 @@ INSERT INTO `app_listado_afp` (`id_afp`, `des_afp`, `estado`) VALUES
 -- Estructura de tabla para la tabla `app_listado_eps`
 --
 
+DROP TABLE IF EXISTS `app_listado_eps`;
 CREATE TABLE `app_listado_eps` (
   `id_eps` bigint(20) NOT NULL,
-  `des_eps` text,
-  `estado` int(11) DEFAULT '1'
+  `des_eps` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1798,6 +1830,7 @@ INSERT INTO `app_listado_eps` (`id_eps`, `des_eps`, `estado`) VALUES
 -- Estructura de tabla para la tabla `app_listas`
 --
 
+DROP TABLE IF EXISTS `app_listas`;
 CREATE TABLE `app_listas` (
   `idLista` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1808,9 +1841,10 @@ CREATE TABLE `app_listas` (
 -- Estructura de tabla para la tabla `app_lista_religiones`
 --
 
+DROP TABLE IF EXISTS `app_lista_religiones`;
 CREATE TABLE `app_lista_religiones` (
   `id_religion` bigint(20) NOT NULL,
-  `des_religiones` text,
+  `des_religiones` text DEFAULT NULL,
   `estado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1903,17 +1937,18 @@ INSERT INTO `app_lista_religiones` (`id_religion`, `des_religiones`, `estado`) V
 -- Estructura de tabla para la tabla `app_login`
 --
 
+DROP TABLE IF EXISTS `app_login`;
 CREATE TABLE `app_login` (
   `idLogin` bigint(20) NOT NULL,
   `idGeneral` bigint(20) DEFAULT NULL,
   `tipoLogin` int(11) DEFAULT NULL,
-  `usuario` text,
-  `clave` text,
-  `clave64` text,
-  `cambioClave` int(11) DEFAULT '1',
-  `primeraVez` int(11) DEFAULT '1',
-  `verificado` int(11) DEFAULT '0',
-  `estado` int(11) DEFAULT '1'
+  `usuario` text DEFAULT NULL,
+  `clave` text DEFAULT NULL,
+  `clave64` text DEFAULT NULL,
+  `cambioClave` int(11) DEFAULT 1,
+  `primeraVez` int(11) DEFAULT 1,
+  `verificado` int(11) DEFAULT 0,
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1922,8 +1957,9 @@ CREATE TABLE `app_login` (
 
 INSERT INTO `app_login` (`idLogin`, `idGeneral`, `tipoLogin`, `usuario`, `clave`, `clave64`, `cambioClave`, `primeraVez`, `verificado`, `estado`) VALUES
 (7, 1, 2, 'desarrollo@wannabe.com.co', 'ab7cbb06054fc9823a6370abe602a09ee0dc2736', 'dkRzakI=', 1, 1, 0, 1),
-(10, 4, 2, 'admin@pensiero.com.co', '866476a47c856b5b9f45e3ebe58aa6eaef9a50a0', 'MTAzMDUzNDg0OQ==', 0, 1, 0, 1),
-(11, 5, 2, 'admin@wannabe.com.co', '495a8ad255866d3d61898384a3a4cccbac41a91c', 'd2FubmFiZTEwMzA1MzQ4NDk=', 0, 1, 0, 1);
+(10, 4, 2, 'info@pensiero.com.co', '9de48eebda7d7257183fe41f5fe630cf32fb61fb', 'TlVkdlU=', 0, 1, 0, 1),
+(11, 5, 2, 'admin@wannabe.com.co', '495a8ad255866d3d61898384a3a4cccbac41a91c', 'd2FubmFiZTEwMzA1MzQ4NDk=', 0, 1, 0, 1),
+(13, 7, 2, 'pmarino@pensiero.com.co', '957aa3403c693b073b7c5af844170e82d0cd889a', 'MVNvdnU=', 1, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1931,14 +1967,15 @@ INSERT INTO `app_login` (`idLogin`, `idGeneral`, `tipoLogin`, `usuario`, `clave`
 -- Estructura de tabla para la tabla `app_mails`
 --
 
+DROP TABLE IF EXISTS `app_mails`;
 CREATE TABLE `app_mails` (
   `idMail` bigint(20) NOT NULL,
-  `para` text,
-  `asunto` text,
-  `mensaje` text,
+  `para` text DEFAULT NULL,
+  `asunto` text DEFAULT NULL,
+  `mensaje` text DEFAULT NULL,
   `estado` int(11) DEFAULT NULL,
   `fechaEnvio` datetime DEFAULT NULL,
-  `ip` text
+  `ip` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1962,7 +1999,15 @@ INSERT INTO `app_mails` (`idMail`, `para`, `asunto`, `mensaje`, `estado`, `fecha
 (68, 'desarrollo@wannabe.com.co', 'Codigo de verificacion Kerrodal', 'Hola, ingresa el código que verás a continuación en la app móvil.<br><br><strong>1317</strong>', 0, '2020-08-04 09:46:33', '192.168.0.107'),
 (69, 'desarrollo@wannabe.com.co', 'Codigo de verificacion Kerrodal', 'Hola, ingresa el código que verás a continuación en la app móvil.<br><br><strong>6035</strong>', 0, '2020-08-04 09:52:58', '192.168.0.107'),
 (70, 'desarrollo@wannabe.com.co', 'Codigo de verificacion Kerrodal', 'Hola, ingresa el código que verás a continuación en la app móvil.<br><br><strong>0022</strong>', 0, '2020-08-04 09:54:11', '192.168.0.107'),
-(71, 'desarrollo@wannabe.com.co', 'Codigo de verificacion Kerrodal', 'Hola, ingresa el código que verás a continuación en la app móvil.<br><br><strong>7452</strong>', 0, '2020-08-04 09:54:56', '192.168.0.107');
+(71, 'desarrollo@wannabe.com.co', 'Codigo de verificacion Kerrodal', 'Hola, ingresa el código que verás a continuación en la app móvil.<br><br><strong>7452</strong>', 0, '2020-08-04 09:54:56', '192.168.0.107'),
+(72, 'msoto@pensiero.com.co', 'Codigo de verificacion Kerrodal', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>Mailing Codigo de verificacion Kerrodal</title>	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>	</head><body style=\"margin: 0; padding: 0;\"><br><table align=\"center\" border=\"0\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\"><tr><td align=\"center\" bgcolor=\"#fff\" style=\"padding: 40px 0 30px 0;\"><img src=\"https://www.kerrodal.com/plataforma/res/img/logo.png\" alt=\"Logo Kerrodal\" width=\"300\" style=\"display: block;\" /></td></tr><tr><td bgcolor=\"#ffffff\" style=\"color:#444;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 14px;\"><img src=\'\'><br><br>Hola, ingresa el código que verás a continuación en la app móvil.<br><br><strong>2578</strong></td></tr><tr><td bgcolor=\"#000\" style=\"text-align:center;color:#fff;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 35px;\">No responder este mensaje</td></tr></table></body></html>', 1, '2020-08-13 08:21:42', '179.51.121.5'),
+(73, 'desarrollo@wannabe.com.co', 'Codigo de verificacion Kerrodal', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>Mailing Codigo de verificacion Kerrodal</title>	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>	</head><body style=\"margin: 0; padding: 0;\"><br><table align=\"center\" border=\"0\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\"><tr><td align=\"center\" bgcolor=\"#fff\" style=\"padding: 40px 0 30px 0;\"><img src=\"https://www.kerrodal.com/plataforma/res/img/logo.png\" alt=\"Logo Kerrodal\" width=\"300\" style=\"display: block;\" /></td></tr><tr><td bgcolor=\"#ffffff\" style=\"color:#444;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 14px;\"><img src=\'\'><br><br>Hola, ingresa el código que verás a continuación en la app móvil.<br><br><strong>5353</strong></td></tr><tr><td bgcolor=\"#000\" style=\"text-align:center;color:#fff;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 35px;\">No responder este mensaje</td></tr></table></body></html>', 1, '2020-08-13 08:26:52', '179.51.121.5'),
+(74, 'pmarino@pensiero.com.co,kyo20052@gmail.com', 'Solicitud de adelanto de nóminaKerrodal', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>Mailing Solicitud de adelanto de nóminaKerrodal</title>	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>	</head><body style=\"margin: 0; padding: 0;\"><br><table align=\"center\" border=\"0\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\"><tr><td align=\"center\" bgcolor=\"#fff\" style=\"padding: 40px 0 30px 0;\"><img src=\"https://www.kerrodal.com/plataforma/res/img/logo.png\" alt=\"Logo Kerrodal\" width=\"300\" style=\"display: block;\" /></td></tr><tr><td bgcolor=\"#ffffff\" style=\"color:#444;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 14px;\"><img src=\'https://www.kerrodal.com/plataforma/res/img/logo.png\'><br><br>Se ha registrado una nueva solicitud de adelanto de nómina, a continuación verá la información de la solicitud.<br><br><strong>Solicitante: </strong> Farez Prieto<br><strong>Empresa: </strong> Pensiero International Advisors<br><strong>Monto solicitado: </strong> 250000<br><strong>Fecha y hora: </strong> 2020-08-13 09:09:58<br></td></tr><tr><td bgcolor=\"#000\" style=\"text-align:center;color:#fff;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 35px;\">No responder este mensaje</td></tr></table></body></html>', 1, '2020-08-13 09:09:58', '179.51.121.5'),
+(75, 'pmarino@pensiero.com.co,kyo20052@gmail.com', 'Solicitud de adelanto de nóminaKerrodal', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>Mailing Solicitud de adelanto de nóminaKerrodal</title>	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>	</head><body style=\"margin: 0; padding: 0;\"><br><table align=\"center\" border=\"0\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\"><tr><td align=\"center\" bgcolor=\"#fff\" style=\"padding: 40px 0 30px 0;\"><img src=\"https://www.kerrodal.com/plataforma/res/img/logo.png\" alt=\"Logo Kerrodal\" width=\"300\" style=\"display: block;\" /></td></tr><tr><td bgcolor=\"#ffffff\" style=\"color:#444;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 14px;\">Se ha registrado una nueva solicitud de adelanto de nómina, a continuación verá la información de la solicitud.<br><br><strong>Solicitante: </strong> Farez Prieto<br><strong>Empresa: </strong> Pensiero International Advisors<br><strong>Monto solicitado: </strong> 250000<br><strong>Fecha y hora: </strong> 2020-08-13 09:16:46<br></td></tr><tr><td bgcolor=\"#000\" style=\"text-align:center;color:#fff;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 35px;\">No responder este mensaje</td></tr></table></body></html>', 1, '2020-08-13 09:16:47', '179.51.121.5'),
+(76, 'desarrollo@wannabe.com.co', 'Codigo de verificacion Kerrodal', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>Mailing Codigo de verificacion Kerrodal</title>	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>	</head><body style=\"margin: 0; padding: 0;\"><br><table align=\"center\" border=\"0\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\"><tr><td align=\"center\" bgcolor=\"#fff\" style=\"padding: 40px 0 30px 0;\"><img src=\"https://www.kerrodal.com/plataforma/res/img/logo.png\" alt=\"Logo Kerrodal\" width=\"300\" style=\"display: block;\" /></td></tr><tr><td bgcolor=\"#ffffff\" style=\"color:#444;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 14px;\">Hola, ingresa el código que verás a continuación en la app móvil.<br><br><strong>7338</strong></td></tr><tr><td bgcolor=\"#000\" style=\"text-align:center;color:#fff;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 20px;\">No responder este mensaje</td></tr></table></body></html>', 1, '2020-08-13 11:47:02', '179.51.121.5'),
+(77, 'desarrollo@wannabe.com.co', 'Codigo de verificacion Kerrodal', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>Mailing Codigo de verificacion Kerrodal</title>	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>	</head><body style=\"margin: 0; padding: 0;\"><br><table align=\"center\" border=\"0\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\"><tr><td align=\"center\" bgcolor=\"#fff\" style=\"padding: 40px 0 30px 0;\"><img src=\"https://www.kerrodal.com/plataforma/res/img/logo.png\" alt=\"Logo Kerrodal\" width=\"300\" style=\"display: block;\" /></td></tr><tr><td bgcolor=\"#ffffff\" style=\"color:#444;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 14px;\">Hola, ingresa el código que verás a continuación en la app móvil.<br><br><strong>8360</strong></td></tr><tr><td bgcolor=\"#000\" style=\"text-align:center;color:#fff;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 20px;\">No responder este mensaje</td></tr></table></body></html>', 1, '2020-08-13 12:09:43', '179.51.121.5'),
+(78, 'desarrollo@wannabe.com.co', 'Codigo de verificacion Kerrodal', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>Mailing Codigo de verificacion Kerrodal</title>	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>	</head><body style=\"margin: 0; padding: 0;\"><br><table align=\"center\" border=\"0\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\"><tr><td align=\"center\" bgcolor=\"#fff\" style=\"padding: 40px 0 30px 0;\"><img src=\"https://www.kerrodal.com/plataforma/res/img/logo.png\" alt=\"Logo Kerrodal\" width=\"300\" style=\"display: block;\" /></td></tr><tr><td bgcolor=\"#ffffff\" style=\"color:#444;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 14px;\">Hola, ingresa el código que verás a continuación en la app móvil.<br><br><strong>6747</strong></td></tr><tr><td bgcolor=\"#000\" style=\"text-align:center;color:#fff;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 20px;\">No responder este mensaje</td></tr></table></body></html>', 1, '2020-08-13 12:12:02', '179.51.121.5'),
+(79, 'desarrollo@wannabe.com.co', 'Codigo de verificacion Kerrodal', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>Mailing Codigo de verificacion Kerrodal</title>	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>	</head><body style=\"margin: 0; padding: 0;\"><br><table align=\"center\" border=\"0\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\"><tr><td align=\"center\" bgcolor=\"#fff\" style=\"padding: 40px 0 30px 0;\"><img src=\"https://www.kerrodal.com/plataforma/res/img/logo.png\" alt=\"Logo Kerrodal\" width=\"300\" style=\"display: block;\" /></td></tr><tr><td bgcolor=\"#ffffff\" style=\"color:#444;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 14px;\">Hola, ingresa el código que verás a continuación en la app móvil.<br><br><strong>1457</strong></td></tr><tr><td bgcolor=\"#000\" style=\"text-align:center;color:#fff;padding: 40px 30px 40px 30px;font-family: Arial, sans-serif; font-size: 20px;\">No responder este mensaje</td></tr></table></body></html>', 1, '2020-08-20 06:44:56', '179.51.121.6');
 
 -- --------------------------------------------------------
 
@@ -1970,15 +2015,16 @@ INSERT INTO `app_mails` (`idMail`, `para`, `asunto`, `mensaje`, `estado`, `fecha
 -- Estructura de tabla para la tabla `app_modulos`
 --
 
+DROP TABLE IF EXISTS `app_modulos`;
 CREATE TABLE `app_modulos` (
   `idModulo` bigint(20) NOT NULL,
   `idPadre` bigint(20) DEFAULT NULL,
-  `nombreModulo` text,
-  `icono` text,
-  `urlModulo` text,
-  `estado` int(11) DEFAULT '1',
-  `eliminado` int(11) DEFAULT '0',
-  `nombreLargo` text
+  `nombreModulo` text DEFAULT NULL,
+  `icono` text DEFAULT NULL,
+  `urlModulo` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1,
+  `eliminado` int(11) DEFAULT 0,
+  `nombreLargo` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2003,6 +2049,7 @@ INSERT INTO `app_modulos` (`idModulo`, `idPadre`, `nombreModulo`, `icono`, `urlM
 -- Estructura de tabla para la tabla `app_paises`
 --
 
+DROP TABLE IF EXISTS `app_paises`;
 CREATE TABLE `app_paises` (
   `ID_PAIS` varchar(10) NOT NULL,
   `NOMBRE` varchar(255) NOT NULL
@@ -2022,11 +2069,12 @@ INSERT INTO `app_paises` (`ID_PAIS`, `NOMBRE`) VALUES
 -- Estructura de tabla para la tabla `app_perfiles`
 --
 
+DROP TABLE IF EXISTS `app_perfiles`;
 CREATE TABLE `app_perfiles` (
   `idPerfil` bigint(20) NOT NULL,
-  `nombrePerfil` text,
-  `estado` int(11) DEFAULT '1',
-  `eliminado` int(11) DEFAULT '0'
+  `nombrePerfil` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1,
+  `eliminado` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2045,45 +2093,46 @@ INSERT INTO `app_perfiles` (`idPerfil`, `nombrePerfil`, `estado`, `eliminado`) V
 -- Estructura de tabla para la tabla `app_personas`
 --
 
+DROP TABLE IF EXISTS `app_personas`;
 CREATE TABLE `app_personas` (
   `idPersona` bigint(20) NOT NULL,
   `idPerfil` int(11) DEFAULT NULL,
   `idEmpresa` bigint(20) DEFAULT NULL,
-  `nombre` text,
-  `apellido` text,
-  `direccion` text,
-  `telefono` text,
-  `celular` text,
+  `nombre` text DEFAULT NULL,
+  `apellido` text DEFAULT NULL,
+  `direccion` text DEFAULT NULL,
+  `telefono` text DEFAULT NULL,
+  `celular` text DEFAULT NULL,
   `ciudad` int(11) DEFAULT NULL,
   `departamento` int(11) DEFAULT NULL,
   `pais` int(11) DEFAULT NULL,
   `tipoDocumento` int(11) DEFAULT NULL,
   `nroDocumento` bigint(20) DEFAULT NULL,
-  `tarjetaProfesional` text,
+  `tarjetaProfesional` text DEFAULT NULL,
   `idCargo` bigint(20) DEFAULT NULL,
-  `salario` text,
-  `cuenta` text,
+  `salario` text DEFAULT NULL,
+  `cuenta` text DEFAULT NULL,
   `idArea` bigint(20) DEFAULT NULL,
   `idSexo` int(11) DEFAULT NULL,
-  `idProfesion` text,
-  `tipoUsuario` int(11) DEFAULT '2',
+  `idProfesion` text DEFAULT NULL,
+  `tipoUsuario` int(11) DEFAULT 2,
   `ciudadExpedicionCedula` varchar(10) DEFAULT NULL,
   `fechaNacimiento` datetime DEFAULT NULL,
-  `contrato` text,
+  `contrato` text DEFAULT NULL,
   `fechaIngreso` date DEFAULT NULL,
-  `logo` text,
-  `barrio` tinytext,
-  `titulo` tinytext,
-  `institucion` tinytext,
+  `logo` text DEFAULT NULL,
+  `barrio` tinytext DEFAULT NULL,
+  `titulo` tinytext DEFAULT NULL,
+  `institucion` tinytext DEFAULT NULL,
   `fechaRetiro` date DEFAULT NULL,
   `id_eps` bigint(20) DEFAULT NULL,
   `id_afp` bigint(20) DEFAULT NULL,
   `id_app_cesantias` bigint(20) DEFAULT NULL,
-  `icono` text,
-  `email` text,
+  `icono` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
   `ultimoIngreso` datetime DEFAULT NULL,
-  `estado` int(11) DEFAULT '1',
-  `eliminado` int(11) DEFAULT '0'
+  `estado` int(11) DEFAULT 1,
+  `eliminado` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2092,8 +2141,8 @@ CREATE TABLE `app_personas` (
 
 INSERT INTO `app_personas` (`idPersona`, `idPerfil`, `idEmpresa`, `nombre`, `apellido`, `direccion`, `telefono`, `celular`, `ciudad`, `departamento`, `pais`, `tipoDocumento`, `nroDocumento`, `tarjetaProfesional`, `idCargo`, `salario`, `cuenta`, `idArea`, `idSexo`, `idProfesion`, `tipoUsuario`, `ciudadExpedicionCedula`, `fechaNacimiento`, `contrato`, `fechaIngreso`, `logo`, `barrio`, `titulo`, `institucion`, `fechaRetiro`, `id_eps`, `id_afp`, `id_app_cesantias`, `icono`, `email`, `ultimoIngreso`, `estado`, `eliminado`) VALUES
 (1, 1, NULL, 'Administrador', 'Principal', 'Cra 100 # 69 48', '7203015', '3114881738', 1, 11, NULL, 4, 1030534849, '55555', 1, '$3.000.000', 'BTA4568', 1, 1, 'T?®cnico profesional en desarrollo de sotware', 1, '11-001', '1987-03-02 00:00:00', 'INDEFINIDO', '2016-11-24', 'icono.png', 'Bosa Recreo', NULL, 'Cedinpro', NULL, 26, 1, 2, '5c8da074316baa0a9c7b7edfd45b011f.jpg', 'desarrollo@wannabe.com.co', NULL, 1, 0),
-(4, 2, 0, 'Administrador', 'General', NULL, NULL, '3114881738', NULL, NULL, NULL, 4, 123456789, NULL, NULL, NULL, NULL, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin@pensiero.com.co', NULL, 1, 0),
-(5, 3, 7, 'Admin', 'Wannabe', NULL, NULL, '3114881738', NULL, NULL, NULL, 4, 1030534840, NULL, NULL, NULL, NULL, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin@wannabe.com.co', NULL, 1, 0);
+(4, 2, 0, 'Admin', 'General', NULL, NULL, '3114881738', NULL, NULL, NULL, 4, 123456789, NULL, NULL, NULL, NULL, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'info@pensiero.com.co', NULL, 1, 0),
+(7, 3, 5, 'Paola', 'Marino', NULL, NULL, '3186526108', NULL, NULL, NULL, 4, 1245678999, NULL, NULL, NULL, NULL, NULL, 2, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pmarino@pensiero.com.co', NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -2101,10 +2150,11 @@ INSERT INTO `app_personas` (`idPersona`, `idPerfil`, `idEmpresa`, `nombre`, `ape
 -- Estructura de tabla para la tabla `app_pertenencia_etnica`
 --
 
+DROP TABLE IF EXISTS `app_pertenencia_etnica`;
 CREATE TABLE `app_pertenencia_etnica` (
   `id_grupo_etnico` bigint(20) NOT NULL,
-  `grupo_etnia` text,
-  `estado` int(11) DEFAULT '1'
+  `grupo_etnia` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2125,10 +2175,11 @@ INSERT INTO `app_pertenencia_etnica` (`id_grupo_etnico`, `grupo_etnia`, `estado`
 -- Estructura de tabla para la tabla `app_profesiones`
 --
 
+DROP TABLE IF EXISTS `app_profesiones`;
 CREATE TABLE `app_profesiones` (
   `idProfesion` bigint(20) NOT NULL,
-  `nombreProfesion` text,
-  `estado` int(11) DEFAULT '1'
+  `nombreProfesion` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2144,13 +2195,14 @@ INSERT INTO `app_profesiones` (`idProfesion`, `nombreProfesion`, `estado`) VALUE
 -- Estructura de tabla para la tabla `app_registroslogin`
 --
 
+DROP TABLE IF EXISTS `app_registroslogin`;
 CREATE TABLE `app_registroslogin` (
   `idRegistro` bigint(20) NOT NULL,
   `idLogin` bigint(20) DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
-  `ip` text,
-  `disp` text,
-  `eliminado` int(11) DEFAULT '0'
+  `ip` text DEFAULT NULL,
+  `disp` text DEFAULT NULL,
+  `eliminado` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2227,7 +2279,18 @@ INSERT INTO `app_registroslogin` (`idRegistro`, `idLogin`, `fecha`, `ip`, `disp`
 (306, 7, '2020-08-11 08:54:16', '192.168.0.106', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
 (307, 7, '2020-08-11 11:12:18', '192.168.0.106', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
 (308, 7, '2020-08-11 15:02:48', '192.168.0.106', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
-(309, 7, '2020-08-12 14:23:25', '192.168.0.103', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0);
+(309, 7, '2020-08-12 14:23:25', '192.168.0.103', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
+(310, 7, '2020-08-13 05:40:47', '179.51.121.5', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
+(311, 7, '2020-08-13 05:40:48', '179.51.121.5', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
+(312, 7, '2020-08-13 05:40:48', '179.51.121.5', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
+(313, 7, '2020-08-13 05:40:48', '179.51.121.5', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
+(314, 7, '2020-08-13 05:40:48', '179.51.121.5', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
+(315, 7, '2020-08-13 05:40:48', '179.51.121.5', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
+(316, 7, '2020-08-19 06:25:04', '179.51.121.6', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
+(317, 13, '2020-08-19 06:59:05', '179.51.121.6', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
+(318, 7, '2020-08-19 07:34:43', '179.51.121.6', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
+(319, 7, '2020-08-19 07:39:33', '179.51.121.6', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0),
+(320, 10, '2020-08-19 07:40:50', '179.51.121.6', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36', 0);
 
 -- --------------------------------------------------------
 
@@ -2235,14 +2298,15 @@ INSERT INTO `app_registroslogin` (`idRegistro`, `idLogin`, `fecha`, `ip`, `disp`
 -- Estructura de tabla para la tabla `app_rel_perfil_modulo`
 --
 
+DROP TABLE IF EXISTS `app_rel_perfil_modulo`;
 CREATE TABLE `app_rel_perfil_modulo` (
   `idRelacion` bigint(20) NOT NULL,
   `idPerfil` bigint(20) DEFAULT NULL,
   `idModulo` bigint(20) DEFAULT NULL,
-  `ver` int(11) DEFAULT '0',
-  `crear` int(11) DEFAULT '0',
-  `editar` int(11) DEFAULT '0',
-  `borrar` int(11) DEFAULT '0'
+  `ver` int(11) DEFAULT 0,
+  `crear` int(11) DEFAULT 0,
+  `editar` int(11) DEFAULT 0,
+  `borrar` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2304,13 +2368,14 @@ INSERT INTO `app_rel_perfil_modulo` (`idRelacion`, `idPerfil`, `idModulo`, `ver`
 -- Estructura de tabla para la tabla `app_rel_personas_empresa`
 --
 
+DROP TABLE IF EXISTS `app_rel_personas_empresa`;
 CREATE TABLE `app_rel_personas_empresa` (
   `idRelPerEmp` bigint(20) NOT NULL,
   `idEmpresa` bigint(20) DEFAULT NULL,
   `idPersona` bigint(20) DEFAULT NULL,
   `fechaRelacion` datetime DEFAULT NULL,
-  `estado` int(11) DEFAULT '1',
-  `eliminado` int(11) DEFAULT '0'
+  `estado` int(11) DEFAULT 1,
+  `eliminado` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2319,10 +2384,11 @@ CREATE TABLE `app_rel_personas_empresa` (
 -- Estructura de tabla para la tabla `app_sexo`
 --
 
+DROP TABLE IF EXISTS `app_sexo`;
 CREATE TABLE `app_sexo` (
   `idSexo` bigint(20) NOT NULL,
-  `nombreSexo` text,
-  `estado` int(11) DEFAULT '1'
+  `nombreSexo` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2339,6 +2405,7 @@ INSERT INTO `app_sexo` (`idSexo`, `nombreSexo`, `estado`) VALUES
 -- Estructura de tabla para la tabla `app_solicitudes`
 --
 
+DROP TABLE IF EXISTS `app_solicitudes`;
 CREATE TABLE `app_solicitudes` (
   `idSolicitud` bigint(11) UNSIGNED NOT NULL,
   `idEmpleado` bigint(20) DEFAULT NULL,
@@ -2353,14 +2420,14 @@ CREATE TABLE `app_solicitudes` (
   `tipoCuenta` varchar(10) DEFAULT NULL,
   `nroCuenta` varchar(50) DEFAULT NULL,
   `idMotivo` bigint(20) DEFAULT NULL,
-  `motivo` text,
-  `idReembolso` int(11) DEFAULT '0',
+  `motivo` text DEFAULT NULL,
+  `idReembolso` int(11) DEFAULT 0,
   `fechaSolicitud` datetime DEFAULT NULL,
   `fechaReembolso` datetime DEFAULT NULL,
   `estado` enum('recibida','transito','pagada') DEFAULT 'recibida',
-  `eliminado` int(11) DEFAULT '0',
+  `eliminado` int(11) DEFAULT 0,
   `ip` varchar(50) DEFAULT NULL,
-  `userAgent` text
+  `userAgent` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2368,8 +2435,7 @@ CREATE TABLE `app_solicitudes` (
 --
 
 INSERT INTO `app_solicitudes` (`idSolicitud`, `idEmpleado`, `idEmpresa`, `mes`, `ano`, `monto`, `montoConInteres`, `valorInteres`, `interes`, `idEntidad`, `tipoCuenta`, `nroCuenta`, `idMotivo`, `motivo`, `idReembolso`, `fechaSolicitud`, `fechaReembolso`, `estado`, `eliminado`, `ip`, `userAgent`) VALUES
-(1, 1, 7, 8, 2020, 250000, 260000, 10000, 4, 5, 'ahorros', '8890025698', 2, '', 0, '2020-08-11 16:44:42', NULL, 'recibida', 0, '192.168.0.106', 'Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Mobile Safari/537.36'),
-(2, 2, 5, 8, 2020, 250000, 260000, 10000, 4, 2, 'ahorros', '009889652358', 1, '', 0, '2020-08-11 18:42:06', NULL, 'recibida', 0, '192.168.0.106', 'Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Mobile Safari/537.36');
+(1, 1, 5, 8, 2020, 250000, 260000, 10000, 4, 6, 'monedero', '3114881738', 1, '', 0, '2020-08-13 09:16:46', NULL, 'recibida', 0, '179.51.121.5', 'Mozilla/5.0 (Linux; Android 9; moto g(6) play Build/PPPS29.55-35-23-7; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/84.0.4147.125 Mobile Safari/537.36');
 
 -- --------------------------------------------------------
 
@@ -2377,6 +2443,7 @@ INSERT INTO `app_solicitudes` (`idSolicitud`, `idEmpleado`, `idEmpresa`, `mes`, 
 -- Estructura de tabla para la tabla `app_solicitudes_trans`
 --
 
+DROP TABLE IF EXISTS `app_solicitudes_trans`;
 CREATE TABLE `app_solicitudes_trans` (
   `idTrans` bigint(11) UNSIGNED NOT NULL,
   `idSolicitud` bigint(20) DEFAULT NULL,
@@ -2384,7 +2451,7 @@ CREATE TABLE `app_solicitudes_trans` (
   `idEmpleado` bigint(20) DEFAULT NULL,
   `fechaTrans` datetime DEFAULT NULL,
   `ip` varchar(50) DEFAULT NULL,
-  `userAgent` text,
+  `userAgent` text DEFAULT NULL,
   `estado` enum('recibida','transito','pagada') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -2393,8 +2460,8 @@ CREATE TABLE `app_solicitudes_trans` (
 --
 
 INSERT INTO `app_solicitudes_trans` (`idTrans`, `idSolicitud`, `idPersona`, `idEmpleado`, `fechaTrans`, `ip`, `userAgent`, `estado`) VALUES
-(1, 1, 0, 1, '2020-08-11 16:44:42', '192.168.0.106', 'Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Mobile Safari/537.36', 'recibida'),
-(2, 2, 0, 2, '2020-08-11 18:42:06', '192.168.0.106', 'Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Mobile Safari/537.36', 'recibida');
+(1, 1, 0, 1, '2020-08-13 09:09:58', '179.51.121.5', 'Mozilla/5.0 (Linux; Android 9; moto g(6) play Build/PPPS29.55-35-23-7; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/84.0.4147.125 Mobile Safari/537.36', 'recibida'),
+(2, 1, 0, 1, '2020-08-13 09:16:46', '179.51.121.5', 'Mozilla/5.0 (Linux; Android 9; moto g(6) play Build/PPPS29.55-35-23-7; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/84.0.4147.125 Mobile Safari/537.36', 'recibida');
 
 -- --------------------------------------------------------
 
@@ -2402,11 +2469,12 @@ INSERT INTO `app_solicitudes_trans` (`idTrans`, `idSolicitud`, `idPersona`, `idE
 -- Estructura de tabla para la tabla `app_tipos_doc`
 --
 
+DROP TABLE IF EXISTS `app_tipos_doc`;
 CREATE TABLE `app_tipos_doc` (
   `idTipoDoc` bigint(20) NOT NULL,
-  `nombreTipoDoc` text,
+  `nombreTipoDoc` text DEFAULT NULL,
   `sigla` varchar(5) DEFAULT NULL,
-  `estado` int(11) DEFAULT '1'
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2425,6 +2493,7 @@ INSERT INTO `app_tipos_doc` (`idTipoDoc`, `nombreTipoDoc`, `sigla`, `estado`) VA
 -- Estructura de tabla para la tabla `app_variablesglobales`
 --
 
+DROP TABLE IF EXISTS `app_variablesglobales`;
 CREATE TABLE `app_variablesglobales` (
   `id` int(11) NOT NULL,
   `variable` text NOT NULL,
@@ -2446,14 +2515,15 @@ INSERT INTO `app_variablesglobales` (`id`, `variable`, `valor`) VALUES
 -- Estructura de tabla para la tabla `aud_areas`
 --
 
+DROP TABLE IF EXISTS `aud_areas`;
 CREATE TABLE `aud_areas` (
   `idAuditoria` bigint(20) NOT NULL,
   `idArea` bigint(20) DEFAULT NULL,
-  `textAuditoria` text,
+  `textAuditoria` text DEFAULT NULL,
   `idUsuario` bigint(20) DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
-  `ip` text,
-  `estado` int(11) DEFAULT '1'
+  `ip` text DEFAULT NULL,
+  `estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2678,7 +2748,7 @@ ALTER TABLE `app_areas`
 -- AUTO_INCREMENT de la tabla `app_auditoria_general`
 --
 ALTER TABLE `app_auditoria_general`
-  MODIFY `idAuditoria` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=239;
+  MODIFY `idAuditoria` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=264;
 
 --
 -- AUTO_INCREMENT de la tabla `app_bancos`
@@ -2708,7 +2778,7 @@ ALTER TABLE `app_citas`
 -- AUTO_INCREMENT de la tabla `app_empleados`
 --
 ALTER TABLE `app_empleados`
-  MODIFY `idEmpleado` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idEmpleado` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `app_empresas`
@@ -2756,13 +2826,13 @@ ALTER TABLE `app_lista_religiones`
 -- AUTO_INCREMENT de la tabla `app_login`
 --
 ALTER TABLE `app_login`
-  MODIFY `idLogin` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idLogin` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `app_mails`
 --
 ALTER TABLE `app_mails`
-  MODIFY `idMail` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `idMail` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de la tabla `app_modulos`
@@ -2780,7 +2850,7 @@ ALTER TABLE `app_perfiles`
 -- AUTO_INCREMENT de la tabla `app_personas`
 --
 ALTER TABLE `app_personas`
-  MODIFY `idPersona` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idPersona` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `app_pertenencia_etnica`
@@ -2798,7 +2868,7 @@ ALTER TABLE `app_profesiones`
 -- AUTO_INCREMENT de la tabla `app_registroslogin`
 --
 ALTER TABLE `app_registroslogin`
-  MODIFY `idRegistro` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=310;
+  MODIFY `idRegistro` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=321;
 
 --
 -- AUTO_INCREMENT de la tabla `app_rel_perfil_modulo`
@@ -2822,7 +2892,7 @@ ALTER TABLE `app_sexo`
 -- AUTO_INCREMENT de la tabla `app_solicitudes`
 --
 ALTER TABLE `app_solicitudes`
-  MODIFY `idSolicitud` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idSolicitud` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `app_solicitudes_trans`

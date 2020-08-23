@@ -138,6 +138,14 @@
                         Variables globales</a>
                     </div>
                 <?php }?>
+
+                <?php if(getPrivilegios()[0]['ver'] == 1 && getPrivilegios()[0]['crear'] == 1 && getPrivilegios()[0]['editar'] == 1 && getPrivilegios()[0]['borrar'] == 1){ ?>
+                    <div style="margin:0 0 2% 0" class="col col-lg-3 text-center">
+                        <a style="color:#434343;text-decoration: none"  href="<?php echo base_url()?>Parametrizacion/kerrodal/<?php echo $infoModulo['idModulo']?>">
+                        <h1><i class="fa fa-list"></i></h1>
+                        Acerca de Kerrodal</a>
+                    </div>
+                <?php }?>
                 <!-- 
                 <?php if(getPrivilegios()[0]['ver'] == 1 && getPrivilegios()[0]['crear'] == 1 && getPrivilegios()[0]['editar'] == 1 && getPrivilegios()[0]['borrar'] == 1){ ?>
                     <div style="margin:0 0 2% 0" class="col col-lg-3 text-center">

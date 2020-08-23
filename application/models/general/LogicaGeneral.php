@@ -295,6 +295,26 @@ class LogicaGeneral  {
         return $respuesta;
     }
 
+    
+    public function consultaQuienes()
+    {
+        $infoQuienes   = $this->ci->dbGeneral->consultaQuienes();
+        if(count($infoQuienes) > 0)
+        {
+            $respuesta = array("mensaje"=>"Información del quiénes somos",
+                              "continuar"=>1,
+                              "datos"=>$infoQuienes[0]);            
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"No hay información del quiénes somos",
+                              "continuar"=>0,
+                              "datos"=>"");    
+
+        }
+        return $respuesta;
+    }
+
     public function consultaBancos()
     {
         $data   = $this->ci->dbGeneral->consultaBancos();
