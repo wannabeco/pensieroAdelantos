@@ -57,5 +57,23 @@ project.controller('solicitudes', function($scope,$http,$q,constantes)
             }
 
     }
+
+    $scope.gestionaSolicitud = function(idSolicitud,estado,idEmpleado)
+    {
+    	constantes.confirmacion("Atención","Esta apunto de cambiar el estado de la solicitud a "+estado+", desea continuar","warning",function(){
+    		var controlador = 	$scope.config.apiUrl+"Solicitudes/gestionaSolicitud";
+			var parametros  = 	"idSolicitud="+idSolicitud+"&estado="+estado+"&idEmpleado="+idEmpleado;
+			constantes.consultaApi(controlador,parametros,function(json){
+				if(json.continuar == 1)
+				{
+					constantes.alerta("Atención",json.mensaje,"success",function(){})
+				}
+				else
+				{
+					constantes.alerta("Atención",json.mensaje,"info",function(){})
+				}
+			});
+    	})
+    }
     
 });

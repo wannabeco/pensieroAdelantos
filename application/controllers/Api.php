@@ -191,6 +191,73 @@ class Api extends CI_Controller
         //retorno la salida del servidor
         echo json_encode($salida);
     }
+    //inserta el código de FCM en la base de datos
+    public function updateTokenFCM()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $salida = $this->logicaEmpleados->updateTokenFCM($objDatos);
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                                "datos"=>array(),
+                                "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+
+    }
+    //funcion que me muestra las notificaciones sin leer
+    public function getNotificacionesPersonaSinLeer()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        extract($objDatos);
+        //súper acceso a la app
+        if($objDatos['fuente'] == 'app')
+        {
+            $post['idPersona']      = $objDatos['idEmpleado'];
+            $post['tipoUsuario']    = 'movil';
+            $post['estado']         = 0;
+            //busco la foto con la palabra que envien
+            $noti = $this->logica->getNotificacionesPersona($post);
+            echo json_encode($noti);
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"Acceso no admitido.",
+                              "continuar"=>0,
+                              "datos"=>""); 
+
+            echo json_encode($respuesta); 
+        }
+    }
+    //Notificaciones para la persona logueada
+    public function getNotificacionesPersona()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        extract($objDatos);
+        //súper acceso a la app
+        if($objDatos['fuente'] == 'app')
+        {
+            $post['idPersona']      = $objDatos['idEmpleado'];
+            $post['tipoUsuario']    = 'movil';
+            //busco la foto con la palabra que envien
+            $noti = $this->logica->getNotificacionesPersona($post);
+            //pongo las notificaciones en estado leidas
+            $unoti = $this->logica->updateNotificacionesPersona(array('estado'=>1),$post);
+            echo json_encode($noti);
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"Acceso no admitido.",
+                              "continuar"=>0,
+                              "datos"=>""); 
+
+            echo json_encode($respuesta); 
+        }
+    }
 
 }
 ?>

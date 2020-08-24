@@ -650,4 +650,47 @@ function pre($data, $die=0)
     echo "<pre>";print_r($data);echo "</pre>";
     if( $die ) die();
 }
+
+//inserta en la tabla notificaciones
+function insertaNotificacion($titulo,$mensaje,$para,$tipo="movil")
+{
+    $ci = get_instance();
+    $ci->load->model("general/baseDatosGral","baseGeneral");
+    $dataInsertar['idPersona']      = $para;
+    $dataInsertar['mensaje']        = $mensaje;
+    $dataInsertar['tipoUsuario']    = $tipo;
+    $dataInsertar['titulo']         = $titulo;
+    $dataInsertar['fecha']          = date("Y-m-d H:i:s");
+    $variables   =   $ci->baseGeneral->insertaNotificacion($dataInsertar);
+    return $variables;
+}
+
+//envia notificacion push al celular
+function sendFCM($titulo,$mensaje,$tokenDevice='')
+{
+    //$tokenDevice = 'dmJdcJXcRqc:APA91bHiUHLazsHNQt6nhBThj_OY1UgOcV4Q-7bFhe-Zr1CTMRQYTu2zcX6Iy1lJOqYbkLNHmqR-1auD58her-6tJnD45VPGI73CKt-Ffx41GJa8If6P0D9KUrCvMVNKmsiHfRVrKa97';
+    $url        = "https://fcm.googleapis.com/fcm/send";
+    $token      = $tokenDevice;
+    $serverKey  = _FCM_API_ACCESS_KEY;
+    $title      = $titulo;
+    $body       = $mensaje;
+    $notification = array('title' =>$title , 'body' => $body, 'sound' => 'default', 'badge' => '1','icon'=>base_url().'res/img/favicon.png');
+    $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high','icon'=>base_url().'res/img/favicon.png');
+    $json = json_encode($arrayToSend);
+    $headers = array();
+    $headers[] = 'Content-Type: application/json';
+    $headers[] = 'Authorization: key='. $serverKey;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+    $result = curl_exec($ch);
+    if ($result === FALSE) {
+        die('Oops! FCM Send Error: ' . curl_error($ch));
+    }
+}
 ?>  

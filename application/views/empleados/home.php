@@ -61,6 +61,7 @@
                                     <th class="text-left">EMPLEADO</th>
                                     <th>EMPRESA</th>
                                     <th class="text-center">ESTADO</th>
+                                    <th class="text-center">APP</th>
                                     <th class="text-center">ACCIONES</th>
                                 </tr>
                             </thead>
@@ -71,6 +72,9 @@
                                     <td class="text-center">
                                         <span class="badge badge-success" ng-if="ulist.estado==1" value="1" >ACTIVO</span>
                                         <span class="badge badge-secondary" ng-if="ulist.estado==0" value="0" >INACTIVO</span>
+                                    </td>
+                                    <td class="text-center" style="font-size:1.8em">
+                                        <i class="fa fa-mobile" ng-if="ulist.FCMToken != ''" title="El usuario ya está usando la app móvil"></i>
                                     </td>
                                     <td  class="text-center">
                                         <?php if(getPrivilegios()[0]['editar'] == 1){ ?>

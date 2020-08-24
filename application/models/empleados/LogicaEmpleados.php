@@ -386,4 +386,27 @@ class LogicaEmpleados {
         }
         return $campos;
     }
+    public function updateTokenFCM($data)
+    {
+        extract($data);
+        //var_dump($data);die();
+        unset($data['idEmpleado']);
+        unset($data['fuente']);
+        $where = array("idEmpleado"=>$idEmpleado);
+        $idPersona = $this->ci->dbEmpleados->actualizaData($where,$data);
+        if($idPersona > 0)
+        {
+            $respuesta = array("mensaje"=>"La información ha sido modificada exitosamente",
+                               "continuar"=>1,
+                               "datos"=>"");
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"La información no ha podido ser modificada, intente más tarde.",
+                               "continuar"=>0,
+                               "datos"=>"");
+
+        }
+        return $respuesta;
+    }
  }

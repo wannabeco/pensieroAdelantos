@@ -114,6 +114,12 @@ class Solicitudes extends CI_Controller
         //$filtro =
         $listaSolicitudes =  $this->logicaSolicitudes->getSolicitudes($where);
         echo json_encode($listaSolicitudes);
+    } 
+    public function gestionaSolicitud()
+    {
+        extract($_POST);
+        $gestionSolicitud =  $this->logicaSolicitudes->gestionaSolicitud($_POST);
+        echo json_encode($gestionSolicitud);
     }
 }
 ?>

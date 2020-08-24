@@ -3,7 +3,7 @@
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a href="<?php echo base_url()?>" class="site_title">
-                <img src="<?php echo base_url()?>res/img/logoInterno-05.png" alt="" width="80%">
+                <img src="<?php echo base_url()?>res/img/logoRojo-05.png" alt="" width="80%">
               </a>
             </div>
 
@@ -57,7 +57,7 @@
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
+           <!--  <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
@@ -70,7 +70,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
-            </div>
+            </div> -->
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -85,7 +85,7 @@
               <ul class=" navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                   <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt=""><?php echo $_SESSION['project']['info']['nombre'] ?>  <?php echo $_SESSION['project']['info']['apellido'] ?>
+                    <img src="<?php echo base_url()."res/fotos/personas/".$_SESSION['project']['info']['idPersona']."/".$_SESSION['project']['info']['icono'] ?>" alt=""><?php echo $_SESSION['project']['info']['nombre'] ?>  <?php echo $_SESSION['project']['info']['apellido'] ?>
                   </a>
                   <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item"  href="<?php echo base_url() ?>PerfilUsuario/datosUsuario"> Perfil</a>
@@ -98,7 +98,7 @@
                   </div>
                 </li>
 
-                <li role="presentation" class="nav-item dropdown open">
+               <!--  <li role="presentation" class="nav-item dropdown open">
                   <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-green">6</span>
@@ -161,7 +161,7 @@
                       </div>
                     </li>
                   </ul>
-                </li>
+                </li> -->
               </ul>
             </nav>
           </div>

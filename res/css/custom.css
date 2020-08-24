@@ -14,6 +14,8 @@
     =============================================*/
 
 
+.left_col{background: red !important}
+
  #wrapper {
     width: 100%;
     background:#202020;

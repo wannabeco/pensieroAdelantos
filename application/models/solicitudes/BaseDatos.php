@@ -56,5 +56,12 @@ class BaseDatos extends CI_Model {
         //print_r($this->db->last_query());die();
         return $this->db->affected_rows();
     }  
+    public function gestionaSolicitud($where,$dataInserta)
+    {
+        $this->db->where($where);
+        $this->db->update($this->tableSolicitudes,$dataInserta);
+        //print_r($this->db->last_query());die();
+        return $this->db->affected_rows();
+    }  
 }
 ?>

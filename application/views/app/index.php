@@ -31,6 +31,7 @@
 
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url()?>res/build/css/custom.min.css" rel="stylesheet">
+    <link href="<?php echo base_url()?>res/css/kerrodal.css?<?php echo rand(0,10000)?>" rel="stylesheet">
     
     <link rel="stylesheet" href="<?php echo base_url()?>res/build/css/sistema.css?<?php echo rand(0,10000)?>" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

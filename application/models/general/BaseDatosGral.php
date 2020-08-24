@@ -56,6 +56,24 @@ class BaseDatosGral extends CI_Model {
         $this->tableFaqs                 = "app_faqs";
         $this->tableBancos               = "app_bancos";
         $this->tableInfoQuienes          = "app_info_kerrodal";
+        $this->tableNotificaciones       = "app_noti";
+    }
+    public function getNotificacionesPersona($where)
+    {
+        $this->db->select("*");
+        $this->db->where($where);
+        $this->db->from($this->tableNotificaciones);
+        $id = $this->db->get();
+        //print_r($this->db->last_query());die();
+        return $id->result_array();
+    }
+    public function updateNotificacionesPersona($dataInserta,$where)
+    {
+        $this->db->where($where);
+        $this->db->update($this->tableNotificaciones,$dataInserta);
+        //print_r($this->db->last_query());die();
+        return $this->db->insert_id();
+
     }
     public function getVariablesGlobales()
     {
@@ -370,6 +388,13 @@ class BaseDatosGral extends CI_Model {
     public function auditoria($dataInserta)
     {
         $this->db->insert($this->tableAuditoria,$dataInserta);
+        //print_r($this->db->last_query());die();
+        return $this->db->insert_id();
+
+    }
+    public function insertaNotificacion($dataInserta)
+    {
+        $this->db->insert($this->tableNotificaciones,$dataInserta);
         //print_r($this->db->last_query());die();
         return $this->db->insert_id();
 

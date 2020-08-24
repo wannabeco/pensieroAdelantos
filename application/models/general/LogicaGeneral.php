@@ -333,4 +333,40 @@ class LogicaGeneral  {
         }
         return $respuesta;
     }
+    public function getNotificacionesPersona($where=array())
+    {
+        $noti = $this->ci->dbGeneral->getNotificacionesPersona($where);
+        if(count($noti) > 0)
+        {
+            $respuesta = array("mensaje"=>"Listado de notificaciones",
+                              "continuar"=>1,
+                              "datos"=>$noti);            
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"No existen notificaciones",
+                              "continuar"=>0,
+                              "datos"=>"");    
+
+        }
+        return $respuesta;
+    }
+    public function updateNotificacionesPersona($data,$where=array())
+    {
+        $noti = $this->ci->dbGeneral->updateNotificacionesPersona($data,$where);
+        if($noti)
+        {
+            $respuesta = array("mensaje"=>"Listado de notificaciones",
+                              "continuar"=>1,
+                              "datos"=>$noti);            
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"No existen notificaciones",
+                              "continuar"=>0,
+                              "datos"=>"");    
+
+        }
+        return $respuesta;
+    }
  }
