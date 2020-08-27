@@ -39,6 +39,36 @@ class Logica {
         return $respuesta;
     } 
 
+    public function getSolicitudesUsuario($where)
+    {
+        $solicitudesLista = $this->ci->dbSolicitudes->getSolicitudes($where);
+        //recorro para traer las transacciones y saber la última que se realizó
+        $nArray = array();
+        foreach($solicitudesLista as $sol)
+        {
+            $ultimaTransaccion         =  $this->ci->dbSolicitudes->ultimaTransaccion(array("idSolicitud"=>$sol['idSolicitud']));
+            $arrayTemp["ultimaTrans"]  =   $ultimaTransaccion[0];
+            foreach($sol as $llave=>$solLis)
+            {
+                $arrayTemp[$llave]         =   $solLis;   
+            }
+            array_push($nArray,$arrayTemp);
+        }
+        if(count($solicitudesLista) > 0)
+        {
+            $respuesta = array("mensaje"=>"Listado de solicitudes consultado.",
+                          "continuar"=>1,
+                          "datos"=>$nArray); 
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"No hay solicitudes creados aún.",
+                          "continuar"=>0,
+                          "datos"=>""); 
+        }
+        return $respuesta;
+    }
+
     public function gestionaSolicitud($post)
     {
         extract($post);

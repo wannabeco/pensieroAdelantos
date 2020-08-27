@@ -3,7 +3,7 @@
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a href="<?php echo base_url()?>" class="site_title">
-                <img src="<?php echo base_url()?>res/img/logoRojo-05.png" alt="" width="80%">
+                <img src="<?php echo base_url()?>res/img/logoRojo-05.png?<?php echo rand(0,1000)?>" alt="" width="80%">
               </a>
             </div>
 

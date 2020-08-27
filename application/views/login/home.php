@@ -5,7 +5,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <img src="<?php echo base_url()?>res/img/logoRojo-05.png" alt="" width="80%">
+            <img src="<?php echo base_url()?>res/img/logo.png?<?php echo rand(0,1000)?>" alt="" width="80%">
             <form class="form-signin" data-ember-action="2" id="formLogin" ng-submit="loginInApp()">
               <h1>Ingreso al sistema</h1>
               <div>
@@ -42,7 +42,7 @@
         
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <img src="<?php echo base_url()?>res/img/logoRojo-05.png" alt="" width="80%">
+          <img src="<?php echo base_url()?>res/img/logo.png?<?php echo rand(0,1000)?>" alt="" width="80%">
             <form id="formCambioClave" ng-submit="recordarClaveUsuario()">
               <h1>Olvide mi clave</h1>
               <small class="text-muted">Escriba el correo electrónico con el cual se encuentra registrado.</small>

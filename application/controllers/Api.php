@@ -23,6 +23,7 @@ class Api extends CI_Controller
         parent::__construct();
         $this->load->model("general/LogicaGeneral", "logica");//la idea es que este archivo siempre esté ya que aquí se consultan cosas que son muy globales.
         $this->load->model("empleados/LogicaEmpleados", "logicaEmpleados");//aquí se debe llamar la lógica correspondiente al módulo que se esté haciendo.
+        $this->load->model("solicitudes/Logica", "logicaSolicitudes");//aquí se debe llamar la lógica correspondiente al módulo que se esté haciendo.
        	$this->load->helper('language');//mantener siempre.
     	$this->lang->load('spanish');//mantener siempre.
     }
@@ -257,6 +258,23 @@ class Api extends CI_Controller
 
             echo json_encode($respuesta); 
         }
+    }
+    //consulta de las solicitudes
+    public function getSolicitudesUsuario()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $salida = $this->logicaSolicitudes->getSolicitudesUsuario(array("e.eliminado"=>0,"e.idEmpleado"=>$objDatos['idEmpleado']));
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                                "datos"=>array(),
+                                "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
     }
 
 }

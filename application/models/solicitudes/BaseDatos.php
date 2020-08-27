@@ -28,7 +28,7 @@ class BaseDatos extends CI_Model {
     }
     public function getSolicitudes($where=array())
     {
-        $this->db->select("s.estado as estadoSol,s.*,e.email as emailEmpleado,e.telefono as telefonoEmpleado,e.direccion as direccionEmpleado,e.*,b.*,em.* ");
+        $this->db->select("s.estado as estadoSol,s.*,s.estado as estadoSol,e.email as emailEmpleado,e.telefono as telefonoEmpleado,e.direccion as direccionEmpleado,e.*,b.*,em.* ");
         if(count($where) > 0)
         {
             $this->db->where($where);
@@ -39,6 +39,17 @@ class BaseDatos extends CI_Model {
         $this->db->join($this->table_bancos." b","b.idEntidad=s.idEntidad",'INNER');
         $this->db->join($this->tableEmpresas." em","em.idEmpresa=s.idEmpresa",'INNER');
         $this->db->order_by("s.fechaSolicitud","DESC");
+        $id = $this->db->get();
+        //print_r($this->db->last_query());die();
+        return $id->result_array();
+    }
+
+    public function ultimaTransaccion($where)
+    {
+        $this->db->select("*");
+        $this->db->where($where);
+        $this->db->from($this->tableSolicitudesTrans);
+        $this->db->order_by("idTrans","DESC");
         $id = $this->db->get();
         //print_r($this->db->last_query());die();
         return $id->result_array();

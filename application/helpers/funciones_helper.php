@@ -615,7 +615,7 @@ function plantillaMail($asunto,$mensaje)
             $plantilla .= '</head>';
             $plantilla .= '<body style="margin: 0; padding: 0;">';
                 $plantilla .= '<br>';
-                $plantilla .= '<table align="center" border="0" border="1" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">';
+                $plantilla .= '<table align="center" border="0" border="1" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;background:#fff">';
                     $plantilla .= '<tr>';
                         $plantilla .= '<td align="center" bgcolor="#fff" style="padding: 40px 0 30px 0;">';
                             $plantilla .= '<img src="'.base_url().'res/img/logo.png" alt="Logo Kerrodal" width="300" style="display: block;" />';
