@@ -67,7 +67,7 @@ class LogicaEmpleados {
         $where['emple.idEmpleado']    = $idEmpleado;
         $listaEmpleados = $this->ci->dbEmpleados->getEmpleados($where);
         //verifico que el usuario no tenga creada ya una solicitud para este mes
-        $verificoSolicitudes = $this->ci->dbEmpleados->verificaSolicitudes(array('idEmpleado'=>$idEmpleado,'idReembolso' => 0));
+        $verificoSolicitudes = $this->ci->dbEmpleados->verificaSolicitudes(array('idEmpleado'=>$idEmpleado,'idReembolso' => 0,'estado != '=>'rechazada'));
         //si no tiene solicitudes creadas para el mes, lo dejo pasar
         if(count($verificoSolicitudes) == 0)
         {
