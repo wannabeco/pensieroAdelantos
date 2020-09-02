@@ -38,6 +38,37 @@ class Logica {
         }
         return $respuesta;
     } 
+    public function getCobros($filtro = array())
+    {
+        if(count($filtro) > 0)
+        {
+            $where = $filtro;
+        }
+        else
+        {
+            $where = array();
+        }
+        //valido que si la persona que esta logueada es una empresa me traiga solo las solicitudes de la empresa
+        if(isset($_SESSION['project']) && in_array($_SESSION['project']['info']['idPerfil'],array(3,4)) && $_SESSION['project']['info']['idEmpresa'] != "")
+        {
+            $where['s.idEmpresa']     = $_SESSION['project']['info']['idEmpresa'];
+        }
+
+        $cobros = $this->ci->dbSolicitudes->getCobros($where);
+        if(count($cobros) > 0)
+        {
+            $respuesta = array("mensaje"=>"Listado de cobros consultado.",
+                          "continuar"=>1,
+                          "datos"=>$cobros); 
+        }
+        else
+        {
+            $respuesta = array("mensaje"=>"No hay cobros creados aún.",
+                          "continuar"=>0,
+                          "datos"=>""); 
+        }
+        return $respuesta;
+    } 
 
     public function getSolicitudesUsuario($where)
     {

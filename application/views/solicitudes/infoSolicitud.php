@@ -14,19 +14,15 @@
         <div class="title_left">
         <h1>
            Solicitud nro: <?php echo $infoSolicitud['idSolicitud']?><!--<small>Estructura de las áreas de su empresa</small>-->
-            <!-- <?php if(getPrivilegios()[0]['crear'] == 1){ ?>
-                <div class="btn-group" >
-                    <button type="button" class="btn dropdown-toggle"
-                            data-toggle="dropdown">
-                        <?php echo lang("lblAcciones") ?> <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li role="separator" class="divider"></li><li class="dropdown-header"><?php echo lang("lblSeleccioneOpc") ?></li>
-                        <li><a class="btn" href="<?php echo base_url()?>Empleados/gestionEmpleados/<?php echo $infoModulo['idModulo'] ?>/crear/0"><i class="fa fa-fw fa-plus"></i>  NUEVO EMPLEADO</a></li>
-                        <li><a class="btn" href="<?php echo base_url()?>Empleados/cargaViaExcel/<?php echo $infoModulo['idModulo'] ?>"><i class="fa fa-fw fa-file-excel-o"></i>  CARGA V&iacute;A EXCEL</a></li>
-                    </ul>
-                </div>
-            <?php } ?> -->
+            <?php if($infoSolicitud['estadoSol'] == "recibida"){?>
+                <span class="badge badge-secondary"><?php echo ucwords($infoSolicitud['estadoSol'])?></span>
+            <?php }else if($infoSolicitud['estadoSol'] == "rechazada"){?>
+                <span class="badge badge-danger"><?php echo ucwords($infoSolicitud['estadoSol'])?></span>
+            <?php }else if($infoSolicitud['estadoSol'] == "pagada"){?>
+                <span class="badge badge-success"><?php echo ucwords($infoSolicitud['estadoSol'])?></span>
+            <?php }else if($infoSolicitud['estadoSol'] == "aprobada"){?>
+                <span class="badge badge-primary"><?php echo ucwords($infoSolicitud['estadoSol'])?></span>
+            <?php }?>
         </h1>
         
         </div>
@@ -123,8 +119,14 @@
                     <div class="row"  style="margin:50px 0 0 0">
                         <div class="col text-right">
                             <a href="<?php echo base_url()?>Solicitudes/listaSolicitudes/<?php echo $infoModulo['idModulo']?>"  data-dismiss="modal" class="btn  btn-default"><i class="fa fa-arrow-left"></i> <?php echo lang('reg_btn_regresar') ?></a>
-                            <button class="btn btn-danger" ng-click="gestionaSolicitud(<?php echo $infoSolicitud['idSolicitud']?>,'rechazada',<?php echo $infoSolicitud['idEmpleado']?>)">RECHAZAR SOLICITUD</button>
-                            <button class="btn btn-success" ng-click="gestionaSolicitud(<?php echo $infoSolicitud['idSolicitud']?>,'aprobada',<?php echo $infoSolicitud['idEmpleado']?>)">APROBAR SOLICITUD</button>
+                            <?php if(getPrivilegios()[0]['editar'] == 1){ ?>
+                                <?php if($infoSolicitud['estadoSol'] == "recibida"){?>
+                                    <button class="btn btn-danger" ng-click="gestionaSolicitud(<?php echo $infoSolicitud['idSolicitud']?>,'rechazada',<?php echo $infoSolicitud['idEmpleado']?>)">RECHAZAR SOLICITUD</button>
+                                    <button class="btn btn-success" ng-click="gestionaSolicitud(<?php echo $infoSolicitud['idSolicitud']?>,'aprobada',<?php echo $infoSolicitud['idEmpleado']?>)">APROBAR SOLICITUD</button>
+                                <?php }else if($infoSolicitud['estadoSol'] == "aprobada"){?>
+                                    <button class="btn btn-success" ng-click="gestionaSolicitud(<?php echo $infoSolicitud['idSolicitud']?>,'pagada',<?php echo $infoSolicitud['idEmpleado']?>)">NOTIFICAR PAGO</button>
+                                <?php }?>   
+                            <?php }?>   
                         </div>
                     </div>
                 </div>

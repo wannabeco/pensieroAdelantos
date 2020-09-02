@@ -20,9 +20,11 @@ project.controller('solicitudes', function($scope,$http,$q,constantes)
 	{
         //capturo los valores de los filtros
         var fechasFiltro    = $("#fechasFiltro").val();
+        var mesBusca    	= $("#mesBusca").val();
+        var anoBusca    	= $("#anoBusca").val();
         var estado          = $("#estado").val();
 		var controlador = 	$scope.config.apiUrl+"Solicitudes/getSolicitudes";
-		var parametros  = 	"fechasFiltro="+fechasFiltro+"&estado="+estado;
+		var parametros  = 	"fechasFiltro="+fechasFiltro+"&mesBusca="+mesBusca+"&anoBusca="+anoBusca+"&estado="+estado;
 		constantes.consultaApi(controlador,parametros,function(json){
 			if(json.continuar == 1)
 			{
@@ -76,4 +78,38 @@ project.controller('solicitudes', function($scope,$http,$q,constantes)
     	})
     }
     
+});
+//controlador de pagos
+project.controller('cobrosController', function($scope,$http,$q,constantes)
+{
+	$scope.cobros 	= [];
+	$scope.init = function()
+	{
+		$scope.config 			=  configLogin; //configuración global
+        $scope.getCobros();
+	}
+	//obtiene el listado de sobros
+	$scope.getCobros = function()
+	{
+        //capturo los valores de los filtros
+        var mesBusca    	= $("#mesBusca").val();
+        var anoBusca    	= $("#anoBusca").val();
+		var controlador = 	$scope.config.apiUrl+"Solicitudes/getCobros";
+		var parametros  = 	"mesBusca="+mesBusca+"&anoBusca="+anoBusca;
+		constantes.consultaApi(controlador,parametros,function(json){
+			if(json.continuar == 1)
+			{
+				$scope.cobros		=	json.datos;
+				$scope.$digest();
+			}
+			else
+			{
+                $scope.cobros		=	json.datos;
+                $scope.$digest();
+				//constantes.alerta("Atención",json.mensaje,"warning",function(){})
+			}
+		});
+		
+	}
+
 });

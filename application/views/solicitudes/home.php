@@ -54,39 +54,59 @@
                 <div class="x_content">
                     <p>Listado de solicitudes de adelanto de n&oacute;mina</p>
                         <div class="row">
-                            <div class="col col-lg-4">
+                            <!-- <div class="col col-lg-4">
                                 <fieldset>
                                     <div class="control-group ">
                                         <div class="controls">
                                         <div class="input-prepend input-group">
                                             <span class="add-on input-group-addon"><i class=" fa fa-calendar"></i></span>
-                                            <input type="text" style="width: 200px" name="fechasFiltro" id="fechasFiltro" class="form-control" value="<?php echo date("Y-m-01")?> - <?php echo date("Y-m-d")?>" />
+                                            <input type="text" style="width: 200px" name="fechasFiltro" id="fechasFiltro" class="form-control" value="<?php echo date("Y-m-01")?> - <?php echo date("Y-m-").date("d",(mktime(0,0,0,date("m")+1,1,date("Y"))-1));?>" />
                                         </div>
                                         </div>
                                     </div>
                                 </fieldset>
-                            </div>
+                            </div> -->
                             <div class="col col-lg-2">
+                                <label for="">Año</label>
+                                <select name="anoBusca" id="anoBusca" class="form-control">
+                                    <?php for($m=2020;$m<=date("Y");$m++){?>
+                                        <option value="<?php echo $m?>" <?php if($m == date("Y")){?> selected <?php }?>><?php echo $m?></option>
+                                    <?php }?>
+                                </select>
+                            </div> 
+                            <div class="col col-lg-2">
+                                <label for="">Mes</label>
+                                <select name="mesBusca" id="mesBusca" class="form-control">
+                                    <?php for($a=1;$a<=12;$a++){?>
+                                        <option value="<?php echo $a?>" <?php if($a == date("m")){?> selected <?php }?>><?php echo traducirMes($a)?></option>
+                                    <?php }?>
+                                </select>
+                            </div> 
+                            <div class="col col-lg-2">
+                                <label for="">Estado</label>
                                 <select name="estado" id="estado" class="form-control">
                                     <option value="">TODAS</option>
                                     <option value="recibida">RECIBIDAS</option>
-                                    <option value="transito">EN TRAMITE</option>
+                                    <option value="aprobada">APROBADAS</option>
+                                    <option value="rechazada">RECHAZADAS</option>
                                     <option value="pagada">PAGADAS</option>
+                                    <option value="reembolsada">REEMBOLSADAS</option>
                                 </select>
                             </div>    
                             <div class="col col-lg-2">
-                                <button class="btn btn-danger" ng-click="getSolicitudes()">FILTRAR</button>
+                                <button class="btn btn-danger" ng-click="getSolicitudes()" style="margin:26px 0 0 0">FILTRAR</button>
                             </div>          
                         </div>
 
                     <div class="table-responsive">
-                        <div class="alert alert-info" ng-if="solicitudes.length == 0">No hay solicitudes con el filtro seleccionado.</div>
-                        <table class="table table-striped table-bordered dt-responsive nowrap" id="datatable-responsive" ng-if="solicitudes.length > 0">
+                        <div class="alert alert-info" ng-if="solicitudes.length == 0" style="margin:2% 0">No hay solicitudes con el filtro seleccionado.</div>
+                        <table class="table table-striped table-bordered dt-responsive nowrap" id="datatable-responsive" ng-if="solicitudes.length > 0"  style="margin:2% 0">
                             <thead>
                                 <tr>
                                     <th class="text-left">FECHA</th>
                                     <th class="text-left">EMPLEADO</th>
                                     <th>EMPRESA</th>
+                                    <th>MONTO</th>
                                     <th class="text-center">ESTADO</th>
                                     <th class="text-center">ACCIONES</th>
                                 </tr>
@@ -96,9 +116,12 @@
                                     <td class="text-left">{{soli.fechaSolicitud}}</td>
                                     <td class="text-left">{{soli.nombres | uppercase}} {{soli.apellidos | uppercase}}</td>
                                     <td>{{soli.nombre | uppercase}}</td>
+                                    <td>${{soli.monto | number}}</td>
                                     <td class="text-center">
-                                        <span class="badge badge-success" ng-if="soli.estadoSol=='recibida'" value="1" >{{soli.estadoSol | uppercase}}</span>
-                                        <span class="badge badge-secondary" ng-if="soli.estado==0" value="0" >INACTIVO</span>
+                                        <span class="badge badge-secondary" ng-if="soli.estadoSol=='recibida'">{{soli.estadoSol | uppercase}}</span>
+                                        <span class="badge badge-danger" ng-if="soli.estadoSol=='rechazada'">{{soli.estadoSol | uppercase}}</span>
+                                        <span class="badge badge-success" ng-if="soli.estadoSol=='pagada'">{{soli.estadoSol | uppercase}}</span>
+                                        <span class="badge badge-primary" ng-if="soli.estadoSol=='aprobada'">{{soli.estadoSol | uppercase}}</span>
                                     </td>
                                     <td  class="text-center">
                                         <?php if(getPrivilegios()[0]['ver'] == 1){ ?>

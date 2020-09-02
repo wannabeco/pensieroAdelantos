@@ -122,6 +122,9 @@
     <script src="<?php echo base_url()?>res/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="<?php echo base_url()?>res/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="<?php echo base_url()?>res/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    
+    <script src="https://kit.fontawesome.com/44485b0623.js" crossorigin="anonymous"></script>
+
 
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url()?>res/build/js/custom.min.js"></script>

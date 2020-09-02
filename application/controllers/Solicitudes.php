@@ -102,9 +102,11 @@ class Solicitudes extends CI_Controller
     {
         extract($_POST);
         //armo la data del filtro
-        $explodeFecha = explode(' - ',$fechasFiltro);
-        $where['s.fechaSolicitud >= '] = $explodeFecha[0].' 00:00:00';
-        $where['s.fechaSolicitud <= '] = $explodeFecha[1].' 23:59:59';
+		$explodeFecha = explode(' - ',$fechasFiltro);
+		$where['s.mes'] = $mesBusca;
+		$where['s.ano'] = $anoBusca;
+        //$where['s.fechaSolicitud >= '] = $explodeFecha[0].' 00:00:00';
+        //$where['s.fechaSolicitud <= '] = $explodeFecha[1].' 23:59:59';
 
         if($estado != '')
         {
@@ -120,6 +122,55 @@ class Solicitudes extends CI_Controller
         extract($_POST);
         $gestionSolicitud =  $this->logicaSolicitudes->gestionaSolicitud($_POST);
         echo json_encode($gestionSolicitud);
-    }
+	}
+
+
+	//cobros de dinero
+	public function Cobros($idModulo)	
+	{
+		//valido que haya una sesión de usuario, si no existe siempre lo enviaré al login
+		if(validaIngreso())
+		{
+			/*******************************************************************************************/
+			/* ESTA SECCIÓN DE CÓDIGO  ES MUY IMPORTANTE YA QUE ES LA QUE CONTROLARÁ EL MÓDULO VISITADO*/
+			/*******************************************************************************************/
+			//si no se declara está variable en cada inicio del módulo no se podrán consultar los privilegios
+			$_SESSION['moduloVisitado']		=	$idModulo;
+			//antes de pintar la plantilla del módulo valido si hay permisos de ver ese módulo para evitar que ingresen al módulo vía URL
+			if(getPrivilegios()[0]['ver'] == 1)
+			{ 
+				//info Módulo
+				$infoModulo	      	   = $this->logica->infoModulo($idModulo);
+				$opc 				   = "home";
+				$salida['titulo']      = lang("titulo")." - ".$infoModulo[0]['nombreLargo'];
+				$salida['centro'] 	   = "solicitudes/cobros";
+				$salida['infoModulo']  = $infoModulo[0];
+				$this->load->view("app/index",$salida);
+			}
+			else
+			{
+				$opc 				   = "home";
+				$salida['titulo']      = lang("titulo")." - Área Restringida";
+				$salida['centro'] 	   = "error/areaRestringida";
+				$this->load->view("app/index",$salida);
+			}
+		}
+		else
+		{
+			header('Location:'.base_url()."login");
+		}
+	}
+	public function getCobros()
+    {
+        extract($_POST);
+        //armo la data del filtro
+		$where['s.mes'] 			= $mesBusca;
+		$where['s.ano'] 			= $anoBusca;
+		$where['s.estado'] 			= 'pagada';
+		$where['s.idReembolso'] 	= 0;
+        //consulto
+        $listaCobros =  $this->logicaSolicitudes->getCobros($where);
+        echo json_encode($listaCobros);
+    } 
 }
 ?>

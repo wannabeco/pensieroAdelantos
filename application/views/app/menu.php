@@ -85,7 +85,13 @@
               <ul class=" navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                   <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="<?php echo base_url()."res/fotos/personas/".$_SESSION['project']['info']['idPersona']."/".$_SESSION['project']['info']['icono'] ?>" alt=""><?php echo $_SESSION['project']['info']['nombre'] ?>  <?php echo $_SESSION['project']['info']['apellido'] ?>
+                    <!-- <img src="<?php echo base_url()."res/fotos/personas/".$_SESSION['project']['info']['idPersona']."/".$_SESSION['project']['info']['icono'] ?>" alt=""> -->
+                    <?php if($_SESSION['project']['info']['icono'] != ""){ ?>
+                        <img src="<?php echo base_url()."res/fotos/personas/".$_SESSION['project']['info']['idPersona']."/".$_SESSION['project']['info']['icono'] ?>" alt="icon">
+                    <?php }else{ ?>
+                        <img src="<?php echo base_url()."res/img/user.jpg" ?>" alt="icon">
+                    <?php } ?>
+                    <?php echo $_SESSION['project']['info']['nombre'] ?>  <?php echo $_SESSION['project']['info']['apellido'] ?>
                   </a>
                   <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item"  href="<?php echo base_url() ?>PerfilUsuario/datosUsuario"> Perfil</a>

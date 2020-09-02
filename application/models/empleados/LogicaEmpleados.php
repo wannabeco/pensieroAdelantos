@@ -67,7 +67,7 @@ class LogicaEmpleados {
         $where['emple.idEmpleado']    = $idEmpleado;
         $listaEmpleados = $this->ci->dbEmpleados->getEmpleados($where);
         //verifico que el usuario no tenga creada ya una solicitud para este mes
-        $verificoSolicitudes = $this->ci->dbEmpleados->verificaSolicitudes(array('idEmpleado'=>$idEmpleado,'mes'=>date("m")));
+        $verificoSolicitudes = $this->ci->dbEmpleados->verificaSolicitudes(array('idEmpleado'=>$idEmpleado,'idReembolso' => 0));
         //si no tiene solicitudes creadas para el mes, lo dejo pasar
         if(count($verificoSolicitudes) == 0)
         {
@@ -135,7 +135,7 @@ class LogicaEmpleados {
         }
         else
         {
-            $respuesta = array("mensaje"=>"Estimado usuario, usted ya ha realizado una solicitud de adelanto de nómina para el mes ".traducirMes(date("m")),
+            $respuesta = array("mensaje"=>"Estimado usuario, usted tiene solicitudes pendientes por pagar, hasta que las solicitudes no sean pagadas por parte de su empresa no podemos permitirle asignar una nueva. Disculpe las incomodidades.".traducirMes(date("m")),
                           "continuar"=>0,
                           "datos"=>""); 
         }

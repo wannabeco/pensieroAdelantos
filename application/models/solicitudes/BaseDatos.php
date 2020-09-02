@@ -43,6 +43,21 @@ class BaseDatos extends CI_Model {
         //print_r($this->db->last_query());die();
         return $id->result_array();
     }
+    public function getCobros($where=array())
+    {
+        $this->db->select("e.idEmpresa,SUM(s.montoConInteres) AS montoCobrar,e.nombre AS empresa ");
+        if(count($where) > 0)
+        {
+            $this->db->where($where);
+        }
+        $this->db->from($this->tableSolicitudes." s");
+        $this->db->join($this->tableEmpresas." e","e.idEmpresa=s.idEmpresa",'INNER');
+        $this->db->order_by("s.idEmpresa","DESC");
+        $this->db->group_by("s.idEmpresa");
+        $id = $this->db->get();
+        //print_r($this->db->last_query());die();
+        return $id->result_array();
+    }
 
     public function ultimaTransaccion($where)
     {
