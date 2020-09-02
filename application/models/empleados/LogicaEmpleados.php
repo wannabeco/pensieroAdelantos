@@ -135,7 +135,7 @@ class LogicaEmpleados {
         }
         else
         {
-            $respuesta = array("mensaje"=>"Estimado usuario, usted tiene solicitudes pendientes por pagar, hasta que las solicitudes no sean pagadas por parte de su empresa no podemos permitirle asignar una nueva. Disculpe las incomodidades.".traducirMes(date("m")),
+            $respuesta = array("mensaje"=>"Estimado usuario, usted tiene solicitudes pendientes por pagar, hasta que las solicitudes no sean pagadas por parte de su empresa no podemos permitirle asignar una nueva. Disculpe las incomodidades.",
                           "continuar"=>0,
                           "datos"=>""); 
         }
