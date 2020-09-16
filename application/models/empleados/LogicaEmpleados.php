@@ -290,6 +290,10 @@ class LogicaEmpleados {
                 {
                     $nArray['nroDocumento'] = $valor;
                 }
+                else if(strtolower($encabezados[$cont]) == 'email')
+                {
+                    $nArray['email'] = strtolower($valor);
+                }
                 else if(strtolower($encabezados[$cont]) == 'genero')
                 {
                     if($valor == 'f')
