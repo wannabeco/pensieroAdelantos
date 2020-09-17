@@ -693,4 +693,24 @@ function sendFCM($titulo,$mensaje,$tokenDevice='')
         die('Oops! FCM Send Error: ' . curl_error($ch));
     }
 }
+
+function sendWhatsappMessage($numero,$mensaje)
+{
+    $url = "https://eu93.chat-api.com/instance173135/sendMessage?token=d9vvjyjqcpdn2uv4";
+    $arrayToSend = array('phone' => $numero, 'body' => $mensaje);
+    $json = json_encode($arrayToSend);
+    $headers = array();
+    $headers[] = 'Content-Type: application/json';
+    //$headers[] = 'Authorization: key='. $serverKey;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+    $result = curl_exec($ch);
+    echo $result;
+}
 ?>  

@@ -64,10 +64,14 @@ class Api extends CI_Controller
                 $asunto      =   "Codigo de verificacion ".lang("titulo");
                 $mensaje     =   "Hola, ingresa el código que verás a continuación en la app móvil.<br><br>";
                 $mensaje    .=   "<strong>".$codigo."</strong>";
+                $mensajeW    =   "Hola, ingresa el código que verás a continuación en la app móvil. ";
+                $mensajeW   .=   "*".$codigo."*";
                 //plantilla del mail
-                $plantilla   = plantillaMail($asunto,$mensaje);
+                $plantilla   = plantillaMail($asunto,$mensajeW);
                 //envio el codigo de ingreso al mail del usuario
                 sendMail($para,$asunto,$plantilla);
+                //envio el código de acceso al whatsapp de la persona
+                sendWhatsappMessage("57".$dataempleado['datos'][0]['celularEmpleado'],"Probando Envio");
                 $salida = array("mensaje"=>"Hemos enviado el mensaje al correo electrónico seleccionado, por favor verifique.",
                                 "datos"=>array(),
                                 "continuar"=>1);
