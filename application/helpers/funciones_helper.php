@@ -711,6 +711,6 @@ function sendWhatsappMessage($numero,$mensaje)
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
     $result = curl_exec($ch);
-    echo $result;
+    //echo $result;
 }
 ?>  
