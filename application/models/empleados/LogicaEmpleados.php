@@ -359,8 +359,7 @@ class LogicaEmpleados {
             }
             else ///actualizo la data
             {
-                $insercionDatos   =  $this->ci->dbEmpleados->
-                DataTablaCreada(array('nroDocumento'=>$dataInserta['nroDocumento']),$dataInserta,$tablaEmpleados);
+                $insercionDatos   =  $this->ci->dbEmpleados->actualizaDataTablaCreada(array('nroDocumento'=>$dataInserta['nroDocumento']),$dataInserta,$tablaEmpleados);
             }
             $cont2++;
         } 
