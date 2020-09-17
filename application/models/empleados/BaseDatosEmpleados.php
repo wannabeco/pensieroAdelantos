@@ -27,7 +27,7 @@ class BaseDatosEmpleados extends CI_Model {
     }
     public function getEmpleados($where)
     {
-        $this->db->select("emple.email as emailEmpleado,emple.nroDocumento as documentoEmpleado,emple.telefono as celularEmpleado,emple.*,empre.*");
+        $this->db->select("emple.email as emailEmpleado,emple.nroDocumento as documentoEmpleado,emple.tipoDocumento as tipoDocumentoEmpleado,emple.direccion as direccionEmpleado,emple.telefono as celularEmpleado,emple.*,empre.*");
         $this->db->where($where);
         $this->db->from($this->tableEmpleados." emple");
         $this->db->join($this->tableEmpresas." empre","empre.idEmpresa=emple.idEmpresa");

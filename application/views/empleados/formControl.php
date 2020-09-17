@@ -66,7 +66,7 @@
                         <select   id="tipoDocumento" name="tipoDocumento" class="form-control">
                             <option value="">Tipo de documento</option>
                           <?php foreach($selects['tiposDoc'] as $listaTD){ ?>
-                              <option value="<?php echo $listaTD['idTipoDoc'] ?>" <?php echo (isset($datos['tipoDocumento']) && $listaTD['idTipoDoc'] == $datos['tipoDocumento'])?'selected':''; ?>><?php echo $listaTD['nombreTipoDoc'] ?></option>
+                              <option value="<?php echo $listaTD['idTipoDoc'] ?>" <?php echo (isset($datos['tipoDocumentoEmpleado']) && $listaTD['idTipoDoc'] == $datos['tipoDocumentoEmpleado'])?'selected':''; ?>><?php echo $listaTD['nombreTipoDoc'] ?></option>
                           <?php } ?>
                         </select>
                       </div>
@@ -84,7 +84,7 @@
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Direcci&oacute;n <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="direccion" name="direccion" class="form-control" value="<?php echo (isset($datos['direccion']))?$datos['direccion']:''; ?>"  >
+                        <input type="text" id="direccion" name="direccion" class="form-control" value="<?php echo (isset($datos['direccionEmpleado']))?$datos['direccionEmpleado']:''; ?>"  >
                       </div>
                     </div>
                     
@@ -92,7 +92,7 @@
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Celular de contacto <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="telefono" name="telefono" class="form-control" value="<?php echo (isset($datos['telefono']))?$datos['telefono']:''; ?>"  >
+                        <input type="text" id="telefono" name="telefono" class="form-control" value="<?php echo (isset($datos['celularEmpleado']))?$datos['celularEmpleado']:''; ?>"  >
                       </div>
                     </div>
                     
