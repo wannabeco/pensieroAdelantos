@@ -775,7 +775,7 @@ class LogicaTienda  {
                         //notifico al administrador acerca de esta petición
                         //debo enviar un mail al administrador del sistema avisando de que alguien realizo un adelanto de salario
                         $para        =   _ADMIN_SOLICITUDES;
-                        $asunto      =   "Solicitud de pedido de mercado".lang("titulo");
+                        $asunto      =   "Solicitud de pedido de mercado ".lang("titulo");
                         $mensaje     =   "Se ha registrado una nueva solicitud de pedido de mercado, a continuación verá la información de la solicitud.<br><br>";
                         $mensaje    .=   "<strong>Solicitante: </strong> ".$cupoActualEmpleado['datos']['nombres']." ".$cupoActualEmpleado['datos']['apellidos']."<br>";
                         $mensaje    .=   "<strong>Empresa: </strong> ".$cupoActualEmpleado['datos']['nombre']."<br>";
