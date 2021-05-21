@@ -24,6 +24,7 @@ class App extends CI_Controller
 	{
 		if(validaIngreso())
 		{
+			$_SESSION['project']['info']['idTienda'] = 1;
 			//var_dump($_SESSION['project']);
 			$opc = "home";
 			$salida['titulo'] = lang("titulo");

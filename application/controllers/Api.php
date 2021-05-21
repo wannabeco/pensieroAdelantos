@@ -24,6 +24,7 @@ class Api extends CI_Controller
         $this->load->model("general/LogicaGeneral", "logica");//la idea es que este archivo siempre esté ya que aquí se consultan cosas que son muy globales.
         $this->load->model("empleados/LogicaEmpleados", "logicaEmpleados");//aquí se debe llamar la lógica correspondiente al módulo que se esté haciendo.
         $this->load->model("solicitudes/Logica", "logicaSolicitudes");//aquí se debe llamar la lógica correspondiente al módulo que se esté haciendo.
+        $this->load->model("gestionTienda/logicaTienda", "logicaTienda");//aquí se debe llamar la lógica correspondiente al módulo que se esté haciendo.
        	$this->load->helper('language');//mantener siempre.
     	$this->lang->load('spanish');//mantener siempre.
     }
@@ -280,6 +281,181 @@ class Api extends CI_Controller
         //retorno la salida del servidor
         echo json_encode($salida);
     }
+
+    public function consultaSubCategorias()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $salida = $this->logicaTienda->getSubcategorias(array("idProducto"=>$objDatos['idCategoria'],"idTienda"=>$objDatos['idTienda'],"idEstado"=>1));
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                                "datos"=>array(),
+                                "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+
+    }
+
+    public function consultaProductos()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $prod = $this->logicaTienda->empaquetaPresentaciones(array("p.idProducto"=>$objDatos['idCategoria'],"p.idSubcategoria"=>$objDatos['idSubcategoria'],"p.idEstado"=>1));
+            
+            $salida = array("mensaje"=>"Productos",
+                                "datos"=>$prod,
+                                "continuar"=>1);
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                                "datos"=>array(),
+                                "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+
+    }
+
+    public function infoProducto()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $prod = $this->logicaTienda->empaquetaPresentaciones(array("p.idPresentacion"=>$objDatos['idPresentacion'],"p.idTienda"=>$objDatos['idTienda']));
+            $salida = array("mensaje"=>"Productos",
+                            "datos"=>$prod,
+                            "continuar"=>1);
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                            "datos"=>array(),
+                            "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+
+    }
+
+    public function agregaCarrito()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $prod = $this->logicaTienda->agregaCarrito($objDatos);
+            $salida = $prod;
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                            "datos"=>array(),
+                            "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+    }
+
+    public function consultaCarrito()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $prod = $this->logicaTienda->leerCarrito($objDatos);
+            $salida = $prod;
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                            "datos"=>array(),
+                            "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+    }
+
+    public function eliminarDelCarrito()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $prod = $this->logicaTienda->quitarDelCarrito($objDatos);
+            $salida = $prod;
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                            "datos"=>array(),
+                            "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+    }
+
+    
+    public function realizarPedido()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $prod = $this->logicaTienda->realizarPedido($objDatos);
+            $salida = $prod;
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                            "datos"=>array(),
+                            "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+    }
+
+    
+    public function consultaCupoEmpleado()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $prod = $this->logicaTienda->consultaCupoEmpleado($objDatos);
+            $salida = $prod;
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                            "datos"=>array(),
+                            "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+    }
+
+
+    
+    public function getPedidosUsuarios()
+    {
+        $objDatos       = json_decode(file_get_contents("php://input"),true);
+        if($objDatos['fuente'] == 'app')
+        {
+            $pedidos = $this->logicaTienda->getPedidosUsuarios($objDatos);
+            $salida = $pedidos;
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No tiene acceso a esta zona",
+                            "datos"=>array(),
+                            "continuar"=>0);
+        }
+        //retorno la salida del servidor
+        echo json_encode($salida);
+    }
+
+
 
 }
 ?>

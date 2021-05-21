@@ -491,6 +491,7 @@ function insertaArchivosControlesAngularJS()
     $script .=   '<script type="text/javascript" src="'.base_url().'res/js/empleados/controller.js?'.rand(0,10000).'"></script>';
     $script .=   '<script type="text/javascript" src="'.base_url().'res/js/solicitudes/controller.js?'.rand(0,10000).'"></script>';
     $script .=   '<script type="text/javascript" src="'.base_url().'res/js/administrativos/cargaPagos/controller.js?'.rand(0,10000).'"></script>';
+    $script .=   '<script type="text/javascript" src="'.base_url().'res/js/gestionTienda/controller.js?'.rand(0,10000).'"></script>';
 
     return $script;
 }

@@ -2,7 +2,8 @@
 SQLyog Ultimate v11.33 (64 bit)
 MySQL - 10.4.14-MariaDB : Database - kerrodal
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -36,3 +37,12 @@ CREATE TABLE `app_noti` (
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+
+
+-- me dice si ya la adenda esta pagada
+ALTER TABLE app_empleados ADD COLUMN `cupo` INT DEFAULT 250000 AFTER `cargo`;
+
+ALTER TABLE app_empleados ADD COLUMN `cupoDisp` INT DEFAULT 250000 AFTER `cupo`;
+-- inserto una variable global
+INSERT INTO `app_variablesglobales` (variable,valor) VALUES('_CUPO_EMPLEADOS','250000');
