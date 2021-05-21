@@ -15,7 +15,7 @@
    realizarse querys directos a la base de datos, para eso se usa el archivo modelo de base de datos
    
 */
-class logicaTienda  {
+class LogicaTienda  {
     private $ci;
     public function __construct()
     {

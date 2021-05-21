@@ -46,3 +46,4 @@ ALTER TABLE app_empleados ADD COLUMN `cupo` INT DEFAULT 250000 AFTER `cargo`;
 ALTER TABLE app_empleados ADD COLUMN `cupoDisp` INT DEFAULT 250000 AFTER `cupo`;
 -- inserto una variable global
 INSERT INTO `app_variablesglobales` (variable,valor) VALUES('_CUPO_EMPLEADOS','250000');
+

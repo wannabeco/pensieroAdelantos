@@ -24,7 +24,7 @@ class Api extends CI_Controller
         $this->load->model("general/LogicaGeneral", "logica");//la idea es que este archivo siempre esté ya que aquí se consultan cosas que son muy globales.
         $this->load->model("empleados/LogicaEmpleados", "logicaEmpleados");//aquí se debe llamar la lógica correspondiente al módulo que se esté haciendo.
         $this->load->model("solicitudes/Logica", "logicaSolicitudes");//aquí se debe llamar la lógica correspondiente al módulo que se esté haciendo.
-        $this->load->model("gestionTienda/logicaTienda", "logicaTienda");//aquí se debe llamar la lógica correspondiente al módulo que se esté haciendo.
+        $this->load->model("gestionTienda/LogicaTienda", "logicaTienda");//aquí se debe llamar la lógica correspondiente al módulo que se esté haciendo.
        	$this->load->helper('language');//mantener siempre.
     	$this->lang->load('spanish');//mantener siempre.
     }
