@@ -70,7 +70,7 @@ class Api extends CI_Controller
                 //plantilla del mail
                 $plantilla   = plantillaMail($asunto,$mensaje);
                 //envio el codigo de ingreso al mail del usuario
-                //sendMail($para,$asunto,$plantilla);
+                sendMail($para,$asunto,$plantilla);
                 //envio el código de acceso al whatsapp de la persona
                 sendWhatsappMessage("57".$dataempleado['datos'][0]['celularEmpleado'],$mensajeW);
                 $salida = array("mensaje"=>"Hemos enviado el mensaje al correo electrónico seleccionado, por favor verifique.",
