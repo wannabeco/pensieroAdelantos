@@ -172,5 +172,14 @@ class Solicitudes extends CI_Controller
         $listaCobros =  $this->logicaSolicitudes->getCobros($where);
         echo json_encode($listaCobros);
     } 
+	public function pruebaMail()
+	{
+		$asunto = "PRUEBA ENVIO MAIL GMAIL";
+		$mensaje = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo blanditiis ex odit voluptatibus! Dolor at corrupti necessitatibus! Exercitationem qui veritatis, tenetur velit atque soluta harum ducimus itaque tempora sunt. Illum.";
+		//plantilla del mail
+		$plantilla   = plantillaMail($asunto,$mensaje);
+		//envio el codigo de ingreso al mail del usuario
+		$envioMail   = sendMail("kyo20052@gmail.com",$asunto,$plantilla);
+	}
 }
 ?>
