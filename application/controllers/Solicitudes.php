@@ -74,7 +74,7 @@ class Solicitudes extends CI_Controller
 			{ 
 				//info Módulo
 				$infoModulo	      	   = $this->logica->infoModulo($idModulo);
-				$infoSolicitud		   = $this->logicaSolicitudes->getSolicitudes(array('s.idEmpresa'=>$idSolicitud));
+				$infoSolicitud		   = $this->logicaSolicitudes->getSolicitudes(array('s.idSolicitud'=>$idSolicitud));
 				//var_dump($infoSolicitud['datos'][0]);die();
 				$opc 				   = "home";
 				$salida['titulo']      = lang("titulo")." - ".$infoModulo[0]['nombreLargo'];

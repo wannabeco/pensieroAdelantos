@@ -369,4 +369,12 @@ class LogicaGeneral  {
         }
         return $respuesta;
     }
+
+    //pedidos
+    public function getEstadosPedido($where=array())
+    {
+        $resultado          = $this->ci->dbGeneral->getEstadosPedido($where);
+        //var_dump($resultado);
+        return $resultado; 
+    }
  }

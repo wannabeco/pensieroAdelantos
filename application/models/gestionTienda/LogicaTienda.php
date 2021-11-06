@@ -22,6 +22,7 @@ class LogicaTienda  {
         $this->ci = &get_instance();
         $this->ci->load->model("gestionTienda/BaseDatosTienda","dbTienda");//reemplazar por el archivo de base de datos real
         $this->ci->load->model("general/BaseDatosGral","dbGeneral");//reemplazar por el archivo de base de datos real
+        $this->ci->load->model("empleados/BaseDatosEmpleados","dbEmpleados");
     } 
     public function infoCategoria($idProducto)
     {
@@ -724,11 +725,21 @@ class LogicaTienda  {
         $productosCarrito   = $this->ci->dbTienda->leerCarrito($whereCarrito);
         if(count($productosCarrito) > 0)
         {
+            //consulto la data del empleado para saber a que empresa le pertenece el pedido
+            
+            //obtengo la data del empleado
+            $where['emple.estado']        = 1;
+            $where['emple.eliminado']     = 0;
+            $where['emple.idEmpleado']    = $idUsuario;
+            $listaEmpleados = $this->ci->dbEmpleados->getEmpleados($where);
+
             //el siguiente paso es crear un pedido en la tabla pedidos
             $dataInsertarPedido['idPersona']    = $idUsuario;
+            $dataInsertarPedido['idEmpresa']    = $listaEmpleados[0]['idEmpresa'];
             $dataInsertarPedido['fechaPedido']  = date("Y-m-d H:i:s");
             $dataInsertarPedido['mesPedido']    = date("m");
             $dataInsertarPedido['anoPedido']    = date("Y");
+            $dataInsertarPedido['codigoPedido'] = generacodigo(10);
             $dataInsertarPedido['valor']        = $totalPedido;
             $insertoPedido       =  $this->ci->dbTienda->creaPedido($dataInsertarPedido);
             //valido si el pedido se inserta
@@ -763,8 +774,11 @@ class LogicaTienda  {
                     $cupoActualEmpleado = $this->consultaCupoEmpleado(array("idEmpleado"=>$idUsuario));
                     //debo descontarle el cupo disponible al usuario
                     $nuevoCupo = ($cupoActualEmpleado['datos']['cupoDisp'] -  $sumoTotal);
+                    //actualizo el cupo del mercado en la tabla del empleado
+                    $nuevoCupoMercado = ($cupoActualEmpleado['datos']['cupoMercado'] -  $sumoTotal);
                     //actualizo el empleado para descontarle el cupo disponible
-                    $dataActualizaUsuario['cupoDisp'] = $nuevoCupo;
+                    //$dataActualizaUsuario['cupoDisp']    = $nuevoCupo;
+                    $dataActualizaUsuario['cupoMercado'] = $nuevoCupoMercado;
                     $whereActualizaUsuario['idEmpleado'] = $idUsuario;
                     $actualizoCupoEmpleado  =  $this->ci->dbTienda->actualizaEmpleado($whereActualizaUsuario,$dataActualizaUsuario);
                     if($actualizoCupoEmpleado > 0)

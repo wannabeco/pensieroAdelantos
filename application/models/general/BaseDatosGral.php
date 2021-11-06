@@ -57,6 +57,7 @@ class BaseDatosGral extends CI_Model {
         $this->tableBancos               = "app_bancos";
         $this->tableInfoQuienes          = "app_info_kerrodal";
         $this->tableNotificaciones       = "app_noti";
+        $this->tableEstadosPedido        = "app_estado_pedido";
     }
     public function getNotificacionesPersona($where)
     {
@@ -448,6 +449,19 @@ class BaseDatosGral extends CI_Model {
         $this->db->select("*");
         $this->db->where($where);
         $this->db->from($this->tableRelModulosPerfil);
+        $id = $this->db->get();
+        //print_r($this->db->last_query());die();
+        return $id->result_array();
+
+    }
+    public function getEstadosPedido($where=array())
+    {
+        $this->db->select("*");
+        if(count($where) > 0)
+        {
+            $this->db->where($where);
+        }
+        $this->db->from($this->tableEstadosPedido);
         $id = $this->db->get();
         //print_r($this->db->last_query());die();
         return $id->result_array();

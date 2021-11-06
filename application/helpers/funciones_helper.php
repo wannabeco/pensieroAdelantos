@@ -82,10 +82,10 @@ function sendMail($para,$asunto,$mensaje)
     $ci->load->model("general/baseDatosGral","baseGeneral");
     $ci->email->initialize(array(
       'protocol' => 'smtp',
-      'smtp_host' => 'mail.kerrodal.com',
-      'smtp_user' => 'no-responder@kerrodal.com',
+      'smtp_host' => 'smtp.gmail.com',
+      'smtp_user' => 'comunicacioneskerrodal@gmail.com',
       'smtp_pass' => 'Jg$E3D+u',
-      'smtp_port' => 587,
+      'smtp_port' => 465,
       'crlf' => "\r\n",
       'newline' => "\r\n",
       'mailtype'=>"html"
@@ -714,4 +714,51 @@ function sendWhatsappMessage($numero,$mensaje)
     $result = curl_exec($ch);
     //echo $result;
 }
+
+function estadoPago($idEstado)
+{
+    if ($idEstado == 4 ) {
+        $estadoTx = "Transacción aprobada";
+        $claseLabel = "label-success";
+    }
+    else if ($idEstado == 6 ) {
+        $estadoTx = "Transacción rechazada";
+        $claseLabel = "label-danger";
+    }
+    else if ($idEstado == 104 ) {
+        $estadoTx = "Error";
+        $claseLabel = "label-danger";
+    }
+    else if ($idEstado == 7 ) {
+        $estadoTx = "Transacción pendiente";
+        $claseLabel = "label-warning";
+    }
+    else if ($idEstado == 998 ) {
+        $estadoTx = "Pago realizado";
+        $claseLabel = "label-success";
+    }
+    else if ($idEstado == 999 ) {
+        $estadoTx = "Pago no realizado";
+        $claseLabel = "label-danger";
+    }
+    else if ($idEstado == 000 ) {
+        $estadoTx = "Esperando pago";
+        $claseLabel = "label-default";
+    }
+    else {
+        $estadoTx="Otro estado";
+        $claseLabel = "";
+    }
+
+    return array('texto'=>$estadoTx,'label'=>$claseLabel);
+}
+
+function traduceFecha($fecha)
+{
+    $fecha1 = explode(" ",$fecha);
+    $fecha2 = explode("-",$fecha1[0]);
+
+    return $fecha2[2]." de ".traducirMes($fecha2[1])." de ".$fecha2[0];
+}
+
 ?>  

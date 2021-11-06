@@ -87,12 +87,12 @@
                             <div class="card">
                                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                                 <div class="card-body">
-                                    <h5 class="card-title">Informaci&oacute;n del adelanto</h5>
+                                    <h5 class="card-title">Informaci&oacute;n del préstamo</h5>
                                     <p class="card-text">
                                         <strong>Monto solicitado: </strong>$<?php echo number_format($infoSolicitud['monto'],0,',','.')?><br>
-                                        <strong>Comisi&oacute;n: </strong>$<?php echo number_format($infoSolicitud['valorInteres'],0,',','.')?><br>
-                                        <strong>Valor descuento n&oacute;mina: </strong>$<?php echo number_format($infoSolicitud['montoConInteres'],0,',','.')?><br>
-                                        <strong>Comisi&oacute;n: </strong><?php echo $infoSolicitud['interes']?>%<br>
+                                        <strong>Membresía y gastos: </strong>$<?php echo number_format($infoSolicitud['valorInteres'],0,',','.')?><br>
+                                        <strong>Valor que debe pagar el empleado: </strong>$<?php echo number_format($infoSolicitud['montoConInteres'],0,',','.')?><br>
+                                        <!-- <strong>Comisi&oacute;n: </strong><?php echo $infoSolicitud['interes']?>%<br> -->
                                         <strong>Fecha solicitud: </strong><?php echo $infoSolicitud['fechaSolicitud']?><br>
                                         <strong>Ip solicitud: </strong><?php echo $infoSolicitud['ip']?><br>
                                         <strong>Dispositivo: </strong><?php echo $infoSolicitud['userAgent']?><br>
@@ -101,9 +101,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col col-lg-6" style="margin:10px 0 0 0">
+                        <!-- <div class="col col-lg-6" style="margin:10px 0 0 0">
                             <div class="card">
-                                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                                 <div class="card-body">
                                     <h5 class="card-title">Informaci&oacute;n de cuenta bancaria</h5>
                                     <p class="card-text">
@@ -111,10 +110,10 @@
                                         <strong>Tipo de cuenta: </strong><?php echo $infoSolicitud['tipoCuenta']?><br>
                                         <strong>N&uacute;mero de cuenta: </strong><?php echo $infoSolicitud['nroCuenta']?><br>
                                     </p>
-                                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row"  style="margin:50px 0 0 0">
                         <div class="col text-right">

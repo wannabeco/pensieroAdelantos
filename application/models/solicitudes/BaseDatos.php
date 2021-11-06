@@ -28,7 +28,7 @@ class BaseDatos extends CI_Model {
     }
     public function getSolicitudes($where=array())
     {
-        $this->db->select("s.estado as estadoSol,s.*,s.estado as estadoSol,e.email as emailEmpleado,e.telefono as telefonoEmpleado,e.direccion as direccionEmpleado,e.*,b.*,em.* ");
+        $this->db->select("s.estado as estadoSol,s.*,s.estado as estadoSol,e.email as emailEmpleado,e.telefono as telefonoEmpleado,e.direccion as direccionEmpleado,e.*,em.* ");
         if(count($where) > 0)
         {
             $this->db->where($where);
@@ -36,7 +36,7 @@ class BaseDatos extends CI_Model {
 
         $this->db->from($this->tableSolicitudes." s");
         $this->db->join($this->tableEmpleados." e","e.idEmpleado = s.idEmpleado",'INNER');
-        $this->db->join($this->table_bancos." b","b.idEntidad=s.idEntidad",'INNER');
+        //$this->db->join($this->table_bancos." b","b.idEntidad=s.idEntidad",'LEFT');
         $this->db->join($this->tableEmpresas." em","em.idEmpresa=s.idEmpresa",'INNER');
         $this->db->order_by("s.fechaSolicitud","DESC");
         $id = $this->db->get();

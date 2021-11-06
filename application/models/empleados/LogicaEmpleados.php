@@ -5,6 +5,7 @@ class LogicaEmpleados {
     {
         $this->ci = &get_instance();
         $this->ci->load->model("empleados/BaseDatosEmpleados","dbEmpleados");
+        $this->ci->load->model("gestionTienda/BaseDatosTienda","dbTienda");
     } 
     public function getEmpleados($idEmpleado="")
     {
@@ -58,6 +59,26 @@ class LogicaEmpleados {
         }
         return $respuesta;
     } 
+    public function consultaCupoEmpleado($post)
+    {
+        extract($post);
+        $consultaCupo = $this->ci->dbTienda->infoEmpleado(array("e.idEmpleado"=>$idEmpleado));
+        if(count($consultaCupo) > 0)
+        {
+            //actualio todas las variaciones que tenga el producto
+            $salida = array("mensaje"=>"dataEmpleado",
+                            "datos"=>$consultaCupo[0],
+                            "continuar"=>1);
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No hay empleados con esta info",
+                            "datos"=>array(),
+                            "continuar"=>0);
+        }
+        
+        return $salida;
+    }
     public function insertaSolicitud($post)
     {
         extract($post);
@@ -71,65 +92,83 @@ class LogicaEmpleados {
         //si no tiene solicitudes creadas para el mes, lo dejo pasar
         if(count($verificoSolicitudes) == 0)
         {
-            //$nroSolicitud       =     
-            //realizo el calculo del interes y todo eso
-            $interesAPagar      = (($monto * _INTERES_COBRO) / 100);
-            $montoConInteres    = ($monto + $interesAPagar);
-            //procedo a insertar la data de la solicitud
-            $dataInsertar['idEmpleado']             = $idEmpleado;
-            $dataInsertar['idEmpresa']              = $listaEmpleados[0]['idEmpresa'];
-            $dataInsertar['mes']                    = date('m');
-            $dataInsertar['ano']                    = date('Y');
-            $dataInsertar['monto']                  = $monto;
-            $dataInsertar['montoConInteres']        = $montoConInteres;
-            $dataInsertar['valorInteres']           = $interesAPagar;
-            $dataInsertar['interes']                = _INTERES_COBRO;
-            $dataInsertar['idEntidad']              = $entidadBancaria;
-            $dataInsertar['tipoCuenta']             = $tipoCuenta;
-            $dataInsertar['nroCuenta']              = $cuentaBanco;
-            $dataInsertar['idMotivo']               = $motivo;
-            $dataInsertar['motivo']                 = $cualMotivo;
-            $dataInsertar['fechasolicitud']         = date("Y-m-d H:i:s");
-            $dataInsertar['ip']                     = getIP();
-            $dataInsertar['userAgent']              = $_SERVER['HTTP_USER_AGENT'];
-            //inserto la solicitud
-            $respuestaSolicitud = $this->ci->dbEmpleados->insertaSolicitud($dataInsertar);
-            //tambien inserto la transaccion inicial para la solicitud.
-            $dataInsertarTrans['idSolicitud']   = $respuestaSolicitud;
-            $dataInsertarTrans['idEmpleado']    = $idEmpleado;
-            $dataInsertarTrans['idPersona']     = 0;
-            $dataInsertarTrans['fechaTrans']    = date("Y-m-d H:i:s");
-            $dataInsertarTrans['estado']        = 'recibida';
-            $dataInsertarTrans['ip']            = getIP();
-            $dataInsertarTrans['userAgent']     = $_SERVER['HTTP_USER_AGENT'];
-            $respuestaSolicitud = $this->ci->dbEmpleados->insertaSolicitudTrans($dataInsertarTrans);
-            //valido la insercion
-            if($respuestaSolicitud > 0)
+            $cupoActualEmpleado = $this->consultaCupoEmpleado(array("idEmpleado"=>$idEmpleado));
+            if($cupoActualEmpleado['datos']['cupo'] != 0)
             {
-                //debo enviar un mail al administrador del sistema avisando de que alguien realizo un adelanto de salario
-                $para        =   _ADMIN_SOLICITUDES;
-                $asunto      =   "Solicitud de adelanto de nómina".lang("titulo");
-                $mensaje     =   "Se ha registrado una nueva solicitud de adelanto de nómina, a continuación verá la información de la solicitud.<br><br>";
-                $mensaje    .=   "<strong>Solicitante: </strong> ".$listaEmpleados[0]['nombres']." ".$listaEmpleados[0]['apellidos']."<br>";
-                $mensaje    .=   "<strong>Empresa: </strong> ".$listaEmpleados[0]['nombre']."<br>";
-                $mensaje    .=   "<strong>Monto solicitado: </strong> $".number_format($monto,0,',','.')."<br>";
-                $mensaje    .=   "<strong>Fecha y hora: </strong> ".$dataInsertar['fechasolicitud']."<br><br>";
-                $mensaje    .=   "Para ver más información de la solicitud haga clic en el siguiente botón<br><br>";
-                $mensaje    .=   "<a style='background:#ed1b24;color:#fff;text-align:center;text-decoration:none;font-weight:bold' href='".base_url()."/Solicitudes/infoSolicitud/41/".$respuestaSolicitud."'>VER SOLICITUD</a>";
-                //plantilla del mail
-                $plantilla   = plantillaMail($asunto,$mensaje);
-                //envio el codigo de ingreso al mail del usuario
-                sendMail($para,$asunto,$plantilla);
+                //debo descontarle el cupo disponible al usuario
+                $nuevoCupo = ($cupoActualEmpleado['datos']['cupo'] -  $monto);
+                //$nroSolicitud       =     
+                //realizo el calculo del interes y todo eso
+                //$interesAPagar      = (($monto * _INTERES_COBRO) / 100);
+                //$montoConInteres    = ($monto + $interesAPagar);
+                $montoConInteres    = ($monto + _VALOR_INTERES);
+                //procedo a insertar la data de la solicitud
+                $dataInsertar['idEmpleado']             = $idEmpleado;
+                $dataInsertar['idEmpresa']              = $listaEmpleados[0]['idEmpresa'];
+                $dataInsertar['mes']                    = date('m');
+                $dataInsertar['ano']                    = date('Y');
+                $dataInsertar['monto']                  = $monto;
+                $dataInsertar['montoConInteres']        = $montoConInteres;
+                $dataInsertar['valorInteres']           = _VALOR_INTERES;
+                $dataInsertar['interes']                = _VALOR_INTERES;
+                //$dataInsertar['idEntidad']              = $entidadBancaria;
+                //$dataInsertar['tipoCuenta']             = $tipoCuenta;
+                //$dataInsertar['nroCuenta']              = $cuentaBanco;
+                $dataInsertar['idMotivo']               = $motivo;
+                $dataInsertar['motivo']                 = $cualMotivo;
+                $dataInsertar['fechasolicitud']         = date("Y-m-d H:i:s");
+                $dataInsertar['ip']                     = getIP();
+                $dataInsertar['userAgent']              = $_SERVER['HTTP_USER_AGENT'];
+                //inserto la solicitud
+                $respuestaSolicitud = $this->ci->dbEmpleados->insertaSolicitud($dataInsertar);
+                //tambien inserto la transaccion inicial para la solicitud.
+                $dataInsertarTrans['idSolicitud']   = $respuestaSolicitud;
+                $dataInsertarTrans['idEmpleado']    = $idEmpleado;
+                $dataInsertarTrans['idPersona']     = 0;
+                $dataInsertarTrans['fechaTrans']    = date("Y-m-d H:i:s");
+                $dataInsertarTrans['estado']        = 'recibida';
+                $dataInsertarTrans['ip']            = getIP();
+                $dataInsertarTrans['userAgent']     = $_SERVER['HTTP_USER_AGENT'];
+                $respuestaSolicitud = $this->ci->dbEmpleados->insertaSolicitudTrans($dataInsertarTrans);
+                //actualizo el cupo
+                $dataActualizaUsuario['cupo']       = $nuevoCupo;
+                $whereActualizaUsuario['idEmpleado'] = $idEmpleado;
+                $actualizoCupoEmpleado  =  $this->ci->dbTienda->actualizaEmpleado($whereActualizaUsuario,$dataActualizaUsuario);
+                //valido la insercion
+                if($respuestaSolicitud > 0)
+                {
+                    //debo enviar un mail al administrador del sistema avisando de que alguien realizo un adelanto de salario
+                    $para        =   _ADMIN_SOLICITUDES;
+                    $asunto      =   "Solicitud de préstamo ".lang("titulo");
+                    $mensaje     =   "Se ha registrado una nueva solicitud de préstamo, a continuación verá la información de la solicitud.<br><br>";
+                    $mensaje    .=   "<strong>Solicitante: </strong> ".$listaEmpleados[0]['nombres']." ".$listaEmpleados[0]['apellidos']."<br>";
+                    $mensaje    .=   "<strong>Empresa: </strong> ".$listaEmpleados[0]['nombre']."<br>";
+                    $mensaje    .=   "<strong>Monto solicitado: </strong> $".number_format($monto,0,',','.')."<br>";
+                    $mensaje    .=   "<strong>Fecha y hora: </strong> ".$dataInsertar['fechasolicitud']."<br><br>";
+                    $mensaje    .=   "Para ver más información de la solicitud haga clic en el siguiente botón<br><br>";
+                    $mensaje    .=   "<a style='background:#ed1b24;color:#fff;text-align:center;text-decoration:none;font-weight:bold' href='".base_url()."/Solicitudes/infoSolicitud/41/".$respuestaSolicitud."'>VER SOLICITUD</a>";
+                    //plantilla del mail
+                    $plantilla   = plantillaMail($asunto,$mensaje);
+                    //envio el codigo de ingreso al mail del usuario
+                    $envioMail   = sendMail($para,$asunto,$plantilla);
 
-                $respuesta = array("mensaje"=>"La solicitud de adelanto de nómina se ha llevado a cabo de manera exitosa, su número de solicitud es el: <strong>".$respuestaSolicitud."</strong>, pronto estaremos comunicandonos con usted.",
-                          "continuar"=>1,
-                          "datos"=>"");     
+                    $respuesta = array("mensaje"=>"La solicitud de adelanto de nómina se ha llevado a cabo de manera exitosa, su número de solicitud es el: <strong>".$respuestaSolicitud."</strong>, pronto estaremos comunicandonos con usted.",
+                            "continuar"=>1,
+                            "datos"=>"");     
+                }
+                else
+                {
+                    $respuesta = array("mensaje"=>"Estimado usuario, no se ha podido llevar a cabo la solicitud de adelanto de nómina, por favor intente más tarde. Si el problema persiste por favor comuníquese con su empresa.",
+                                "continuar"=>0,
+                                "datos"=>""); 
+
+                }
             }
             else
             {
-                $respuesta = array("mensaje"=>"Estimado usuario, no se ha podido llevar a cabo la solicitud de adelanto de nómina, por favor intente más tarde. Si el problema persiste por favor comuníquese con su empresa.",
-                              "continuar"=>0,
-                              "datos"=>""); 
+                $respuesta = array("mensaje"=>"Estimado usuario, actualmente su cupo para préstamo está agotado, debe realizar el pago de algún préstamo anterior. En caso de que no tenga un préstamo sin pagar comuníquese con su empresa para solucionar el inconveniente.",
+                            "continuar"=>0,
+                            "datos"=>""); 
 
             }
         }

@@ -1,3 +1,4 @@
+
 <div class="container-fluid" ng-controller="gestionTienda" ng-init="initProductos()" id="contenedor">
 
 <div id="modalUsuarios" class="modal fade" role="dialog"  data-keyboard="false" data-backdrop="static">
@@ -8,11 +9,10 @@
     </div>
 </div>
 
-    <!-- Page Heading -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                <?php echo $infoModulo['nombreModulo'] ?> <!--<small>Estructura de las áreas de su empresa</small>-->
+    <div class="page-title">
+        <div class="title_left">
+        <h1>
+             <?php echo $infoModulo['nombreModulo'] ?> <!--<small>Estructura de las áreas de su empresa</small>-->
                 
                 <?php if(getPrivilegios()[0]['crear'] == 1){ ?>
                     <div class="btn-group" >
@@ -27,37 +27,36 @@
                         </ul>
                     </div>
                 <?php } ?>
-            </h1>
-        <ol class="breadcrumb">
+        </h1>
+        <!-- <ol class="breadcrumb">
             <li>
                 <a href="<?php echo base_url() ?>App"><i class="fa fa-home"></i> Home</a>
             </li>
             <li class="active">
                  <?php echo $infoModulo['nombreModulo'] ?>
             </li>
-        </ol>
+        </ol> -->
+        
         </div>
-    </div> 
-    <!-- /.row -->
-    <div class="row">
-        <div class="col-lg-12">
-            <form class="form-inline">
-              <div class="form-group  label-floating">
-                <label class="control-label" for="tipoDocumento">Filtrar por palabra</label>
-                <input type="text" class="form-control" ng-model="q" placeholder=""><br>
-              </div>
-            </form>
-        </div>
+
+
+
     </div>
-    <!-- /.row -->
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="table-responsive">
+    <div class="clearfix"></div>
+    <!-- Nueva zona del contenido-->
+    <div class="row" style="display: block;">
+        <div class="col-md-12 col-sm-12  ">
+            <div class="x_panel">
+                <!-- <div class="x_title"></div> -->
+                <!-- Tablas y cualquier contenido-->
+                <div class="x_content">
+                   
+                <div class="table-responsive">
                 <table class="table table-hover table-striped" ng-if="productosLista.length > 0">
                     <thead>
                         <tr>
                             <th>PRODUCTO</th>
-                            <th class="text-center">VARIACIONES</th>
+                            <!-- <th class="text-center">VARIACIONES</th> -->
                             <th class="text-center">CATEGORIA</th>
                             <th class="text-center">SUBCATEGORIA</th>
                             <th class="text-center">ESTADO</th>
@@ -70,11 +69,11 @@
                                 <strong>{{prod.nombrePresentacion}}</strong><br>
                                 <!-- <small>Valor unitario: ${{prod.valorPresentacion|number}}</small> -->
                             </td>
-                            <td style="vertical-align: middle" class="text-center">
+                            <!-- <td style="vertical-align: middle" class="text-center">
                                 <?php if(getPrivilegios()[0]['editar'] == 1){ ?>
                                 <a href="#" class="text-success" ng-if="prod.variacion == 1" ng-click="variacionesProducto(prod.idPresentacion)">Variaciones</a>
                                 <?php }?>
-                            </td>
+                            </td> -->
                             <td style="vertical-align: middle" class="text-center">{{prod.nombreProducto}}</td>
                             <td style="vertical-align: middle" class="text-center">{{prod.nombreSubcategoria}}</td>
                             <td style="vertical-align: middle" align="center">
@@ -96,8 +95,11 @@
                   <strong>Vaya!</strong> aún no has creado ningún producto. <button class="btn" style="background:#fff;color:#333" ng-click="cargaPlantillaControlProductos('',0)">CREAR MI PRIMER PRODUCTO</button>
                 </div>
             </div>
+                </div>
+                <!-- Fin de las tablas y cualquier contenido-->
+            </div>
         </div>
     </div>
-    <!-- /.row -->
- </div>
-<!-- /.container-fluid -->
+    <!-- Fin de la nueva zona del contenido-->
+</div>
+<!-- Fin Div que engloba todo-->
