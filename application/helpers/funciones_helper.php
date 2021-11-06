@@ -86,11 +86,12 @@ function sendMail($para,$asunto,$mensaje)
       'smtp_user' => 'comunicacioneskerrodal@gmail.com',
       'smtp_pass' => 'Jg$E3D+u',
       'smtp_port' => 465,
+      'smtp_crypto' => 'ssl',
       'crlf' => "\r\n",
       'newline' => "\r\n",
       'mailtype'=>"html"
     ));
-    $ci->email->from('no-responder@kerrodal.com', NOMBRE_APP);
+    $ci->email->from('comunicacioneskerrodal@gmail.com', NOMBRE_APP);
     $ci->email->to($para);
     //$ci->  email->cc('another@another-example.com');
     //$ci->  email->bcc('them@their-example.com');
