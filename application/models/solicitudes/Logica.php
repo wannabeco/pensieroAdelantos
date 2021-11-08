@@ -108,15 +108,15 @@ class Logica {
         //valido que mensaje de exito mostrar
         if($estado == 'aprobada')//solicitud aprobada
         {
-            $mensajeSalida = "La solicitud de adelanto de nómina por valor de $".number_format($infoSolicitud[0]['monto'],0,',','.')." ha sido ".$estado;
+            $mensajeSalida = "La solicitud de préstamo por valor de $".number_format($infoSolicitud[0]['monto'],0,',','.')." ha sido ".$estado;
         }
         else if($estado == 'rechazada')//solicitud rechazada
         {
-            $mensajeSalida = "La solicitud de adelanto de nómina por valor de $".number_format($infoSolicitud[0]['monto'],0,',','.')." ha sido ".$estado;
+            $mensajeSalida = "La solicitud de préstamo por valor de $".number_format($infoSolicitud[0]['monto'],0,',','.')." ha sido ".$estado;
         }
         else if($estado == 'pagada')//solicitud rechazada
         {
-            $mensajeSalida = "La solicitud de adelanto de nómina por valor de $".number_format($infoSolicitud[0]['monto'],0,',','.')." ha sido ".$estado;
+            $mensajeSalida = "La solicitud de préstamo por valor de $".number_format($infoSolicitud[0]['monto'],0,',','.')." ha sido ".$estado;
         }
 
         $dataInsertar['estado']     = $estado;
@@ -140,8 +140,8 @@ class Logica {
             {
                 //debo enviar un mail al administrador del sistema avisando de que alguien realizo un adelanto de salario
                 $para        =   $infoSolicitud[0]['emailEmpleado'];
-                $asunto      =   "Solicitud de adelanto de nómina".lang("titulo");
-                $mensaje     =   "La solicitud de adelanto de nómina nro: ".$idSolicitud." ha sido <strong>".$estado."</strong>. <br><br>";
+                $asunto      =   "Solicitud de préstamo".lang("titulo");
+                $mensaje     =   "La solicitud de préstamo nro: ".$idSolicitud." ha sido <strong>".$estado."</strong>. <br><br>";
                 $mensaje    .=   "<strong>Solicitante: </strong> ".$infoSolicitud[0]['nombres']." ".$infoSolicitud[0]['apellidos']."<br>";
                 $mensaje    .=   "<strong>Empresa: </strong> ".$infoSolicitud[0]['nombre']."<br>";
                 $mensaje    .=   "<strong>Monto solicitado: </strong> $".number_format($infoSolicitud[0]['monto'],0,',','.')."<br>";
@@ -154,7 +154,7 @@ class Logica {
                 //inserto una notificación para que sea en la sección notificaciones de la app móvil.
                 insertaNotificacion("Cambio de estado en solicitud",$mensajeSalida,$idEmpleado,"movil");
                 //respuesta
-                $respuesta = array("mensaje"=>"La solicitud de adelanto de nómina por $".number_format($infoSolicitud[0]['monto'],0,',','.')." ha sido <strong>".$estado."</strong>",
+                $respuesta = array("mensaje"=>"La solicitud de préstamo por $".number_format($infoSolicitud[0]['monto'],0,',','.')." ha sido <strong>".$estado."</strong>",
                           "continuar"=>1,
                           "datos"=>"");     
             }
