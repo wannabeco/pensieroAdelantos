@@ -152,13 +152,13 @@ class LogicaEmpleados {
                     //envio el codigo de ingreso al mail del usuario
                     $envioMail   = sendMail($para,$asunto,$plantilla);
 
-                    $respuesta = array("mensaje"=>"La solicitud de adelanto de nómina se ha llevado a cabo de manera exitosa, su número de solicitud es el: <strong>".$respuestaSolicitud."</strong>, pronto estaremos comunicandonos con usted.",
+                    $respuesta = array("mensaje"=>"la solicitud de préstamo se ha llevado a cabo de manera exitosa, su número de solicitud es el: <strong>".$respuestaSolicitud."</strong>, pronto estaremos comunicandonos con usted.",
                             "continuar"=>1,
                             "datos"=>"");     
                 }
                 else
                 {
-                    $respuesta = array("mensaje"=>"Estimado usuario, no se ha podido llevar a cabo la solicitud de adelanto de nómina, por favor intente más tarde. Si el problema persiste por favor comuníquese con su empresa.",
+                    $respuesta = array("mensaje"=>"Estimado usuario, no se ha podido llevar a cabo la solicitud de préstamo, por favor intente más tarde. Si el problema persiste por favor comuníquese con su empresa.",
                                 "continuar"=>0,
                                 "datos"=>""); 
 
