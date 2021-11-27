@@ -147,7 +147,7 @@ class Logica {
             //valido la insercion
             if($respuestaSolicitud > 0)
             {
-                if($estado == 'reembolsada')
+                if($estado == 'reembolsada' || $estado == 'rechazada')
                 {
                     //libero el cupo del prestamo para el usuario
                     $dataActualizaEmpleado['cupo']        = _CUPO_EMPLEADOS;
