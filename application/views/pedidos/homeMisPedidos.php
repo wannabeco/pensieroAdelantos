@@ -77,74 +77,54 @@
                                 <label for="">Estado</label>
                                 <select name="estado" id="estado" class="form-control">
                                     <option value="">TODAS</option>
-                                    <option value="recibida">RECIBIDAS</option>
-                                    <option value="aprobada">APROBADAS</option>
-                                    <option value="rechazada">RECHAZADAS</option>
-                                    <option value="pagada">PAGADAS</option>
-                                    <option value="reembolsada">REEMBOLSADAS</option>
+                                    <?php foreach($listadoDeEstados as $estadosPed){?>
+                                        <option value="<?php echo $estadosPed['idEstadoPedido']?>"><?php echo strtoupper($estadosPed['nombreEstadoPedido'])?></option>
+                                    <?php }?>
+
                                 </select>
                             </div>    
                             <div class="col col-lg-2">
-                                <button class="btn btn-danger" ng-click="getSolicitudes()" style="margin:26px 0 0 0">FILTRAR</button>
+                                <button class="btn btn-danger" ng-click="getMisPedidos()" style="margin:26px 0 0 0">FILTRAR</button>
                             </div>          
                         </div>
 <br><br>
                     <div class="table-responsive">
-                        <div class="alert alert-info" ng-if="solicitudes.length == 0" style="margin:2% 0">No hay solicitudes con el filtro seleccionado.</div>
-                        <table class="table table-hover table-striped">
+                        <div class="alert alert-info" ng-if="pedidosLista.length == 0" style="margin:2% 0">No hay pedidos con los filtro seleccionado.</div>
+                        <table class="table table-hover table-striped" ng-if="pedidosLista.length > 0">
                             <thead>
                                 <tr>
                                     <th class="text-center">ID</th>
                                     <th>FECHA</th>
                                     <th>EMPLEADO</th>
                                     <th class="text-center">EMPRESA</th>
-                                    <th class="text-center">VALOR PEDIDO</th>
-                                    <th class="text-center">ESTADO PEDIDO</th>
+                                    <th class="text-center">VALOR DEL PEDIDO</th>
+                                    <th class="text-center">ESTADO DEL PEDIDO</th>
                                     <!-- <th class="text-center">EMPRESA</th> -->
                                     <th class="text-center">ACCIONES</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($listaPedidos as $pedidos){ 
-                                    ?>
-                                    <tr>
-                                        <td style="vertical-align: middle" class="text-center"><?php echo $pedidos['idPedido'] ?></td>
-                                        <td style="vertical-align: middle"><?php echo $pedidos['fechaPedido'] ?> </td>
-                                        <td style="vertical-align: middle"><?php echo $pedidos['nombres'] ?> <?php echo $pedidos['apellidos'] ?></td>
+                                    <tr ng-repeat="ped in pedidosLista">
+                                        <td style="vertical-align: middle" class="text-center">{{ped.idPedido}}</td>
+                                        <td style="vertical-align: middle">{{ped.fechaPedido}}</td>
+                                        <td style="vertical-align: middle">{{ped.nombres}} {{ped.apellidos}}</td>
                                         
                                         <td style="vertical-align: middle" class="text-center">
-                                            <?php echo $pedidos['nombre'] ?>
+                                            {{ped.nombre}}
                                         </td>
-                                        <!-- <td>{{ulist.nombreArea}}</td>
-                                        <td>{{ulist.nombreCargo}}</td> -->
-                                        <!-- <td style="vertical-align: middle"></td> -->
                                         <td style="vertical-align: middle" align="center">
-                                            $<?php echo number_format($pedidos['valor'],0,',','.') ?>
+                                            ${{ped.valor|number}}
                                         </td>
-                                        <td style="vertical-align: middle" align="center" <?php if($pedidos['estadoPedido'] == 5){ ?> colspan="2"<?php }?>>
-                                            <span class="label <?php echo $pedidos['label'] ?>"><?php echo $pedidos['nombreEstadoPedido'] ?></span>
+                                        <!-- <td style="vertical-align: middle" align="center" <?php if($pedidos['estadoPedido'] == 5){ ?> colspan="2"<?php }?>> -->
+                                        <td style="vertical-align: middle" align="center" >
+                                            <span class="badge {{ped.label}}">{{ped.nombreEstadoPedido}}</span>
                                         </td>
-                                        <!-- <?php if($pedidos['estadoPedido'] != 5){ ?>
-                                            <td style="vertical-align: middle" align="center">
-                                                
-                                                <span class="label <?php echo estadoPago($pedidos['estadoPago'])['label'] ?>"><?php echo estadoPago($pedidos['estadoPago'])['texto'] ?></span>
-                                            </td>
-                                        <?php } ?> -->
                                         <td  class="text-center">
-
-                                            <!-- <?php if(getPrivilegios()[0]['editar'] == 1){ ?>
-                                                <a ng-click="cargaPlantillaControl(ulist.idPersona,1)" title="Editar usuario" class="btn btn-primary btn-fab btn-fab-mini"><i class="material-icons">edit</i></a>
-                                                <a ng-click="generaDatosAcceso(ulist.idPersona)" title="Generar datos de acceso" class="btn btn-primary btn-fab btn-fab-mini"><i class="material-icons">https</i></a>
-                                            <?php }?> -->
                                             <?php if(getPrivilegios()[0]['editar'] == 1){ ?>
-                                                <a href="<?php echo base_url() ?>Pedidos/detalleMiPedido/<?php echo $infoModulo['idModulo'] ?>/<?php echo ($pedidos['idPedido']) ?>" title="Ver detalle del pedido"  class="btn btn-primary btn-fab btn-fab-mini btn-xs"><i class="fa fa-eye"></i></a>
+                                                <a href="<?php echo base_url() ?>Pedidos/detalleMiPedido/<?php echo $infoModulo['idModulo'] ?>/{{ped.idPedido}}" title="Ver detalle del pedido"  class="btn btn-primary btn-fab btn-fab-mini btn-xs"><i class="fa fa-eye"></i></a>
                                             <?php }?>
-                                            <!-- <?php if(getPrivilegios()[0]['borrar'] == 1){ ?>
-                                                <a ng-click="borraUsuario(ulist.idPersona)" title="Eliminar"  class="btn btn-danger btn-fab btn-fab-mini btn-xs"><i class="material-icons">delete</i></a>
-                                            <?php } ?> -->
                                         </td>
                                     </tr>
-                                <?php } ?>
                             </tbody>
                         </table>
 

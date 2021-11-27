@@ -258,24 +258,12 @@ class Pedidos extends CI_Controller
                 $infoModulo                 = $this->logica->infoModulo($idModulo);
                 $listadoDeEstados           = $this->logica->getEstadosPedido();
 
-                //$listaPedidos               = $this->logicaPedidos->misPedidos(array("p.idPersona"=>$_SESSION['project']['info']['idPersona']));
-                // if($_SESSION['project']['info']['idPerfil'] == _PERFIL_ADMIN)//si es admin debe traer los pedidos solo para el admin
-                // {
-                    //tomo los pedidos de todas las personas que sean administradores de ventas
-                    $listaPedidos               = $this->logicaPedidos->misPedidos();
-                // }
-                // else
-                // {
-                //     $listaPedidos               = $this->logicaPedidos->misPedidos(array("p.idPersona"=>$_SESSION['project']['info']['idPersona']));
-                // }
-                //var_dump($listaPedidos);
-                //die($_SESSION['project']['info']['idPerfil']);
                 $opc                        = "home";
                 $salida['titulo']           = lang("titulo")." - ".$infoModulo[0]['nombreLargo'];
                 $salida['estados']          = $listadoDeEstados;       
                 $salida['centro']           = "pedidos/homeMisPedidos";
                 $salida['infoModulo']       = $infoModulo[0];
-                $salida['listaPedidos']     = $listaPedidos;
+                $salida['listadoDeEstados']     = $listadoDeEstados;
                 $this->load->view("app/index",$salida);
             }
             else
@@ -290,6 +278,12 @@ class Pedidos extends CI_Controller
         {
             header('Location:'.base_url()."login");
         }
+    }
+
+    public function getMisPedidos()
+    {
+        $listaPedidos    = $this->logicaPedidos->misPedidosTotal($_POST);
+        echo json_encode($listaPedidos);
     }
 
     public function nuevoPedido($idModulo)

@@ -67,7 +67,7 @@
                         <?php if($infoPedido['estadoPedido'] == 4){ ?>
                             <div class="col col-lg-4 text-left" style="margin:0 0 2% 0">
                                 <strong>Fecha de pago y despacho</strong><br> 
-                                <?php if(($infoPedido['estadoPedido'] == 4 && $infoPedido['estadoPago'] == _ID_ESTADO_PAGO)){ ?>
+                                <?php if(($infoPedido['estadoPedido'] == 4)){ ?>
                                     <?php echo traduceFecha($infoPedido['fechaEntrega']) ?> a las <?php echo explode(" ",$infoPedido['fechaEntrega'])[1] ?>
                                 <?php }else{ ?>
                                     El pedido no ha sido despachado a&uacute;n
@@ -89,7 +89,7 @@
                         </div> -->
                         <div class="col col-lg-3 text-left" style="margin:0 0 2% 0">
                             <strong>Estado Pedido</strong><br> 
-                            <label class="label <?php echo $infoPedido['label'] ?>"><?php echo $infoPedido['nombreEstadoPedido'] ?>  </label>
+                            <label class="badge <?php echo $infoPedido['label'] ?>"><?php echo $infoPedido['nombreEstadoPedido'] ?>  </label>
                         </div>
                         <!-- <div class="col col-lg-4 text-left" style="margin:0 0 2% 0">
                             <strong>Estado del pago</strong><br> 
@@ -187,31 +187,17 @@
                                         
                                             
                                                 <div class="row">
-                                                    <div class="col col-lg-12">
-                                                        <h2>Gestionar el pedido</h2>
+                                                    <div class="col col-lg-12 text-right">
+                                                        <h2>GESTIONAR EL PEDIDO</h2>
+                                                        <a href="<?php echo base_url()?>Pedidos/misPedidos/<?php echo $infoModulo['idModulo']?>"  data-dismiss="modal" class="btn  btn-default"><i class="fa fa-arrow-left"></i> <?php echo lang('reg_btn_regresar') ?></a>
+                                                        <?php if($infoPedido['estadoPedido'] == 2){?><!-- Pendiente-->
+                                                            <input type="button" class="btn btn-raised btn-success" name="" ng-click="gestionaPedido(4,<?php echo $infoPedido['idPedido'] ?>)" value="DESPACHAR" class="btn btn-primary">
+                                                            <input type="button" class="btn btn-raised btn-danger" name="" ng-click="gestionaPedido(5,<?php echo $infoPedido['idPedido'] ?>)" value="ANULAR" class="btn btn-primary">
+                                                        <?php } else if($infoPedido['estadoPedido'] == 4){?>
+                                                            <input type="button" class="btn btn-raised btn-primary" name="" ng-click="gestionaPedido(6,<?php echo $infoPedido['idPedido'] ?>)" value="REEMBOLSAR" class="btn btn-primary">
+                                                        <?php } ?>
+
                                                     </div>
-                                                    <!-- <div class="col col-lg-3">
-                                                        <select name="estadoPago" class="form-control" id="estadoPago" style="padding: 5px 8px">
-                                                            <option value="">Estado del pago</option>
-                                                            <option value="000" <?php if($infoPedido['estadoPago'] == '000'){ ?> selected <?php }?> >Esperando pago</option>
-                                                            <option value="998" <?php if($infoPedido['estadoPago'] == '998'){ ?> selected <?php }?> >Pago realizado</option>
-                                                        </select>
-                                                    </div> -->
-                                                    <div class="col col-lg-3">
-                                                        <select name="estadoPedido" class="form-control" id="estadoPedido" style="padding: 5px 8px">
-                                                            <option value="">Estado del pedido</option>
-                                                            <?php foreach($estados  as $est){?>
-                                                                <option value="<?php echo $est['idEstadoPedido'] ?>" <?php if($infoPedido['estadoPedido'] == $est['idEstadoPedido']){ ?> selected <?php }?>><?php echo $est['nombreEstadoPedido']?></option>
-                                                            <?php }?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col col-lg-3" style="margin:0px 0 0 0">
-                                                        <input type="hidden" id="idPedido" name="idPedido" value="<?php echo $infoPedido['idPedido'] ?>">
-                                                        <input type="button" style="background: #03a9f4 !important;color: #fff !important" name="" ng-click="gestionaPedido()" value="GESTIONAR" class="btn btn-primary">
-                                                    </div>
-                                                    <!-- <div class="col col-lg-3"  style="margin:20px 0 0 0">
-                                                        <a class="btn" target="_blank" style="background: #333 !important;color: #fff !important" href="<?php echo base_url()?>Pedidos/imprimeFacturaTicket/<?php echo $infoPedido['idPedido']?>" class="btn btn-info">VER FACTURA<a>
-                                                    </div> -->
                                                 </div>
                                                 
                                             

@@ -122,6 +122,7 @@
                                         <span class="badge badge-danger" ng-if="soli.estadoSol=='rechazada'">{{soli.estadoSol | uppercase}}</span>
                                         <span class="badge badge-success" ng-if="soli.estadoSol=='pagada'">{{soli.estadoSol | uppercase}}</span>
                                         <span class="badge badge-primary" ng-if="soli.estadoSol=='aprobada'">{{soli.estadoSol | uppercase}}</span>
+                                        <span class="badge badge-info" ng-if="soli.estadoSol=='reembolsada'">{{soli.estadoSol | uppercase}}</span>
                                     </td>
                                     <td  class="text-center">
                                         <?php if(getPrivilegios()[0]['ver'] == 1){ ?>

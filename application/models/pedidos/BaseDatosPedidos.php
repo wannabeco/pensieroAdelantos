@@ -235,15 +235,15 @@ class BaseDatosPedidos extends CI_Model {
     ///logica desde acá
     public function getPedidos($where=array())
     {
-        $this->db->select("*,p.direccion as direccionPedido, p.telefono as telefonoPedido ");
+        $this->db->select("*,per.direccion as direccionPedido, per.telefono as telefonoPedido, per.email as emailEmpleado ");
         if(count($where) > 0)
         {            
             $this->db->where($where);
         }
         $this->db->from($this->tablePedidos." p");
-        $this->db->join($this->tablePersonas." per","per.idPersona=p.idPersona",'INNER');
+        $this->db->join($this->tableEmpleados." per","per.idEmpleado=p.idPersona",'INNER');
+        $this->db->join($this->tableEmpresas." em","em.idEmpresa=p.idEmpresa",'INNER');
         $this->db->join($this->tableEstadoPedido." e","e.idEstadoPedido=p.estadoPedido",'INNER');
-        $this->db->join($this->tableConjuntos." c","c.idConjunto=per.idConjunto",'LEFT');
         //$this->db->join($this->tableCiudadesVenta." ciu","ciu.idCiudad=p.idCiudad",'INNER');
         $this->db->order_by("idPedido","DESC");
         $id = $this->db->get();

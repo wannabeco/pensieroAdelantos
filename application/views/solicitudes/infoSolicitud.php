@@ -22,6 +22,8 @@
                 <span class="badge badge-success"><?php echo ucwords($infoSolicitud['estadoSol'])?></span>
             <?php }else if($infoSolicitud['estadoSol'] == "aprobada"){?>
                 <span class="badge badge-primary"><?php echo ucwords($infoSolicitud['estadoSol'])?></span>
+            <?php }else if($infoSolicitud['estadoSol'] == "reembolsada"){?>
+                <span class="badge badge-info"><?php echo ucwords($infoSolicitud['estadoSol'])?></span>
             <?php }?>
         </h1>
         
@@ -124,6 +126,8 @@
                                     <button class="btn btn-success" ng-click="gestionaSolicitud(<?php echo $infoSolicitud['idSolicitud']?>,'aprobada',<?php echo $infoSolicitud['idEmpleado']?>)">APROBAR SOLICITUD</button>
                                 <?php }else if($infoSolicitud['estadoSol'] == "aprobada"){?>
                                     <button class="btn btn-success" ng-click="gestionaSolicitud(<?php echo $infoSolicitud['idSolicitud']?>,'pagada',<?php echo $infoSolicitud['idEmpleado']?>)">NOTIFICAR PAGO</button>
+                                <?php }else if($infoSolicitud['estadoSol'] == "pagada"){?>
+                                    <button class="btn btn-success" ng-click="gestionaSolicitud(<?php echo $infoSolicitud['idSolicitud']?>,'reembolsada',<?php echo $infoSolicitud['idEmpleado']?>)">REEMBOLSAR</button>
                                 <?php }?>   
                             <?php }?>   
                         </div>

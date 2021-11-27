@@ -118,9 +118,18 @@ class Logica {
         {
             $mensajeSalida = "La solicitud de préstamo por valor de $".number_format($infoSolicitud[0]['monto'],0,',','.')." ha sido ".$estado;
         }
+        else if($estado == 'reembolsada')//solicitud rechazada
+        {
+            $mensajeSalida = "La solicitud de préstamo por valor de $".number_format($infoSolicitud[0]['monto'],0,',','.')." ha sido ".$estado.". Esto habilitará el cupo al empleado nuevamente.";
+        }
 
         $dataInsertar['estado']     = $estado;
         $where['idSolicitud']       = $idSolicitud;
+        //si es la orden de reembolsar proceso a darle de baja para que pueda volver a solicitar
+        if($estado == 'reembolsada')
+        {
+            $dataInsertar['idReembolso']     = 1;
+        }
         $solicitudes = $this->ci->dbSolicitudes->gestionaSolicitud($where,$dataInsertar);
         //var_dump($infoSolicitud);die();
         if($solicitudes > 0)
@@ -134,13 +143,22 @@ class Logica {
             $dataInsertarTrans['estado']        = $estado;
             $dataInsertarTrans['ip']            = getIP();
             $dataInsertarTrans['userAgent']     = $_SERVER['HTTP_USER_AGENT'];
-            $respuestaSolicitud = $this->ci->dbEmpleados->insertaSolicitudTrans($dataInsertarTrans);
+            $respuestaSolicitud                 = $this->ci->dbEmpleados->insertaSolicitudTrans($dataInsertarTrans);
             //valido la insercion
             if($respuestaSolicitud > 0)
             {
+                if($estado == 'reembolsada')
+                {
+                    //libero el cupo del prestamo para el usuario
+                    $dataActualizaEmpleado['cupo']        = _CUPO_EMPLEADOS;
+                    $whereActualizaEmpleado['idEmpleado'] = $idEmpleado;
+                    //actualizo el empleado
+                    $actualizaEmpleadoResultado   = $this->ci->dbEmpleados->actualizaData($whereActualizaEmpleado,$dataActualizaEmpleado);
+
+                }
                 //debo enviar un mail al administrador del sistema avisando de que alguien realizo un adelanto de salario
                 $para        =   $infoSolicitud[0]['emailEmpleado'];
-                $asunto      =   "Solicitud de préstamo".lang("titulo");
+                $asunto      =   "Solicitud de préstamo ".lang("titulo");
                 $mensaje     =   "La solicitud de préstamo nro: ".$idSolicitud." ha sido <strong>".$estado."</strong>. <br><br>";
                 $mensaje    .=   "<strong>Solicitante: </strong> ".$infoSolicitud[0]['nombres']." ".$infoSolicitud[0]['apellidos']."<br>";
                 $mensaje    .=   "<strong>Empresa: </strong> ".$infoSolicitud[0]['nombre']."<br>";

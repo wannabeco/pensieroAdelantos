@@ -22,6 +22,7 @@ class LogicaPedidos  {
         $this->ci = &get_instance();
         $this->ci->load->model("pedidos/BaseDatosPedidos","dbPedidos");//reemplazar por el archivo de base de datos real
         $this->ci->load->model("general/BaseDatosGral","dbGeneral");//reemplazar por el archivo de base de datos real
+        $this->ci->load->model("empleados/BaseDatosEmpleados","dbEmpleados");
     } 
     public function getPedidos($where=array())
     {
@@ -43,6 +44,39 @@ class LogicaPedidos  {
         $dataPagos = $this->ci->dbPedidos->misPedidos($where);
 
         return $dataPagos;
+    }
+    public function misPedidosTotal($post = array())
+    {
+        extract($post);
+		$where['p.fechaPedido >='] = $anoBusca."-".$mesBusca."-01 00:00:00";
+		$where['p.fechaPedido <='] = $anoBusca."-".$mesBusca."-31 23:59:59";
+
+        if($estado != '')
+        {
+            $where['p.estadoPedido'] = $estado;
+        }
+        //valido que si la persona que esta logueada es una empresa me traiga solo las solicitudes de la empresa
+        if(isset($_SESSION['project']) && in_array($_SESSION['project']['info']['idPerfil'],array(3,4)) && $_SESSION['project']['info']['idEmpresa'] != "")
+        {
+            $where['p.idEmpresa']     = $_SESSION['project']['info']['idEmpresa'];
+        }
+
+        $pedidosLista = $this->ci->dbPedidos->misPedidos($where);
+        if(count($pedidosLista) > 0)//hay pedido
+        {
+            $salida = array("mensaje"=>"Pedidos consultados con los filtros seleccionados",
+                            "datos"=>$pedidosLista,
+                            "continuar"=>1);
+        }
+        else
+        {
+            $salida = array("mensaje"=>"No hay pedidos con los filtros seleccionados",
+                            "datos"=>array(),
+                            "continuar"=>0);
+            
+        }
+
+        return $salida;
     }
     public function misPedidosHome($where=array())
     {
@@ -214,32 +248,13 @@ class LogicaPedidos  {
         extract($post);
         //actualizar el pedido
         //actualizo la informacion del pedido
-       // die($estadoPedido);
         $wherePedido     = array("idPedido"=>$idPedido);
-        $dataActualiza   = array("estadoPedido"=>$estadoPedido,"estadoPago"=>$estadoPago,"fechaEntrega"=>date("Y-m-d H:i:s"));
+        $dataActualiza   = array("estadoPedido"=>$estadoPedido,"fechaEntrega"=>date("Y-m-d H:i:s"));
         $actualizoPedido = $this->ci->dbPedidos->updatePedido($wherePedido,$dataActualiza);
         $infoPedido      = $this->ci->dbPedidos->getPedidos(array("p.idPedido"=>$idPedido));
-        $productosPedido = $this->ci->dbPedidos->productosPedidos(array("idPedido"=>$idPedido));
         //var_dump($infoPedido);
-        //si el pedido es actualizado y el pago es realizado entonces descuento cantidad del stock, o mejor dicho agrego un movimiento de salida.
-       /* if($estadoPago == _ID_ESTADO_PAGO)//realizo el moviento y todo lo que con el lleve. @todo _ID_ESTADO_PAGO esta en el modulo de variables globales
-        {
-            foreach($productosPedido as $pPed)
-            {
-              //inserto el movimiento
-              $dataInserta          = array("consecutivo"=>generoConsecutivoInventario('salida'),
-                                            "idProducto"=>$pPed['idProducto'],
-                                            "cantidadKilos"=>$pPed['cantidad'],
-                                            "idPersonaRecibe"=>$infoPedido[0]['idPersona'],
-                                            "idPersonaEntrega"=>$_SESSION['project']['info']['idPersona'],
-                                            "movimiento"=>"salida",
-                                            "idPedido"=>$idPedido,
-                                            "fechaSalida"=>date("Y-m-d H:i:s"),
-                                          );
-              $registroSalidaStock  = $this->ci->dbPedidos->registraProductoStock($dataInserta); 
-              //terminar esto 
-            }
-        }*/
+        $productosPedido = $this->ci->dbPedidos->productosPedidos(array("idPedido"=>$idPedido));
+        
         
         if($actualizoPedido)
         {
@@ -248,13 +263,24 @@ class LogicaPedidos  {
             {
                 $mensaje  = "El pedido número ".$infoPedido[0]['idPedido']." ha sido despachado, debes estar pendiente.";
             }
-            else if($estadoPedido == 6)//En tramite
+            else if($estadoPedido == 6)//reembolsado
             {
-                $mensaje  = "El pedido número ".$infoPedido[0]['idPedido']." está en proceso de preparación.";
+                $mensaje  = "El pedido número ".$infoPedido[0]['idPedido']." ha sido reembolsado. Se habilitará el cupo al empleado";
+                //acá reembolsamos el dinero del empleado
+                //libero el cupo del prestamo para el usuario
+                $dataActualizaEmpleado['cupoMercado']        = _CUPO_MERCADOS;
+                $whereActualizaEmpleado['idEmpleado'] = $infoPedido[0]['idPersona'];
+                //actualizo el empleado
+                $actualizaEmpleadoResultado   = $this->ci->dbEmpleados->actualizaData($whereActualizaEmpleado,$dataActualizaEmpleado);
             }
-            else if($estadoPedido == 5)//Cancelado
+            else if($estadoPedido == 5)//anulado
             {
-                $mensaje  = "El pedido número ".$infoPedido[0]['idPedido']." ha sido cancelado.";
+                $mensaje  = "El pedido número ".$infoPedido[0]['idPedido']." ha sido anulado.";
+                //libero el cupo del prestamo para el usuario
+                $dataActualizaEmpleado['cupoMercado']        = _CUPO_MERCADOS;
+                $whereActualizaEmpleado['idEmpleado'] = $infoPedido[0]['idPersona'];
+                //actualizo el empleado
+                $actualizaEmpleadoResultado   = $this->ci->dbEmpleados->actualizaData($whereActualizaEmpleado,$dataActualizaEmpleado);
             }
             else if($estadoPedido == 2)//Pendiente
             {
@@ -268,8 +294,21 @@ class LogicaPedidos  {
             $datosNotificacion['titulo']    = 'Cambio de estado del pedido '.$infoPedido[0]['idPedido'];
             $datosNotificacion['mensaje']   = $mensaje;
             $datosNotificacion['fecha']     = date("Y-m-d H:i:s");
+            //notificacion para el celular
+            //$insertoNotificacion = $this->ci->dbGeneral->insertaNotificacion($datosNotificacion);
 
-            $insertoNotificacion = $this->ci->dbGeneral->insertaNotificacion($datosNotificacion);
+            //notifico vía EMAIL al empleado
+            $para        =   $infoPedido[0]['emailEmpleado'];
+            $asunto      =   "Solicitud de mercado ".lang("titulo");
+            $mensaje     =   "La solicitud de mercado nro: ".$idPedido." se encuentra en estado <strong>".$infoPedido[0]['nombreEstadoPedido']."</strong>. <br><br>";
+            $mensaje    .=   "<strong>Solicitante: </strong> ".$infoPedido[0]['nombres']." ".$infoPedido[0]['apellidos']."<br>";
+            $mensaje    .=   "<strong>Empresa: </strong> ".$infoPedido[0]['nombre']."<br>";
+            $mensaje    .=   "<strong>Monto mercado: </strong> $".number_format($infoPedido[0]['valor'],0,',','.')."<br>";
+            // $mensaje    .=   "<strong>Fecha y hora de: </strong> ".$infoSolicitud[0]['fechaSolicitud']."<br><br>";
+            $plantilla   = plantillaMail($asunto,$mensaje);
+            //envio el codigo de ingreso al mail del usuario
+            sendMail($para,$asunto,$plantilla);
+
 
             $salida = array("mensaje"=>"El pedido ha sido actualizado de manera correcta",
                             "continuar"=>1);

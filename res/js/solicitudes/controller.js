@@ -68,7 +68,7 @@ project.controller('solicitudes', function($scope,$http,$q,constantes)
 			constantes.consultaApi(controlador,parametros,function(json){
 				if(json.continuar == 1)
 				{
-					constantes.alerta("Atención",json.mensaje,"success",function(){})
+					constantes.alerta("Atención",json.mensaje,"success",function(){location.reload()})
 				}
 				else
 				{
